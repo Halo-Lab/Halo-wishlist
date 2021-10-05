@@ -20,7 +20,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "stylelint": "stylelint 'src/**/*{.css,.scss}'",
+    "stylelint:fix": "stylelint 'src/**/*{.css,.scss}' --fix"
   },
   "eslintConfig": {
     "extends": [
@@ -28,6 +30,7 @@
       "react-app/jest"
     ]
   },
+  "prettier": "prettier-config-halo-lab",
   "browserslist": {
     "production": [
       ">0.2%",
@@ -39,5 +42,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^2.0.4",
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
+    "@typescript-eslint/parser": "^4.33.0",
+    "prettier": "^2.4.1",
+    "prettier-config-halo-lab": "^1.0.7",
+    "stylelint-config-halo-lab": "^1.0.4"
   }
 }
