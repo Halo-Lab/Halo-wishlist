@@ -18,13 +18,12 @@ class UserService {
     await mailService.senActivationMail(email, `${process.env.API_URL}/api/activate/${activationLink}`);
 
     const userDto = new UserDto(user);
+
     const tokens = tokenService.generateTokens({ ...userDto });
+
     await tokenService.saveTokens(userDto.id, tokens.refreshToken);
 
-    return {
-      ...tokens,
-      user: userDto,
-    };
+    return { ...tokens, user: userDto };
   }
 
   async activate(activationLink) {
@@ -45,12 +44,11 @@ class UserService {
       throw ApiError.BadRequest(`Incorrect Password`);
     }
     const userDto = new UserDto(user);
+
     const tokens = tokenService.generateTokens({ ...userDto });
     await tokenService.saveTokens(userDto.id, tokens.refreshToken);
-    return {
-      ...tokens,
-      user: userDto,
-    };
+
+    return { ...tokens, user: userDto };
   }
 
   async logout(refreshToken) {
