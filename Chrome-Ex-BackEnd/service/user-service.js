@@ -8,34 +8,35 @@ const ApiError = require('../exceptions/api-error');
 
 class UserService {
   async registration(email, password) {
-    const candidate = await UserModel.findOne({ email });
+    const candidate = await UserModel.findOne({email});
     if (candidate) {
       throw ApiError.BadRequest(`User with email address ${email} already exists`);
     }
     const hashPassword = await bcrypt.hash(password, 3);
     const activationLink = uuid.v4();
-    const user = await UserModel.create({ email, password: hashPassword, activationLink });
+    const user = await UserModel.create({email, password: hashPassword, activationLink});
     await mailService.senActivationMail(email, `${process.env.API_URL}/api/activate/${activationLink}`);
 
     const userDto = new UserDto(user);
 
-    const tokens = tokenService.generateTokens({ ...userDto });
+    const tokens = tokenService.generateTokens({...userDto});
 
     await tokenService.saveTokens(userDto.id, tokens.refreshToken);
 
-    return { ...tokens, user: userDto };
+    return {...tokens, user: userDto};
   }
 
   async activate(activationLink) {
-    const user = await UserModel.findOne({ activationLink });
+    const user = await UserModel.findOne({activationLink});
     if (!user) {
       throw ApiError.BadRequest('Incorrect activation link');
     }
     user.isActivated = true;
     await user.save();
   }
+
   async login(email, password) {
-    const user = await UserModel.findOne({ email });
+    const user = await UserModel.findOne({email});
     if (!user) {
       throw ApiError.BadRequest(`User with email ${email} not found`);
     }
@@ -45,10 +46,10 @@ class UserService {
     }
     const userDto = new UserDto(user);
 
-    const tokens = tokenService.generateTokens({ ...userDto });
+    const tokens = tokenService.generateTokens({...userDto});
     await tokenService.saveTokens(userDto.id, tokens.refreshToken);
 
-    return { ...tokens, user: userDto };
+    return {...tokens, user: userDto};
   }
 
   async logout(refreshToken) {
