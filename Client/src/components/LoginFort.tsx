@@ -1,11 +1,13 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import AuthRequest from '../api/request/AuthRequest';
+import { loginUser, registrationUser } from '../store/user-reducer';
 
 const LoginForm: FC = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-
+  const dispatch = useDispatch();
   return (
     <div>
       <input
@@ -20,14 +22,17 @@ const LoginForm: FC = () => {
         type="password"
         placeholder="Пароль"
       />
+      <button onClick={() => dispatch(loginUser(email, password))}>Login</button>
       <button
         onClick={async () => {
-          AuthRequest.login(email, password);
+          AuthRequest.logout();
         }}
       >
-        Login
+        Logout
       </button>
-      <button onClick={() => null}>Logout</button>
+      <button onClick={() => dispatch(registrationUser(email, password))}>
+        Registration
+      </button>
     </div>
   );
 };
