@@ -21,5 +21,12 @@ router.post(
   body('_id').isString(),
   userController.loginExtension
 );
+router.post(
+  '/addUrl',
+  body('_id').isString(),
+  body('url').isURL(),
+  body('nameURL').isString(),
+  userController.addUrl
+);
 
 module.exports = router;

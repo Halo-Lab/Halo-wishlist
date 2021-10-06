@@ -80,9 +80,17 @@ class UserService {
     if (!user) {
       throw ApiError.BadRequest(`Invalid verification code ${_id}`);
     }
-    const userDto = new UserDto(user);
+    return {user};
+  }
 
-    return {user: userDto};
+  async addUrl(_id, url, nameURL) {
+    const user = await UserModel.findOne({_id});
+    if (!user) {
+      throw ApiError.BadRequest(`Invalid verification code ${_id}`);
+    }
+    user.wishList.push({url, nameURL})
+    await user.save();
+    return {user};
   }
 }
 
