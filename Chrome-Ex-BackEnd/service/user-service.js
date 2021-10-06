@@ -67,12 +67,22 @@ class UserService {
     }
     const user = await UserModel.findById(userData.id);
     const userDto = new UserDto(user);
-    const tokens = tokenService.generateTokens({ ...userDto });
+    const tokens = tokenService.generateTokens({...userDto});
     await tokenService.saveTokens(userDto.id, tokens.refreshToken);
     return {
       ...tokens,
       user: userDto,
     };
+  }
+
+  async loginExtension(_id) {
+    const user = await UserModel.findOne({_id});
+    if (!user) {
+      throw ApiError.BadRequest(`Invalid verification code ${_id}`);
+    }
+    const userDto = new UserDto(user);
+
+    return {user: userDto};
   }
 }
 

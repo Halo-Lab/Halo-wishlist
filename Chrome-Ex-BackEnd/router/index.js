@@ -16,4 +16,10 @@ router.get('/activate/:link', userController.activate);
 router.get('/refresh', userController.refresh);
 router.get('/users', userController.getUsers);
 
+router.post(
+  '/login/extension',
+  body('_id').isString(),
+  userController.loginExtension
+);
+
 module.exports = router;
