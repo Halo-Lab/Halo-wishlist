@@ -3,10 +3,10 @@ const tokenModel = require('../models/token-modal');
 
 class TokenService {
   generateTokens(payload) {
-    const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET, { expiresIn: '1h' });
-    const refreshToken = jwt.sign(payload, process.env.JWT_ACCESS_REFRESH, { expiresIn: '30d' });
+    const accessToken = jwt.sign(payload, process.env.JWT_ACCESS_SECRET, {expiresIn: '1h'});
+    const refreshToken = jwt.sign(payload, process.env.JWT_ACCESS_REFRESH, {expiresIn: '30d'});
 
-    return { accessToken, refreshToken };
+    return {accessToken, refreshToken};
   }
 
   validateAccessToken(token) {
@@ -17,6 +17,7 @@ class TokenService {
       return null;
     }
   }
+
   validateRefreshToken(token) {
     try {
       const userData = jwt.verify(token, process.env.JWT_ACCESS_REFRESH);
@@ -27,23 +28,24 @@ class TokenService {
   }
 
   async saveTokens(userId, refreshToken) {
-    const tokenData = await tokenModel.findOne({ user: userId });
+    const tokenData = await tokenModel.findOne({user: userId});
 
     if (tokenData) {
       tokenData.refreshToken = refreshToken;
       return tokenData.save();
     }
 
-    const token = await tokenModel.create({ user: userId, refreshToken });
+    const token = await tokenModel.create({user: userId, refreshToken});
     return token;
   }
 
   async removeToken(refreshToken) {
-    const tokenDada = tokenModel.deleteOne({ refreshToken });
+    const tokenDada = tokenModel.deleteOne({refreshToken});
     return tokenDada;
   }
+
   async findToken(refreshToken) {
-    const tokenDada = tokenModel.findOne({ refreshToken });
+    const tokenDada = tokenModel.findOne({refreshToken});
     return tokenDada;
   }
 }

@@ -1,0 +1,30 @@
+### GET ALL USERS
+GET http://localhost:5000/api/users
+Accept: application/json
+
+### REGISTRATION
+POST http://localhost:5000/api/registration
+Content-Type: application/json
+
+{
+  "email": "harlamov@gmail.com",
+  "isActivated": true
+}
+
+### REGISTRATION IN EXTENTION
+POST http://localhost:5000/api/login/extension
+Content-Type: application/json
+
+{
+  "_id": "615d4e734279fe2993724474"
+}
+
+### ADD NEW URL
+POST http://localhost:5000/api/addUrl
+Content-Type: application/json
+
+{
+  "_id": "615d4e734279fe2993724474",
+  "url": "https://www.asics.com/",
+  "nameURL": "asics2"
+}

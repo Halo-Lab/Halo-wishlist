@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "nodemon index.js"
   },
+  "prettier": "prettier-config-halo-lab",
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -23,6 +24,9 @@
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.13"
+    "@trivago/prettier-plugin-sort-imports": "^2.0.4",
+    "nodemon": "^2.0.13",
+    "prettier": "^2.4.1",
+    "prettier-config-halo-lab": "^1.0.7"
   }
 }
