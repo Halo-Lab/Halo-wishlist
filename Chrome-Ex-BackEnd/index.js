@@ -5,7 +5,6 @@ const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const router = require('./router/index');
 const errorMiddleware = require('./middlewares/error-middleware');
-const serverless = require("serverless-http");
 
 const PORT = process.env.PORT || 5000;
 const app = express();
@@ -18,7 +17,7 @@ app.use(
     origin: process.env.CLIENT_URL,
   })
 );
-app.use(`/.netlify/functions/api`, router);
+app.use('/api', router);
 app.use(errorMiddleware);
 
 const start = async () => {
@@ -33,6 +32,4 @@ const start = async () => {
   }
 };
 
-module.exports = app;
-module.exports.handler = serverless(app);
 start();
