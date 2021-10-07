@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "build": "./node_modules/.bin/netlify-lambda build src"
   },
   "prettier": "prettier-config-halo-lab",
   "keywords": [],
@@ -20,7 +21,9 @@
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.1.2",
     "mongoose": "^6.0.8",
+    "netlify-lambda": "^2.0.14",
     "nodemailer": "^6.6.5",
+    "serverless-http": "^2.7.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
