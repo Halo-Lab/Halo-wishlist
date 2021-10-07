@@ -1,7 +1,6 @@
 import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import AuthRequest from '../api/request/AuthRequest';
 import { loginUser, registrationUser } from '../store/user-reducer';
 
 const LoginForm: FC = () => {
@@ -23,13 +22,7 @@ const LoginForm: FC = () => {
         placeholder="Пароль"
       />
       <button onClick={() => dispatch(loginUser(email, password))}>Login</button>
-      <button
-        onClick={async () => {
-          AuthRequest.logout();
-        }}
-      >
-        Logout
-      </button>
+
       <button onClick={() => dispatch(registrationUser(email, password))}>
         Registration
       </button>
