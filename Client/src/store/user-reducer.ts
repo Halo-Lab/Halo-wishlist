@@ -59,7 +59,7 @@ export const registrationUser =
 
 export const logoutUser = () => (dispatch: Dispatch) => {
   AuthRequest.logout()
-    .then((res) => {
+    .then(() => {
       localStorage.removeItem('token');
       dispatch(setIsLoggedInAC(false));
       dispatch(setUserAC({} as IUser));
