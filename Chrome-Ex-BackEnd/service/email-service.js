@@ -3,21 +3,21 @@ const nodemailer = require('nodemailer');
 class EmailService {
   constructor() {
     this.transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: process.env.SMTP_PORT,
+      host: "smtp.gmail.com",
+      port: 587,
       secure: false,
       auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASSWORD,
+        user: 'harlamovforadds@gmail.com',
+        pass: 'Harlamov12345',
       },
     });
   }
 
   async senActivationMail(to, link) {
     await this.transporter.sendMail({
-      from: process.env.SMTP_USER,
+      from: 'harlamovforadds@gmail.com',
       to,
-      subject: 'Account activation' + process.env.API_URL,
+      subject: 'Account activation' + 'https://inspiring-booth-23b3d0.netlify.app',
       text: '',
       html: `
         <div>
