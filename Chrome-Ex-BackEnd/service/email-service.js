@@ -17,7 +17,7 @@ class EmailService {
     await this.transporter.sendMail({
       from: 'harlamovforadds@gmail.com',
       to,
-      subject: 'Account activation' + 'https://inspiring-booth-23b3d0.netlify.app',
+      subject: 'Account activation' + process.env.CLIENT_URL,
       text: '',
       html: `
         <div>

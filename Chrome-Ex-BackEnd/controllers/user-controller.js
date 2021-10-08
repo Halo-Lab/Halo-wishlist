@@ -55,7 +55,7 @@ class UserController {
     try {
       const activationLink = req.params.link;
       await userService.activate(activationLink);
-      return res.redirect("https://inspiring-booth-23b3d0.netlify.app");
+      return res.redirect(process.env.CLIENT_URL);
     } catch (e) {
       next(e);
     }
