@@ -1,7 +1,6 @@
 {
-  "name": "Chrome-Ex-BackEnd",
+  "name": "chrome-ex-backend",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js"
@@ -28,5 +27,9 @@
     "nodemon": "^2.0.13",
     "prettier": "^2.4.1",
     "prettier-config-halo-lab": "^1.0.7"
-  }
+  },
+  "engines": {
+    "node": "14.17.1"
+  },
+  "description": ""
 }

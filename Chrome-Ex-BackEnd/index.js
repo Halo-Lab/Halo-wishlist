@@ -14,7 +14,7 @@ app.use(cookieParser());
 app.use(
   cors({
     credentials: true,
-    origin: process.env.CLIENT_URL,
+    origin: 'https://inspiring-booth-23b3d0.netlify.app',
   })
 );
 app.use('/api', router);
@@ -22,11 +22,11 @@ app.use(errorMiddleware);
 
 const start = async () => {
   try {
-    await mongoose.connect(process.env.DB_URL, {
+    await mongoose.connect("mongodb+srv://root:root@cluster0.qnysg.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
-    app.listen(5000, () => console.log(`Server started ${PORT}`));
+    app.listen(PORT, () => console.log(`Server started ${PORT}`));
   } catch (e) {
     console.log(e);
   }
