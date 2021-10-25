@@ -2,12 +2,12 @@ module.exports = class UserDto {
   email;
   id;
   isActivated;
-  wishList;
+  wishlist;
 
   constructor(modal) {
     this.email = modal.email;
     this.id = modal._id;
     this.isActivated = modal.isActivated;
-    this.wishList = modal.wishList;
+    this.wishlist = modal.wishlist;
   }
 };

@@ -38,7 +38,20 @@ class WishlistController {
         return next(ApiError.BadRequest('Validation Error', errors.array()));
       }
       const {wishlistId} = req.params;
-      const wishlists = await wishlistService.getWishlist(wishlistId);
+      const wishlist = await wishlistService.getWishlist(wishlistId);
+      return res.json(wishlist);
+    } catch (e) {
+      next(e);
+    }
+  }
+  async getWishlists(req, res, next) {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return next(ApiError.BadRequest('Validation Error', errors.array()));
+      }
+      const {userId} = req.params;
+      const wishlists = await wishlistService.getWishlists(userId);
       return res.json(wishlists);
     } catch (e) {
       next(e);

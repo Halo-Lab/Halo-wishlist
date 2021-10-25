@@ -24,8 +24,8 @@ POST http://localhost:5000/api/addWishlist
 Content-Type: application/json
 
 {
-  "userId": "6176754994d436c82926c668",
-  "name": "now"
+  "userId": "6176a2e5efa3d69a3e64a918",
+  "name": "first"
 }
 
 ### ADD NEW URL
@@ -33,11 +33,15 @@ POST http://localhost:5000/api/addUrl
 Content-Type: application/json
 
 {
-"_id": "61768b94527abca6d90daf5e",
-"url": "https://www.asics.com/2",
-"nameURL": "asics1"
+  "_id": "6176ab9f0df8bbae121eac2e",
+  "url": "https://www.nike.com/",
+  "nameURL": "nike"
 }
 
 ### GET WISHLIST
-GET http://localhost:5000/api/wishlist/61768b94527abca6d90daf5e
+GET http://localhost:5000/api/wishlist/6176ab9f0df8bbae121eac2e
+Content-Type: application/json
+
+### GET WISHLISTS
+GET http://localhost:5000/api/user/6176a2e5efa3d69a3e64a918
 Content-Type: application/json

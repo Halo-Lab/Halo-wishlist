@@ -4,13 +4,13 @@ const ApiError = require('../exceptions/api-error');
 
 class WishlistService {
   async createWishlist(userId, name) {
-    const wishlist = await WishlistModel.create({name});
+    const wishlist = await WishlistModel.create({userId, name});
     const user = await UserModel.findOne({_id: userId});
     if (!user) {
       throw ApiError.BadRequest(`User not found ${userId}`);
     }
 
-    user.wishList.push(wishlist._id)
+    user.wishlist.push(wishlist._id)
     await user.save();
     return {wishlist};
   }
@@ -35,6 +35,14 @@ class WishlistService {
       throw ApiError.BadRequest(`Wishlist not found ${wishlistId}`);
     }
     return wishlist;
+  }
+
+  async getWishlists(userId) {
+    const wishlist = await WishlistModel.findOne({userId});
+    if (!wishlist) {
+      throw ApiError.BadRequest(`User not found ${userId}`);
+    }
+    return wishlist.items;
   }
 }
 
