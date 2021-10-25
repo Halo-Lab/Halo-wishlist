@@ -28,6 +28,14 @@ class WishlistService {
     await wishlist.save();
     return wishlist.items;
   }
+
+  async getWishlist(wishlistId) {
+    const wishlist = await WishlistModel.findOne({_id: wishlistId});
+    if (!wishlist) {
+      throw ApiError.BadRequest(`Wishlist not found ${wishlistId}`);
+    }
+    return wishlist;
+  }
 }
 
 module.exports = new WishlistService();

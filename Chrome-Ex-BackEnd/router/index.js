@@ -35,5 +35,6 @@ router.post(
   body('nameURL').isString(),
   wishlistController.addUrl
 );
+router.get('/wishlist/:wishlistId', wishlistController.getWishlist);
 
 module.exports = router;

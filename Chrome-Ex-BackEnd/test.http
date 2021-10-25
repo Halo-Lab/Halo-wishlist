@@ -38,3 +38,6 @@ Content-Type: application/json
 "nameURL": "asics1"
 }
 
+### GET WISHLIST
+GET http://localhost:5000/api/wishlist/61768b94527abca6d90daf5e
+Content-Type: application/json
