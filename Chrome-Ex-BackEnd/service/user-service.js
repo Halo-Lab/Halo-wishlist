@@ -1,4 +1,5 @@
 const UserModel = require('../models/user-modal');
+const WishlistModel = require('../models/wishlist-modal');
 const bcrypt = require('bcrypt');
 const uuid = require('uuid');
 const mailService = require('./email-service');
@@ -81,16 +82,6 @@ class UserService {
     if (!user) {
       throw ApiError.BadRequest(`Invalid verification code ${_id}`);
     }
-    return {user};
-  }
-
-  async addUrl(_id, url, nameURL) {
-    const user = await UserModel.findOne({_id});
-    if (!user) {
-      throw ApiError.BadRequest(`Invalid verification code ${_id}`);
-    }
-    user.wishList.push({url, nameURL})
-    await user.save();
     return {user};
   }
 }

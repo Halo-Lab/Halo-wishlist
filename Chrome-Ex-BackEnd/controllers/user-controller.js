@@ -90,20 +90,6 @@ class UserController {
       next(e);
     }
   }
-
-  async addUrl(req, res, next) {
-    try {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return next(ApiError.BadRequest('Validation Error', errors.array()));
-      }
-      const {_id, url, nameURL} = req.body;
-      const userData = await userService.addUrl(_id, url, nameURL);
-      return res.json(userData);
-    } catch (e) {
-      next(e);
-    }
-  }
 }
 
 module.exports = new UserController();

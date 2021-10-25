@@ -1,8 +1,7 @@
 const {Schema, model} = require('mongoose');
 
 const WishListSchema = new Schema({
-  url: {type: String},
-  nameURL: {type: String},
+  userId: {type: String}
 })
 
 const UserSchema = new Schema({
