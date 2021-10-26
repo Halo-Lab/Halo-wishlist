@@ -1,7 +1,8 @@
 import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
-import LoginForm from './components/LoginFort';
+import LoginForm from './components/LoginForm';
 import { AppRootStateType } from './store/store';
 import { logoutUser, UserStateType } from './store/user-reducer';
 import { checkUserLogin } from './store/user-reducer';

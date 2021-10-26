@@ -3,3 +3,9 @@ export interface IUser {
   isActivated: boolean;
   id: string;
 }
+
+export interface ILogin {
+  email: string;
+  password: string;
+  remember?: boolean;
+}

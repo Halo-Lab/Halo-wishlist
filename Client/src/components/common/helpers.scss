@@ -1,0 +1,22 @@
+@mixin adaptive-value($property, $startSize, $minSize) {
+  $addSize: $startSize - $minSize;
+  @if $property {
+    #{$property}: calc(
+      #{$minSize + px} + #{$addSize} * ((100vw -320px) / (1280-320))
+    );
+  }
+}
+
+@mixin progress-item() {
+  display: block;
+  width: 49px;
+  height: 49px;
+  background-color: #ff9b05;
+  border-radius: 50%;
+  background-repeat: no-repeat;
+  background-size: 9px 17px;
+  background-position: center;
+}
+
+$laptop: 1024px;
+$tablet: 768px;
