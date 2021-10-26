@@ -1,0 +1,17 @@
+{
+  "userPic": "https://source.unsplash.com/100x100/?person",
+  "name": {
+    "firstName": "Darrell",
+    "lastName": "Steward"
+  },
+  "birthday": "12/12/1998",
+  "category": "Birthday",
+  "cards": [
+    {
+      "price": 100.25,
+      "background": "https://source.unsplash.com/500x500/?product",
+      "name": "Random name",
+      "link": "http://localhost:3000/"
+    }
+  ]
+}

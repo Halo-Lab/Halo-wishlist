@@ -1,25 +1,25 @@
 .overlay {
   position: fixed;
   top: 0;
-  left: 0;
   right: 0;
   bottom: 0;
+  left: 0;
   background: #e5e5e5;
 }
 
 .form {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 24px;
   display: flex;
   flex-direction: column;
   margin-bottom: 25px;
+  padding: 24px;
+  background: #fff;
+  border-radius: 16px;
 }
 .modal {
   position: relative;
+  top: 50%;
   width: 490px;
   margin: 0 auto;
-  top: 50%;
   transform: translateY(-50%);
 
   @media (max-width: 768px) {
@@ -28,45 +28,45 @@
 }
 
 .input {
-  height: 45px;
   width: 100%;
-  outline: none;
-  border: 1px solid #dedede;
-  border-radius: 4px;
-  background: #e8f0fe;
+  height: 45px;
+  padding: 16px;
+  color: #171a28;
   font-size: 14px;
   line-height: 20px;
-  color: #171a28;
-  padding: 16px;
+  background: #e8f0fe;
+  border: 1px solid #dedede;
+  border-radius: 4px;
+  outline: none;
 }
 
 .helpersBlock {
-  margin-bottom: 25px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 25px;
 }
 
 .forgot {
-  font-style: normal;
+  flex-grow: 1;
+  margin-left: 5px;
+  color: #8f8f8f;
   font-weight: normal;
   font-size: 14px;
+  font-style: normal;
   line-height: 24px;
-  color: #8f8f8f;
-  user-select: none;
-  flex-grow: 1;
   text-align: end;
-  margin-left: 5px;
+  user-select: none;
 }
 
 .checkbox {
   display: block;
   width: 24px;
   height: 24px;
+  color: #f3f4f4;
   border: 2px solid #f3f4f4;
   border-radius: 4px;
-  color: #f3f4f4;
 }
 
 .activeCheckbox {
@@ -74,45 +74,45 @@
 }
 
 .remember {
+  margin-left: 12px;
+  color: #1c1d21;
+  font-weight: 500;
   font-size: 14px;
   line-height: 17px;
-  font-weight: 500;
-  color: #1c1d21;
-  margin-left: 12px;
 }
 
 .title {
-  font-style: normal;
+  margin: 15px 0;
+  color: #1c1d21;
   font-weight: bold;
   font-size: 24px;
-  color: #1c1d21;
+  font-style: normal;
   text-align: center;
-  margin: 15px 0;
 }
 
 .inputWrapper {
-  padding-top: 15px;
   position: relative;
   margin-bottom: 15px;
+  padding-top: 15px;
 }
 
 .showPass {
   position: absolute;
-  right: 16px;
   top: 48%;
+  right: 16px;
 }
 
 .loginLink {
   color: #606060;
+  font-weight: 500;
   font-size: 14px;
   line-height: 24px;
-  font-weight: 500;
   text-align: center;
 }
 
 .error {
+  position: absolute;
   color: #d41f1f;
   font-size: 14px;
-  position: absolute;
   transform: translateY(-110%);
 }
