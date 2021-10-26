@@ -1,23 +1,21 @@
-import cn from 'classnames';
 import { Field, Form, Formik } from 'formik';
 import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 
-import { ILogin } from '../models/IUser';
-import { loginUser } from '../store/user-reducer';
-import { ButtonService } from './common/ButtonSendForm/ButtonSendForm';
-import { EyePass } from './common/SvgComponents/EyePass';
+import { ILogin } from '../../models/IUser';
+import { registrationUser } from '../../store/user-reducer';
+import { ButtonService } from '../common/ButtonSendForm/ButtonSendForm';
+import { EyePass } from '../common/SvgComponents/EyePass';
 
-import styles from './LoginForm.module.scss';
+import styles from './RegistrationForm.module.scss';
 
-const LoginForm: FC = () => {
+const RegistrationForm: FC = () => {
   const [passwordVisibility, setPasswordVisibility] = useState<boolean>(false);
-  const [isRemember, setIsRemember] = useState<boolean>(true);
 
   const dispatch = useDispatch();
 
-  const LoginSchema = Yup.object().shape({
+  const SignupSchema = Yup.object().shape({
     email: Yup.string()
       .email('Must be a valid email!')
       .max(50, 'Too Long!')
@@ -35,26 +33,21 @@ const LoginForm: FC = () => {
 
   const handleSubmitForm = (values: ILogin) => {
     const { email, password } = values;
-    localStorage.setItem('rememberMe', JSON.stringify(isRemember));
-    dispatch(loginUser(email, password));
-  };
-
-  const handelChangeRemember = () => {
-    setIsRemember(!isRemember);
+    dispatch(registrationUser(email, password));
   };
 
   return (
     <div className={styles.overlay}>
       <div className={styles.modal}>
         <div className={styles.form}>
-          <h1 className={styles.title}>Log in</h1>
+          <h1 className={styles.title}>Sign up</h1>
           <Formik
             initialValues={{
               email: '',
               password: '',
             }}
             onSubmit={handleSubmitForm}
-            validationSchema={LoginSchema}
+            validationSchema={SignupSchema}
           >
             {({ errors, touched }) => (
               <Form>
@@ -78,25 +71,18 @@ const LoginForm: FC = () => {
                     type={passwordVisibility ? null : 'password'}
                     className={styles.input}
                   />
-                  <span className={styles.showPass}>
-                    <EyePass
-                      changeColor={handleChangePasswordVisibility}
-                      visible={passwordVisibility ? 1 : 0.4}
-                    />
-                  </span>
-                </div>
-                <div className={styles.helpersBlock}>
-                  <span
-                    className={cn(styles.checkbox, {
-                      [styles.activeCheckbox]: isRemember,
-                    })}
-                    onClick={handelChangeRemember}
+                  <EyePass
+                    changeColor={handleChangePasswordVisibility}
+                    visible={passwordVisibility ? 1 : 0.4}
                   />
-                  <p className={styles.remember}>Remember me</p>
-                  <p className={styles.forgot}>Forgot your password?</p>
                 </div>
+
+                <p className={styles.policy}>
+                  By using this service you are agreeing to the terms of service and
+                  privacy policy
+                </p>
                 <ButtonService
-                  btnName={'Login'}
+                  btnName={'Register'}
                   disabled={errors.email || errors.password ? true : false}
                 />
               </Form>
@@ -104,11 +90,11 @@ const LoginForm: FC = () => {
           </Formik>
         </div>
         <p className={styles.loginLink}>
-          Don't have an account? <a href={'/login'}>Sign up</a>
+          Already have an account? <a href={'/login'}>Log in</a>
         </p>
       </div>
     </div>
   );
 };
 
-export default LoginForm;
+export default RegistrationForm;

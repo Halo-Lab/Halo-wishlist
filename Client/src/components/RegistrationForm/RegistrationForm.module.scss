@@ -40,45 +40,14 @@
   padding: 16px;
 }
 
-.helpersBlock {
-  margin-bottom: 25px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.forgot {
+.policy {
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
   line-height: 24px;
   color: #8f8f8f;
+  margin-bottom: 25px;
   user-select: none;
-  flex-grow: 1;
-  text-align: end;
-  margin-left: 5px;
-}
-
-.checkbox {
-  display: block;
-  width: 24px;
-  height: 24px;
-  border: 2px solid #f3f4f4;
-  border-radius: 4px;
-  color: #f3f4f4;
-}
-
-.activeCheckbox {
-  background: no-repeat url('../assets//svg/check.svg') center;
-}
-
-.remember {
-  font-size: 14px;
-  line-height: 17px;
-  font-weight: 500;
-  color: #1c1d21;
-  margin-left: 12px;
 }
 
 .title {
@@ -96,7 +65,10 @@
   margin-bottom: 15px;
 }
 
-.showPass {
+span {
+  display: block;
+  width: 16px;
+  height: 16px;
   position: absolute;
   right: 16px;
   top: 48%;
