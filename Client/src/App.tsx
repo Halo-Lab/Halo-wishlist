@@ -1,10 +1,12 @@
 import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { BrowserRouter as Switch, Route } from 'react-router-dom';
 
-// import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import LoginForm from './components/LoginForm';
+import RegistrationForm from './components/RegistrationForm/RegistrationForm';
+import { Test } from './components/Test';
 import { AppRootStateType } from './store/store';
-import { logoutUser, UserStateType } from './store/user-reducer';
+import { UserStateType } from './store/user-reducer';
 import { checkUserLogin } from './store/user-reducer';
 
 const App: FC = () => {
@@ -15,13 +17,6 @@ const App: FC = () => {
     if (localStorage.getItem('token')) {
       dispatch(checkUserLogin());
     }
-    // if (localStorage.getItem('rememberMe') === 'false') {
-    //   window.addEventListener('beforeunload', (e) => {
-    //     e.preventDefault();
-    //     localStorage.removeItem('token');
-    //     deleteCookie('refreshToken');
-    //   });
-    // }
   }, []);
 
   if (user.isLoading) {
@@ -29,21 +24,26 @@ const App: FC = () => {
   }
 
   if (!user.isLoggedIn) {
-    return (
-      <div>
-        <h1>Please logged in</h1>
-        <LoginForm />
-      </div>
-    );
+    return <LoginForm />;
   }
 
   return (
     <div>
-      <h1>{`Hello ${user.user.email}`}</h1>
-      {user.user.isActivated
-        ? user.user.id
-        : 'An email has been sent to your mail, please confirm your account'}
-      <button onClick={() => dispatch(logoutUser())}>Logout</button>
+      <Switch>
+        <Route
+          path="/"
+          render={() => (
+            <Test
+              email={user.user.email}
+              id={user.user.id}
+              isActivated={user.user.isActivated}
+            />
+          )}
+          exact
+        />
+        <Route path="/login" render={() => <LoginForm />} exact />
+        <Route path="/registration" render={() => <RegistrationForm />} exact />
+      </Switch>
     </div>
   );
 };

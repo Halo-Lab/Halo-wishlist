@@ -71,10 +71,12 @@ const RegistrationForm: FC = () => {
                     type={passwordVisibility ? null : 'password'}
                     className={styles.input}
                   />
-                  <EyePass
-                    changeColor={handleChangePasswordVisibility}
-                    visible={passwordVisibility ? 1 : 0.4}
-                  />
+                  <span className={styles.showPass}>
+                    <EyePass
+                      changeColor={handleChangePasswordVisibility}
+                      visible={passwordVisibility ? 1 : 0.4}
+                    />
+                  </span>
                 </div>
 
                 <p className={styles.policy}>
