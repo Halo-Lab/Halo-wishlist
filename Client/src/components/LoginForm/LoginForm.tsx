@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import * as Yup from 'yup';
 
+import { writeCookie } from '../../helpers/set-cookies';
 import { ILogin } from '../../models/IUser';
 import { loginUser } from '../../store/user-reducer';
 import { ButtonService } from '../common/ButtonSendForm/ButtonSendForm';
@@ -36,8 +37,8 @@ const LoginForm: FC = () => {
 
   const handleSubmitForm = (values: ILogin) => {
     const { email, password } = values;
-    localStorage.setItem('rememberMe', JSON.stringify(isRemember));
-    dispatch(loginUser(email, password));
+    writeCookie('rememberMe', isRemember, 1);
+    dispatch(loginUser(email, password, isRemember));
   };
 
   const handelChangeRemember = () => {

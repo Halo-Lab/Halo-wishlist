@@ -7,8 +7,9 @@ export default class AuthRequest {
   static async login(
     email: string,
     password: string,
+    remember: boolean,
   ): Promise<AxiosResponse<AuthResponse>> {
-    return api.post('/login', { email, password });
+    return api.post('/login', { email, password, remember });
   }
   static async registration(
     email: string,
