@@ -1,9 +1,10 @@
 const userService = require('../service/user-service');
+const TokenModal = require('../models/token-modal');
 const {validationResult} = require('express-validator');
 const ApiError = require('../exceptions/api-error');
 
-const setCookie = (res, userData, remember) => res.cookie('refreshToken', userData.refreshToken, {
-  maxAge: remember === 'true' ? 30 * 24 * 60 * 60 * 1000 : 3600000,
+const setCookie = (res, userData, remember = true) => res.cookie('refreshToken', userData.refreshToken, {
+  maxAge: remember ? 30 * 24 * 60 * 60 * 1000 : 3600000,
   httpOnly: true,
   sameSite: 'None',
   secure: true,
@@ -27,9 +28,8 @@ class UserController {
 
   async login(req, res, next) {
     try {
-      const {email, password} = req.body;
-      const remember = req.cookies.rememberMe
-      const userData = await userService.login(email, password);
+      const {email, password, remember} = req.body;
+      const userData = await userService.login(email, password, remember);
       setCookie(res, userData, remember)
       return res.json(userData);
     } catch (e) {
@@ -60,7 +60,8 @@ class UserController {
 
   async refresh(req, res, next) {
     try {
-      const {refreshToken, remember} = req.cookies;
+      const {refreshToken} = req.cookies;
+      const {remember} = await TokenModal.findOne({refreshToken})
       const userData = await userService.refresh(refreshToken);
       setCookie(res, userData, remember)
       return res.json(userData);
