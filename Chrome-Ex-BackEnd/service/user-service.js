@@ -83,16 +83,6 @@ class UserService {
     }
     return {user};
   }
-
-  async addUrl(_id, url, nameURL) {
-    const user = await UserModel.findOne({_id});
-    if (!user) {
-      throw ApiError.BadRequest(`Invalid verification code ${_id}`);
-    }
-    user.wishList.push({url, nameURL})
-    await user.save();
-    return {user};
-  }
 }
 
 module.exports = new UserService();

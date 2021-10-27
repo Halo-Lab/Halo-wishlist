@@ -1,5 +1,6 @@
 const Router = require('express').Router;
 const userController = require('../controllers/user-controller');
+const wishlistController = require('../controllers/wishlist-controller');
 const {body} = require('express-validator');
 
 const router = new Router();
@@ -22,11 +23,20 @@ router.post(
   userController.loginExtension
 );
 router.post(
+  '/addWishlist',
+  body('userId').isString(),
+  body('name').isString(),
+  wishlistController.createWishlist
+);
+router.post(
   '/addUrl',
   body('_id').isString(),
   body('url').isURL(),
   body('nameURL').isString(),
-  userController.addUrl
+  wishlistController.addUrl
 );
+router.get('/wishlist/:wishlistId', wishlistController.getWishlist);
+router.get('/user/:userId', wishlistController.getWishlists);
+router.get('/categories/:userId', wishlistController.getCategories);
 
 module.exports = router;
