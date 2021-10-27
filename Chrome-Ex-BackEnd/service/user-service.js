@@ -35,7 +35,7 @@ class UserService {
     await user.save();
   }
 
-  async login(email, password) {
+  async login(email, password, remember) {
     const user = await UserModel.findOne({email});
     if (!user) {
       throw ApiError.BadRequest(`User with email ${email} not found`);
@@ -47,7 +47,7 @@ class UserService {
     const userDto = new UserDto(user);
 
     const tokens = tokenService.generateTokens({...userDto});
-    await tokenService.saveTokens(userDto.id, tokens.refreshToken);
+    await tokenService.saveTokens(userDto.id, tokens.refreshToken, remember);
 
     return {...tokens, user: userDto};
   }
