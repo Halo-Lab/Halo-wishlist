@@ -36,8 +36,8 @@ const slice = createSlice({
 });
 
 export const loginUser =
-  (password: string, email: string) => (dispatch: Dispatch) => {
-    AuthRequest.login(password, email)
+  (password: string, email: string, remember: boolean) => (dispatch: Dispatch) => {
+    AuthRequest.login(password, email, remember)
       .then((res) => {
         localStorage.setItem('token', res.data.accessToken);
         dispatch(setIsLoggedInAC(true));
