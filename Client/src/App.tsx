@@ -1,8 +1,8 @@
 import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter as Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Switch, Redirect, Route } from 'react-router-dom';
 
-import LoginForm from './components/LoginForm';
+import LoginForm from './components/LoginForm/LoginForm';
 import RegistrationForm from './components/RegistrationForm/RegistrationForm';
 import { Test } from './components/Test';
 import { AppRootStateType } from './store/store';
@@ -24,7 +24,13 @@ const App: FC = () => {
   }
 
   if (!user.isLoggedIn) {
-    return <LoginForm />;
+    return (
+      <Route>
+        <Route path="/login" render={() => <LoginForm />} />
+        <Route path="/registration" render={() => <RegistrationForm />} />
+        <Redirect to="/login" />
+      </Route>
+    );
   }
 
   return (
@@ -41,8 +47,7 @@ const App: FC = () => {
           )}
           exact
         />
-        <Route path="/login" render={() => <LoginForm />} exact />
-        <Route path="/registration" render={() => <RegistrationForm />} exact />
+        <Redirect to="/" />
       </Switch>
     </div>
   );

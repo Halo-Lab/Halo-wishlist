@@ -2,12 +2,13 @@ import cn from 'classnames';
 import { Field, Form, Formik } from 'formik';
 import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import * as Yup from 'yup';
 
-import { ILogin } from '../models/IUser';
-import { loginUser } from '../store/user-reducer';
-import { ButtonService } from './common/ButtonSendForm/ButtonSendForm';
-import { EyePass } from './common/SvgComponents/EyePass';
+import { ILogin } from '../../models/IUser';
+import { loginUser } from '../../store/user-reducer';
+import { ButtonService } from '../common/ButtonSendForm/ButtonSendForm';
+import { EyePass } from '../common/SvgComponents/EyePass';
 
 import styles from './LoginForm.module.scss';
 
@@ -104,7 +105,10 @@ const LoginForm: FC = () => {
           </Formik>
         </div>
         <p className={styles.loginLink}>
-          Don't have an account? <a href={'/login'}>Sign up</a>
+          Don't have an account?{' '}
+          <NavLink className={styles.navLink} to="/registration">
+            Sign up
+          </NavLink>
         </p>
       </div>
     </div>

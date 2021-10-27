@@ -1,6 +1,7 @@
 import { Field, Form, Formik } from 'formik';
 import { FC, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import { ILogin } from '../../models/IUser';
@@ -92,7 +93,10 @@ const RegistrationForm: FC = () => {
           </Formik>
         </div>
         <p className={styles.loginLink}>
-          Already have an account? <a href={'/login'}>Log in</a>
+          Already have an account?{' '}
+          <NavLink to="/login" className={styles.navLink}>
+            Log in
+          </NavLink>
         </p>
       </div>
     </div>
