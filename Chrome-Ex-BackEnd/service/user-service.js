@@ -1,5 +1,4 @@
 const UserModel = require('../models/user-modal');
-const WishlistModel = require('../models/wishlist-modal');
 const bcrypt = require('bcrypt');
 const uuid = require('uuid');
 const mailService = require('./email-service');

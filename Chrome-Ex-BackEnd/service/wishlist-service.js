@@ -44,6 +44,14 @@ class WishlistService {
     }
     return wishlist.items;
   }
+
+  async getCategories(userId) {
+    const categories = await WishlistModel.find({userId});
+    if (!categories) {
+      throw ApiError.BadRequest(`User not found ${userId}`);
+    }
+    return categories;
+  }
 }
 
 module.exports = new WishlistService();

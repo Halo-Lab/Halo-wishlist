@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { AuthResponse } from './../models/response/AuthResponse';
 
-export const API_URL = 'http://localhost:5000/api';
+export const API_URL = 'https://calm-earth-64069.herokuapp.com/api';
 
 const api = axios.create({
   withCredentials: true,

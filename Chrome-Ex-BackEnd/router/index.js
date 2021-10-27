@@ -37,5 +37,6 @@ router.post(
 );
 router.get('/wishlist/:wishlistId', wishlistController.getWishlist);
 router.get('/user/:userId', wishlistController.getWishlists);
+router.get('/categories/:userId', wishlistController.getCategories);
 
 module.exports = router;

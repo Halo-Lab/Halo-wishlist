@@ -25,7 +25,7 @@ Content-Type: application/json
 
 {
   "userId": "6176a2e5efa3d69a3e64a918",
-  "name": "first"
+  "name": "second"
 }
 
 ### ADD NEW URL
@@ -44,4 +44,8 @@ Content-Type: application/json
 
 ### GET WISHLISTS
 GET http://localhost:5000/api/user/6176a2e5efa3d69a3e64a918
+Content-Type: application/json
+
+### GET CATEGORIES
+GET http://localhost:5000/api/categories/6176a2e5efa3d69a3e64a918
 Content-Type: application/json
