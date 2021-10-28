@@ -1,10 +1,11 @@
 import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter as Switch, Redirect, Route } from 'react-router-dom';
+import { Switch, Redirect, Route } from 'react-router-dom';
 
 import LoginForm from './components/LoginForm/LoginForm';
 import RegistrationForm from './components/RegistrationForm/RegistrationForm';
 import { Test } from './components/Test';
+import { ViewPage } from './scenes/ViewPage';
 import { AppRootStateType } from './store/store';
 import { UserStateType } from './store/user-reducer';
 import { checkUserLogin } from './store/user-reducer';
@@ -25,11 +26,15 @@ const App: FC = () => {
 
   if (!user.isLoggedIn) {
     return (
-      <Route>
+      <Switch>
         <Route path="/login" render={() => <LoginForm />} />
         <Route path="/registration" render={() => <RegistrationForm />} />
-        <Redirect to="/login" />
-      </Route>
+        <Route path="/shared" render={() => <ViewPage />} />
+        <Route path="/404">
+          <h1>Note Found!</h1>
+        </Route>
+        <Redirect to="/404" />
+      </Switch>
     );
   }
 
