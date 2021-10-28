@@ -1,8 +1,7 @@
 const {Schema, model} = require('mongoose');
 
 const WishListSchema = new Schema({
-  url: {type: String},
-  nameURL: {type: String},
+  userId: {type: String}
 })
 
 const UserSchema = new Schema({
@@ -10,7 +9,7 @@ const UserSchema = new Schema({
   password: {type: String, required: true},
   isActivated: {type: Boolean, default: false},
   activationLink: {type: String},
-  wishList: [WishListSchema],
+  wishlist: [WishListSchema],
 });
 
 module.exports = model('User', UserSchema);

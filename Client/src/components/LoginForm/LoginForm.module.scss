@@ -70,7 +70,7 @@
 }
 
 .activeCheckbox {
-  background: no-repeat url('../assets//svg/check.svg') center;
+  background: no-repeat url('../../assets//svg/check.svg') center;
 }
 
 .remember {
@@ -108,6 +108,13 @@
   font-size: 14px;
   line-height: 24px;
   text-align: center;
+}
+
+.navLink {
+  color: #606060;
+  text-decoration: none;
+  padding-bottom: 1px;
+  border-bottom: 1px solid #606060;
 }
 
 .error {

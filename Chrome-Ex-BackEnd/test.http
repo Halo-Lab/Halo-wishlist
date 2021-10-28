@@ -19,12 +19,33 @@ Content-Type: application/json
   "_id": "615d4e734279fe2993724474"
 }
 
+### CREATE NEW WISHLIST
+POST http://localhost:5000/api/addWishlist
+Content-Type: application/json
+
+{
+  "userId": "6176a2e5efa3d69a3e64a918",
+  "name": "second"
+}
+
 ### ADD NEW URL
 POST http://localhost:5000/api/addUrl
 Content-Type: application/json
 
 {
-  "_id": "615d4e734279fe2993724474",
-  "url": "https://www.asics.com/",
-  "nameURL": "asics2"
+  "_id": "6176ab9f0df8bbae121eac2e",
+  "url": "https://www.nike.com/",
+  "nameURL": "nike"
 }
+
+### GET WISHLIST
+GET http://localhost:5000/api/wishlist/6176ab9f0df8bbae121eac2e
+Content-Type: application/json
+
+### GET WISHLISTS
+GET http://localhost:5000/api/user/6176a2e5efa3d69a3e64a918
+Content-Type: application/json
+
+### GET CATEGORIES
+GET http://localhost:5000/api/categories/6176a2e5efa3d69a3e64a918
+Content-Type: application/json

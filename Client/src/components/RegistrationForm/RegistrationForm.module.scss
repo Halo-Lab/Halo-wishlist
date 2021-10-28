@@ -65,13 +65,10 @@
   padding-top: 15px;
 }
 
-span {
+.showPass {
   position: absolute;
-  top: 48%;
   right: 16px;
-  display: block;
-  width: 16px;
-  height: 16px;
+  top: 48%;
 }
 
 .loginLink {
@@ -80,6 +77,13 @@ span {
   font-size: 14px;
   line-height: 24px;
   text-align: center;
+}
+
+.navLink {
+  color: #606060;
+  text-decoration: none;
+  padding-bottom: 1px;
+  border-bottom: 1px solid #606060;
 }
 
 .error {

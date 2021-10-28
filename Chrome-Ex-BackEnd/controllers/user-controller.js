@@ -1,6 +1,14 @@
 const userService = require('../service/user-service');
+const TokenModal = require('../models/token-modal');
 const {validationResult} = require('express-validator');
 const ApiError = require('../exceptions/api-error');
+
+const setCookie = (res, userData, remember = true) => res.cookie('refreshToken', userData.refreshToken, {
+  maxAge: remember ? 30 * 24 * 60 * 60 * 1000 : 3600000,
+  httpOnly: true,
+  sameSite: 'None',
+  secure: true,
+});
 
 class UserController {
   async registration(req, res, next) {
@@ -10,14 +18,8 @@ class UserController {
         return next(ApiError.BadRequest('Validation Error', errors.array()));
       }
       const {email, password} = req.body;
-      // TODO 
       const userData = await userService.registration(email, password);
-      res.cookie('refreshToken', userData.refreshToken, {
-        maxAge: 30 * 24 * 60 * 60 * 1000,
-        httpOnly: true,
-        sameSite: 'None',
-        secure: true,
-      });
+      setCookie(res, userData)
       return res.json(userData);
     } catch (e) {
       next(e);
@@ -26,14 +28,9 @@ class UserController {
 
   async login(req, res, next) {
     try {
-      const {email, password} = req.body;
-      const userData = await userService.login(email, password);
-      res.cookie('refreshToken', userData.refreshToken, {
-        maxAge: 30 * 24 * 60 * 60 * 1000,
-        httpOnly: true,
-        sameSite: 'None',
-        secure: true,
-      });
+      const {email, password, remember} = req.body;
+      const userData = await userService.login(email, password, remember);
+      setCookie(res, userData, remember)
       return res.json(userData);
     } catch (e) {
       next(e);
@@ -64,13 +61,9 @@ class UserController {
   async refresh(req, res, next) {
     try {
       const {refreshToken} = req.cookies;
+      const {remember} = await TokenModal.findOne({refreshToken})
       const userData = await userService.refresh(refreshToken);
-      res.cookie('refreshToken', userData.refreshToken, {
-        maxAge: 30 * 24 * 60 * 60 * 1000,
-        httpOnly: true,
-        sameSite: 'None',
-        secure: true,
-      });
+      setCookie(res, userData, remember)
       return res.json(userData);
     } catch (e) {
       next(e);
@@ -93,20 +86,6 @@ class UserController {
       }
       const {_id} = req.body;
       const userData = await userService.loginExtension(_id);
-      return res.json(userData);
-    } catch (e) {
-      next(e);
-    }
-  }
-
-  async addUrl(req, res, next) {
-    try {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return next(ApiError.BadRequest('Validation Error', errors.array()));
-      }
-      const {_id, url, nameURL} = req.body;
-      const userData = await userService.addUrl(_id, url, nameURL);
       return res.json(userData);
     } catch (e) {
       next(e);
