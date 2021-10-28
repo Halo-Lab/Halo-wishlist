@@ -9,20 +9,10 @@
   font-family: 'Inter', sans-serif;
 }
 
-html {
-  font-size: 1.25vw;
-}
-
 body {
   padding: 0;
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: $color__font;
-}
-
-@media (max-width: 500px) {
-  html {
-    font-size: 2.435vw;
-  }
 }
