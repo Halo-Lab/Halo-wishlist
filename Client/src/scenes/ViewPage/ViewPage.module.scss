@@ -1,0 +1,77 @@
+@import '/src/styles/variables/colors';
+
+.container {
+  position: relative;
+  flex-direction: column;
+  width: 100%;
+  padding: 2rem;
+  direction: flex;
+  background: $color__white;
+
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0 0 0.5rem 0;
+  }
+
+  &__middle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 0 1.5rem 0;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba($color: #000, $alpha: 0.1);
+  }
+
+  &__cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem 0;
+    justify-content: space-between;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__pic {
+    width: 4.75rem;
+    height: 4.75rem;
+    margin: 0 0 1rem 0;
+    background: $color__loading-placeholder;
+    border-radius: 50%;
+  }
+
+  &__name {
+    margin: 0 0 0.25rem 0;
+    font-weight: 700;
+    font-size: 1.5rem;
+  }
+}
+
+.button {
+  display: flex;
+  padding: 0.5rem 1rem;
+  color: inherit;
+  align-items: center;
+  font-size: 1rem;
+  background: rgba($color: #000, $alpha: 0.07);
+  border: none;
+  border-radius: 0.375rem;
+  cursor: pointer;
+  gap: 0.25rem;
+
+  &__icon {
+    width: 1rem;
+    height: 1rem;
+  }
+}
