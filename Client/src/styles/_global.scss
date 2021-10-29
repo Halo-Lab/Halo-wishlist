@@ -16,3 +16,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: $color__font;
 }
+
+.main-wrapper {
+  margin: 0 auto;
+  max-width: 1280px;
+  padding-top: 20px;
+}

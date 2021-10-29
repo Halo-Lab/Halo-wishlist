@@ -8,6 +8,7 @@
   width: 17.5rem;
   height: 15rem;
   padding: 1rem;
+  flex-grow: 1;
   overflow: hidden;
   background: $color__loading-placeholder;
   border-radius: 0.5rem;
@@ -36,6 +37,24 @@
   padding: 0.5rem;
   background: $color__white;
   border-radius: 2px;
+  justify-content: space-between;
+  column-gap: 5px;
+  max-width: 280px;
+}
+
+.price {
+  border-radius: 10px;
+  background-color: #129712;
+  border: 1px solid rgb(60, 57, 216);
+
+  a {
+    text-decoration: none;
+    color: $color__font;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 3px;
+    vertical-align: middle;
+  }
 }
 
 .gift {
