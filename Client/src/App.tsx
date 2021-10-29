@@ -30,7 +30,7 @@ const App: FC = () => {
         <Switch>
           <Route path="/login" render={() => <LoginForm />} />
           <Route path="/registration" render={() => <RegistrationForm />} />
-          <Route path="/shared" render={() => <ViewPage />} />
+          <Route path="/shared/:listID" render={() => <ViewPage />} />
           <Redirect to="/login" />
         </Switch>
       </div>
