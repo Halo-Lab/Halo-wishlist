@@ -26,17 +26,19 @@ const App: FC = () => {
 
   if (!user.isLoggedIn) {
     return (
-      <Switch>
-        <Route path="/login" render={() => <LoginForm />} />
-        <Route path="/registration" render={() => <RegistrationForm />} />
-        <Route path="/shared" render={() => <ViewPage />} />
-        <Redirect to="/login" />
-      </Switch>
+      <div className="main-wrapper">
+        <Switch>
+          <Route path="/login" render={() => <LoginForm />} />
+          <Route path="/registration" render={() => <RegistrationForm />} />
+          <Route path="/shared" render={() => <ViewPage />} />
+          <Redirect to="/login" />
+        </Switch>
+      </div>
     );
   }
 
   return (
-    <div>
+    <div className="main-wrapper">
       <Switch>
         <Route
           path="/"
