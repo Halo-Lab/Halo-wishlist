@@ -34,8 +34,10 @@ Content-Type: application/json
 
 {
   "_id": "6176ab9f0df8bbae121eac2e",
-  "url": "https://www.nike.com/",
-  "nameURL": "nike"
+  "url": "https://www.adidas.com/3",
+  "nameURL": "nike",
+  "image": "imageURL",
+  "price": "999"
 }
 
 ### GET WISHLIST

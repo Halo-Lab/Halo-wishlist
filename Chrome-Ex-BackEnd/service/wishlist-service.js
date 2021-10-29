@@ -15,7 +15,7 @@ class WishlistService {
     return {wishlist};
   }
 
-  async addUrl(_id, url, nameURL) {
+  async addUrl(_id, url, nameURL, image, price) {
     const wishlist = await WishlistModel.findOne({_id});
     if (!wishlist) {
       throw ApiError.BadRequest(`Wishlist not found ${_id}`);
@@ -24,7 +24,7 @@ class WishlistService {
     if (wishlistUrl[0]?.url) {
       throw ApiError.BadRequest(`Wishlist with url ${url} already exists`);
     }
-    wishlist.items.push({url, nameURL})
+    wishlist.items.push({url, nameURL, image, price})
     await wishlist.save();
     return wishlist.items;
   }

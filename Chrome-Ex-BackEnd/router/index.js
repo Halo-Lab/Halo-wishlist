@@ -33,6 +33,8 @@ router.post(
   body('_id').isString(),
   body('url').isURL(),
   body('nameURL').isString(),
+  body('image').isString(),
+  body('price').isString(),
   wishlistController.addUrl
 );
 router.get('/wishlist/:wishlistId', wishlistController.getWishlist);

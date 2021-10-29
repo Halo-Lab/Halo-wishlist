@@ -23,8 +23,8 @@ class WishlistController {
       if (!errors.isEmpty()) {
         return next(ApiError.BadRequest('Validation Error', errors.array()));
       }
-      const {_id, url, nameURL} = req.body;
-      const wishlistData = await wishlistService.addUrl(_id, url, nameURL);
+      const {_id, url, nameURL, image, price} = req.body;
+      const wishlistData = await wishlistService.addUrl(_id, url, nameURL, image, price);
       return res.json(wishlistData);
     } catch (e) {
       next(e);
