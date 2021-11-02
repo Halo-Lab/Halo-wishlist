@@ -19,6 +19,7 @@ router.get('/refresh', userController.refresh);
 router.get('/users', userController.getUsers);
 router.put('/user',
   body('_id').isString(),
+  body('name').isString(),
   body('bio').isString(),
   body('date').isString(),
   authMiddleware, userController.updateUser);
