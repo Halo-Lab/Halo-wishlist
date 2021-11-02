@@ -91,6 +91,21 @@ class UserController {
       next(e);
     }
   }
+
+  async updateUser(req, res, next) {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return next(ApiError.BadRequest('Validation Error', errors.array()));
+      }
+      const {_id, name, bio, date} = req.body;
+      const userData = await userService.updateUser(_id, name, bio, date);
+      return res.json(userData);
+    } catch (e) {
+      next(e);
+    }
+  }
+
 }
 
 module.exports = new UserController();
