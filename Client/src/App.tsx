@@ -4,7 +4,7 @@ import { Switch, Redirect, Route } from 'react-router-dom';
 
 import LoginForm from './components/LoginForm/LoginForm';
 import RegistrationForm from './components/RegistrationForm/RegistrationForm';
-import { Test } from './components/Test';
+import { Test } from './scenes/ProfilePage/Test';
 import { ViewPage } from './scenes/ViewPage';
 import { AppRootStateType } from './store/store';
 import { UserStateType } from './store/user-reducer';
