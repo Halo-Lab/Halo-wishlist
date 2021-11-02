@@ -4,7 +4,7 @@ import { Switch, Redirect, Route } from 'react-router-dom';
 
 import LoginForm from './components/LoginForm/LoginForm';
 import RegistrationForm from './components/RegistrationForm/RegistrationForm';
-import { Test } from './scenes/ProfilePage/Test';
+import { ProfilePage } from './scenes/ProfilePage/ProfilePage';
 import { ViewPage } from './scenes/ViewPage';
 import { AppRootStateType } from './store/store';
 import { UserStateType } from './store/user-reducer';
@@ -43,7 +43,7 @@ const App: FC = () => {
         <Route
           path="/"
           render={() => (
-            <Test
+            <ProfilePage
               email={user.user.email}
               id={user.user.id}
               isActivated={user.user.isActivated}
