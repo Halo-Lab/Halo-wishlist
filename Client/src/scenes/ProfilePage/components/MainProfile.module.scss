@@ -21,6 +21,65 @@
 }
 
 .profileBLock {
+  display: flex;
+  max-height: 185px;
+
+  h2 {
+    font-style: normal;
+    font-weight: 800;
+    font-size: 20px;
+    line-height: 32px;
+    letter-spacing: 0.2px;
+    color: #252733;
+    margin: 0;
+    margin-bottom: 20px;
+  }
+
+  h3 {
+    margin-bottom: 15px;
+  }
+}
+
+.icons {
+  display: flex;
+  width: 100%;
+  column-gap: 10px;
+  margin-bottom: 20px;
+}
+
+.bioText {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  color: #252733;
+  margin-bottom: 25px;
+}
+
+.birthday {
+  display: flex;
+  h3 {
+    width: 20%;
+    margin-right: 25px;
+  }
+}
+
+.emailBlock {
+  display: flex;
+  h3 {
+    width: 20%;
+  }
+}
+
+.wishesCount {
+  display: flex;
+  h3 {
+    width: 20%;
+  }
+}
+
+.info {
+  margin-left: 35px;
 }
 
 .userPhoto {
