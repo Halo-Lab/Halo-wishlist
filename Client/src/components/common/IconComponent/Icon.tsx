@@ -2,8 +2,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames';
 import { FC } from 'react';
 
-import styles from './Icon.module.scss';
-
 export interface IIcon {
   name: any;
   className?: string;

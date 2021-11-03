@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { useDispatch } from 'react-redux';
 
 import { MainProfile } from './components/MainProfile';
 import { SideBar } from './components/SideBar';
@@ -12,9 +11,7 @@ interface ITest {
   isActivated: boolean;
 }
 
-export const ProfilePage: FC<ITest> = ({ email, id, isActivated }) => {
-  const dispatch = useDispatch();
-
+export const ProfilePage: FC<ITest> = () => {
   return (
     <div className={styles.profileWrapper}>
       <SideBar />

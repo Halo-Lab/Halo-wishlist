@@ -16,7 +16,6 @@ export const DateInput: FC = () => {
       selected={startDate}
       onChange={(date) => setStartDate(date)}
       dateFormat="d MMMM , yyyy"
-      locale="us"
     />
   );
 };
