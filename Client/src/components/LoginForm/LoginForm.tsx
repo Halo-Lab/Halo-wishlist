@@ -98,7 +98,7 @@ const LoginForm: FC = () => {
                   <p className={styles.forgot}>{t('auth.forgot')}</p>
                 </div>
                 <ButtonService
-                  btnName={t('auth.forgot')}
+                  btnName={t('auth.login')}
                   disabled={errors.email || errors.password ? true : false}
                 />
               </Form>
