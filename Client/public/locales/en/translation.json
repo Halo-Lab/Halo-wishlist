@@ -1,0 +1,21 @@
+{
+  "auth": {
+    "login": "Log in",
+    "password": "Password",
+    "rememberMe": "Remember me",
+    "forgot": "Forgot your password?",
+    "btn": "Login",
+    "haven'tAccount": "Don't have an account?",
+    "signUp": " Sign up",
+    "warning": "By using this service you are agreeing to the terms of service and privacy policy",
+    "haveAccount": "Already have an account?",
+    "register": "Register"
+  },
+  "errors": {
+    "notValidEmail": "Must be a valid email!",
+    "emailMaxLength": "Too Long!",
+    "required": "Required!",
+    "passwordMinLength": "min 4 characters!",
+    "passwordMaxLength": "max: 50 characters!"
+  }
+}

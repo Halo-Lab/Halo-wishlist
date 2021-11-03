@@ -1,12 +1,14 @@
 import cn from 'classnames';
 import { Field, Form, Formik } from 'formik';
 import { FC, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import { ILogin } from '../../models/IUser';
 import { loginUser } from '../../store/user-reducer';
+import '../../utils/i18next';
 import { ButtonService } from '../common/ButtonSendForm/ButtonSendForm';
 import { EyePass } from '../common/SvgComponents/EyePass';
 
@@ -15,18 +17,18 @@ import styles from './LoginForm.module.scss';
 const LoginForm: FC = () => {
   const [passwordVisibility, setPasswordVisibility] = useState<boolean>(false);
   const [isRemember, setIsRemember] = useState<boolean>(true);
-
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
-      .email('Must be a valid email!')
-      .max(50, 'Too Long!')
-      .required('Required'),
+      .email(t('errors.notValidEmail'))
+      .max(50, t('errors.emailMaxLength'))
+      .required(t('errors.required')),
     password: Yup.string()
-      .min(4, 'min: 4 characters!')
-      .max(50, 'max: 20 characters!')
-      .required('Required'),
+      .min(4, t('errors.passwordMinLength'))
+      .max(50, t('errors.passwordMaxLength'))
+      .required(t('errors.required')),
   });
 
   const handleChangePasswordVisibility = (e: React.MouseEvent<HTMLSpanElement>) => {
@@ -47,7 +49,7 @@ const LoginForm: FC = () => {
     <div className={styles.overlay}>
       <div className={styles.modal}>
         <div className={styles.form}>
-          <h1 className={styles.title}>Log in</h1>
+          <h1 className={styles.title}>{t('auth.login')}</h1>
           <Formik
             initialValues={{
               email: '',
@@ -74,7 +76,7 @@ const LoginForm: FC = () => {
                   ) : null}
                   <Field
                     name={'password'}
-                    placeholder="Password"
+                    placeholder={t('auth.password')}
                     type={passwordVisibility ? null : 'password'}
                     className={styles.input}
                   />
@@ -92,11 +94,11 @@ const LoginForm: FC = () => {
                     })}
                     onClick={handelChangeRemember}
                   />
-                  <p className={styles.remember}>Remember me</p>
-                  <p className={styles.forgot}>Forgot your password?</p>
+                  <p className={styles.remember}>{t('auth.rememberMe')}</p>
+                  <p className={styles.forgot}>{t('auth.forgot')}</p>
                 </div>
                 <ButtonService
-                  btnName={'Login'}
+                  btnName={t('auth.forgot')}
                   disabled={errors.email || errors.password ? true : false}
                 />
               </Form>
@@ -104,9 +106,9 @@ const LoginForm: FC = () => {
           </Formik>
         </div>
         <p className={styles.loginLink}>
-          Don't have an account?{' '}
+          {t("auth.haven'tAccount")}{' '}
           <NavLink className={styles.navLink} to="/registration">
-            Sign up
+            {t('auth.signUp')}
           </NavLink>
         </p>
       </div>

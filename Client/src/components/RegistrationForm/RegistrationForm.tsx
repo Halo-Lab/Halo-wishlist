@@ -1,5 +1,6 @@
 import { Field, Form, Formik } from 'formik';
 import { FC, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import * as Yup from 'yup';
@@ -15,16 +16,17 @@ const RegistrationForm: FC = () => {
   const [passwordVisibility, setPasswordVisibility] = useState<boolean>(false);
 
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const SignupSchema = Yup.object().shape({
     email: Yup.string()
-      .email('Must be a valid email!')
-      .max(50, 'Too Long!')
-      .required('Required'),
+      .email(t('errors.notValidEmail'))
+      .max(50, t('errors.emailMaxLength'))
+      .required(t('errors.required')),
     password: Yup.string()
-      .min(4, 'min: 4 characters!')
-      .max(50, 'max: 20 characters!')
-      .required('Required'),
+      .min(4, t('errors.passwordMinLength'))
+      .max(50, t('errors.passwordMaxLength'))
+      .required(t('errors.required')),
   });
 
   const handleChangePasswordVisibility = (e: React.MouseEvent<HTMLSpanElement>) => {
@@ -41,7 +43,7 @@ const RegistrationForm: FC = () => {
     <div className={styles.overlay}>
       <div className={styles.modal}>
         <div className={styles.form}>
-          <h1 className={styles.title}>Sign up</h1>
+          <h1 className={styles.title}>{t('auth.signUp')}</h1>
           <Formik
             initialValues={{
               email: '',
@@ -67,8 +69,8 @@ const RegistrationForm: FC = () => {
                     <div className={styles.error}>{errors.password}</div>
                   ) : null}
                   <Field
-                    name={'password'}
-                    placeholder="Password"
+                    name="password"
+                    placeholder={t('auth.password')}
                     type={passwordVisibility ? null : 'password'}
                     className={styles.input}
                   />
@@ -80,12 +82,9 @@ const RegistrationForm: FC = () => {
                   </span>
                 </div>
 
-                <p className={styles.policy}>
-                  By using this service you are agreeing to the terms of service and
-                  privacy policy
-                </p>
+                <p className={styles.policy}>{t('auth.warning')}</p>
                 <ButtonService
-                  btnName={'Register'}
+                  btnName={t('auth.register')}
                   disabled={errors.email || errors.password ? true : false}
                 />
               </Form>
@@ -93,9 +92,9 @@ const RegistrationForm: FC = () => {
           </Formik>
         </div>
         <p className={styles.loginLink}>
-          Already have an account?{' '}
+          {t('auth.haveAccount')}{' '}
           <NavLink to="/login" className={styles.navLink}>
-            Log in
+            {t('auth.login')}
           </NavLink>
         </p>
       </div>
