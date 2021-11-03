@@ -38,17 +38,21 @@ export const MainProfile: FC = () => {
             Velit officia consequat duis enim velit mollit. Exercitation veniam
             consequat sunt nostrud amet.
           </p>
-          <div className={styles.birthday}>
-            <h3>Birthday date:</h3>
-            <DateInput />
-          </div>
-          <div className={styles.emailBlock}>
-            <h3>Email:</h3>
-            <p>tom@cruise.com</p>
-          </div>
-          <div className={styles.wishesCount}>
-            <h3>Wishes:</h3>
-            <p>10</p>
+          <div className={styles.profilBEW}>
+            <div>
+              <div className={styles.birthday}>
+                <h3>Birthday date:</h3>
+                <DateInput />
+              </div>
+              <div className={styles.emailBlock}>
+                <h3>Email:</h3>
+                <p>tom@cruise.com</p>
+              </div>
+            </div>
+            <div className={styles.wishesCount}>
+              <h3>Wishes:</h3>
+              <p>10</p>
+            </div>
           </div>
         </div>
       </section>
