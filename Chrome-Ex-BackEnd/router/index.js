@@ -2,6 +2,7 @@ const Router = require('express').Router;
 const userController = require('../controllers/user-controller');
 const wishlistController = require('../controllers/wishlist-controller');
 const {body} = require('express-validator');
+const authMiddleware = require('../middlewares/auth-middleware');
 
 const router = new Router();
 
@@ -16,6 +17,12 @@ router.post('/logout', userController.logout);
 router.get('/activate/:link', userController.activate);
 router.get('/refresh', userController.refresh);
 router.get('/users', userController.getUsers);
+router.put('/user',
+  body('_id').isString(),
+  body('name').isString(),
+  body('bio').isString(),
+  body('date').isString(),
+  authMiddleware, userController.updateUser);
 
 router.post(
   '/login/extension',

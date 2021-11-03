@@ -10,6 +10,9 @@ const UserSchema = new Schema({
   isActivated: {type: Boolean, default: false},
   activationLink: {type: String},
   wishlist: [WishListSchema],
+  name: {type: String, default: ''},
+  bio: {type: String, default: ''},
+  date: {type: Date, default: ''},
 });
 
 module.exports = model('User', UserSchema);

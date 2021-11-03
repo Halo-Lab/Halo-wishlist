@@ -83,6 +83,20 @@ class UserService {
     }
     return {user};
   }
+
+  async updateUser(_id, name, bio, date) {
+    const user = await UserModel.findOne({_id});
+    if (!user) {
+      throw ApiError.BadRequest(`Invalid verification code ${_id}`);
+    }
+
+    user.name = name;
+    user.bio = bio;
+    user.date = date;
+
+    await user.save();
+    return {user};
+  }
 }
 
 module.exports = new UserService();
