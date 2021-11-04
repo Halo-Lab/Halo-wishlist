@@ -20,6 +20,8 @@ const App: FC = () => {
     }
   }, []);
 
+  const nick = 'mario';
+
   if (user.isLoading) {
     return <div>Loading...</div>;
   }
@@ -30,7 +32,7 @@ const App: FC = () => {
         <Switch>
           <Route path="/login" render={() => <LoginForm />} />
           <Route path="/registration" render={() => <RegistrationForm />} />
-          <Route path="/shared/:listID" render={() => <ViewPage />} />
+          <Route path={`/:${nick}/:listID`} render={() => <ViewPage />} />
           <Redirect to="/login" />
         </Switch>
       </div>

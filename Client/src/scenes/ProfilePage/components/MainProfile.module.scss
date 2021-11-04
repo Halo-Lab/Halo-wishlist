@@ -75,15 +75,19 @@
   }
 }
 
-.wishesCount {
+.whishAndNick {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   padding-left: 20px;
   border-left: 1px solid rgba(0, 0, 0, 0.5);
 
+  & > div {
+    display: flex;
+    justify-content: flex-start;
+  }
+
   h3 {
-    width: 20%;
-    padding-right: 25px;
+    width: 70px;
   }
 }
 

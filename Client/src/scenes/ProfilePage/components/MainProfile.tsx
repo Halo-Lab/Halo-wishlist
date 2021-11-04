@@ -49,9 +49,15 @@ export const MainProfile: FC = () => {
                 <p>tom@cruise.com</p>
               </div>
             </div>
-            <div className={styles.wishesCount}>
-              <h3>Wishes:</h3>
-              <p>10</p>
+            <div className={styles.whishAndNick}>
+              <div>
+                <h3>Wishes:</h3>
+                <p>10</p>
+              </div>
+              <div>
+                <h3>Nick:</h3>
+                <p>Dima</p>
+              </div>
             </div>
           </div>
         </div>
