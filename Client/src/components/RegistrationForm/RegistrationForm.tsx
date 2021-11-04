@@ -94,7 +94,7 @@ const RegistrationForm: FC = () => {
         </div>
         <p className={styles.loginLink}>
           Already have an account?{' '}
-          <NavLink to="/login" className={styles.navLink}>
+          <NavLink to="/" className={styles.navLink}>
             Log in
           </NavLink>
         </p>
