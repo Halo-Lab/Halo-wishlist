@@ -6,6 +6,7 @@ module.exports = class UserDto {
   name;
   bio;
   date;
+  userPic;
 
   constructor(modal) {
     this.email = modal.email;
@@ -15,5 +16,6 @@ module.exports = class UserDto {
     this.name = modal.name;
     this.bio = modal.bio;
     this.date = modal.date;
+    this.userPic = modal.userPic;
   }
 };

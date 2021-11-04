@@ -87,12 +87,24 @@ class UserService {
   async updateUser(_id, name, bio, date) {
     const user = await UserModel.findOne({_id});
     if (!user) {
-      throw ApiError.BadRequest(`Invalid verification code ${_id}`);
+      throw ApiError.BadRequest(`User not found`);
     }
 
     user.name = name;
     user.bio = bio;
     user.date = date;
+
+    await user.save();
+    return {user};
+  }
+
+  async updateUserPic(_id, userPic) {
+    const user = await UserModel.findOne({_id});
+    if (!user) {
+      throw ApiError.BadRequest(`User not found`);
+    }
+
+    user.userPic = userPic;
 
     await user.save();
     return {user};
