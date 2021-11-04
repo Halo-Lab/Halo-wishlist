@@ -2,3 +2,8 @@
   border-radius: 50%;
   overflow: hidden;
 }
+
+.baseImage {
+  object-fit: cover;
+  object-position: top;
+}
