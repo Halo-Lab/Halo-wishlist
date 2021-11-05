@@ -10,7 +10,7 @@ i18n
   .init({
     fallbackLng: "en",
     whitelist: ["en", "uk"],
-    debug: true,
+    // debug: true,
     /*backend: {
       // load from i18next-gitbook repo
       loadPath: 'https://raw.githubusercontent.com/i18next/i18next-gitbook/master/locales/{{lng}}/{{ns}}.json',

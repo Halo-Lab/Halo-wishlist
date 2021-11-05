@@ -13,6 +13,7 @@ const UserSchema = new Schema({
   name: {type: String, default: ''},
   bio: {type: String, default: ''},
   date: {type: Date, default: ''},
+  userPic: {type: String, default: ''},
 });
 
 module.exports = model('User', UserSchema);
