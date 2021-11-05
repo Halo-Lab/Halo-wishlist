@@ -40,7 +40,7 @@ export const ProfileSettings = () => {
       <Formik
         initialValues={{
           name,
-          birthday: new Date(),
+          birthday: date,
           email,
           bio,
         }}
@@ -77,10 +77,12 @@ export const ProfileSettings = () => {
                     placeholder="Darrell Steward"
                   />
                   <label>Birthday date</label>
+
                   <DatePicker
-                    selected={values.birthday}
+                    selected={new Date(values.birthday)}
                     dateFormat="d.MM.yyyy"
                     name="birthday"
+                    peekNextMonth={false}
                     className={styles.datePicker}
                     onChange={(date) => setFieldValue('birthday', date)}
                     placeholderText="12.12.1998"
