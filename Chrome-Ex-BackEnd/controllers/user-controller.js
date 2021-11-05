@@ -1,14 +1,15 @@
 const userService = require('../service/user-service');
 const TokenModal = require('../models/token-modal');
-const {validationResult} = require('express-validator');
+const { validationResult } = require('express-validator');
 const ApiError = require('../exceptions/api-error');
 
-const setCookie = (res, userData, remember = true) => res.cookie('refreshToken', userData.refreshToken, {
-  maxAge: remember ? 30 * 24 * 60 * 60 * 1000 : 3600000,
-  httpOnly: true,
-  sameSite: 'None',
-  secure: true,
-});
+const setCookie = (res, userData, remember = true) =>
+  res.cookie('refreshToken', userData.refreshToken, {
+    maxAge: remember ? 30 * 24 * 60 * 60 * 1000 : 3600000,
+    httpOnly: true,
+    sameSite: 'None',
+    secure: true,
+  });
 
 class UserController {
   async registration(req, res, next) {
@@ -17,9 +18,9 @@ class UserController {
       if (!errors.isEmpty()) {
         return next(ApiError.BadRequest('Validation Error', errors.array()));
       }
-      const {email, password} = req.body;
+      const { email, password } = req.body;
       const userData = await userService.registration(email, password);
-      setCookie(res, userData)
+      setCookie(res, userData);
       return res.json(userData);
     } catch (e) {
       next(e);
@@ -28,9 +29,9 @@ class UserController {
 
   async login(req, res, next) {
     try {
-      const {email, password, remember} = req.body;
+      const { email, password, remember } = req.body;
       const userData = await userService.login(email, password, remember);
-      setCookie(res, userData, remember)
+      setCookie(res, userData, remember);
       return res.json(userData);
     } catch (e) {
       next(e);
@@ -39,7 +40,7 @@ class UserController {
 
   async logout(req, res, next) {
     try {
-      const {refreshToken} = req.cookies;
+      const { refreshToken } = req.cookies;
       const token = await userService.logout(refreshToken);
       res.clearCookie('refreshToken');
       return res.json(token);
@@ -60,10 +61,10 @@ class UserController {
 
   async refresh(req, res, next) {
     try {
-      const {refreshToken} = req.cookies;
-      const {remember} = await TokenModal.findOne({refreshToken})
+      const { refreshToken } = req.cookies;
+      const { remember } = await TokenModal.findOne({ refreshToken });
       const userData = await userService.refresh(refreshToken);
-      setCookie(res, userData, remember)
+      setCookie(res, userData, remember);
       return res.json(userData);
     } catch (e) {
       next(e);
@@ -84,8 +85,38 @@ class UserController {
       if (!errors.isEmpty()) {
         return next(ApiError.BadRequest('Validation Error', errors.array()));
       }
-      const {_id} = req.body;
+      const { _id } = req.body;
       const userData = await userService.loginExtension(_id);
+      return res.json(userData);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async updateUser(req, res, next) {
+    const id = req.user.id;
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return next(ApiError.BadRequest('Validation Error', errors.array()));
+      }
+      const { name, bio, date } = req.body;
+      const userData = await userService.updateUser(id, name, bio, date);
+      return res.json(userData);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async updateUserPic(req, res, next) {
+    const id = req.user.id;
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return next(ApiError.BadRequest('Validation Error', errors.array()));
+      }
+      const { userPic } = req.body;
+      const userData = await userService.updateUserPic(id, userPic);
       return res.json(userData);
     } catch (e) {
       next(e);

@@ -4,22 +4,26 @@ import {
   faTwitter,
 } from '@fortawesome/free-brands-svg-icons';
 import { FC } from 'react';
+import { useSelector } from 'react-redux';
 
 import { DateInput } from '../../../components/common/DateInput/DateInput';
 import Icon from '../../../components/common/IconComponent/Icon';
 import Image from '../../../components/common/ImageComponent/Image';
-
-import profilePhoto from '../../../assets/png/testphoto.png';
+import Upload from '../../../components/common/Upload/Upload';
+import { IUser } from '../../../models/IUser';
+import { AppRootStateType } from '../../../store/store';
 
 import styles from './MainProfile.module.scss';
 
 export const MainProfile: FC = () => {
+  const user = useSelector<AppRootStateType, IUser>((state) => state.users.user);
+
   return (
     <div className={styles.main}>
       <h1 className={styles.title}>Edit Profile</h1>
       <section className={styles.profileBLock}>
         <Image
-          src={profilePhoto}
+          src={user.userPic}
           width={183}
           height={275}
           alt="User Photo"
@@ -60,6 +64,7 @@ export const MainProfile: FC = () => {
               </div>
             </div>
           </div>
+          <Upload />
         </div>
       </section>
     </div>

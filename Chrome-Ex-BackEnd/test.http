@@ -7,8 +7,9 @@ POST http://localhost:5000/api/registration
 Content-Type: application/json
 
 {
-  "email": "harlamov@gmail.com",
-  "isActivated": true
+  "email": "test@gmail.com",
+  "isActivated": true,
+  "password": "1111"
 }
 
 ### REGISTRATION IN EXTENTION
@@ -50,4 +51,24 @@ Content-Type: application/json
 
 ### GET CATEGORIES
 GET http://localhost:5000/api/categories/6176a2e5efa3d69a3e64a918
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBhc3R1aDdAaS51YSIsImlkIjoiNjE3NmEyZTVlZmEzZDY5YTNlNjRhOTE4IiwiaXNBY3RpdmF0ZWQiOnRydWUsIndpc2hsaXN0IjpbeyJfaWQiOiI2MTc2YTMzNmVmYTNkNjlhM2U2NGE5MjcifSx7Il9pZCI6IjYxNzZhYTM4MDI5N2VmNGQzYjg2ZTQ5MSJ9LHsiX2lkIjoiNjE3NmFiOWYwZGY4YmJhZTEyMWVhYzJlIn0seyJfaWQiOiI2MTc3YzRhNjNlNGYxYzMyY2MzNWUxYmUifV0sIm5hbWUiOiIiLCJiaW8iOiIiLCJkYXRlIjpudWxsLCJpYXQiOjE2MzU4NjY3MTcsImV4cCI6MTYzNTg3MDMxN30.DdnB2djyMBgKVyZ3jcad-DEEh_2hNKzq3r2T1QeMy0s
+
+### UPDATE USER
+PUT http://localhost:5000/api/user
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBhc3R1aDdAaS51YSIsImlkIjoiNjE3NmEyZTVlZmEzZDY5YTNlNjRhOTE4IiwiaXNBY3RpdmF0ZWQiOnRydWUsIndpc2hsaXN0IjpbeyJfaWQiOiI2MTc2YTMzNmVmYTNkNjlhM2U2NGE5MjcifSx7Il9pZCI6IjYxNzZhYTM4MDI5N2VmNGQzYjg2ZTQ5MSJ9LHsiX2lkIjoiNjE3NmFiOWYwZGY4YmJhZTEyMWVhYzJlIn0seyJfaWQiOiI2MTc3YzRhNjNlNGYxYzMyY2MzNWUxYmUifV0sIm5hbWUiOiJodHRwczovL3dpc2hseS5zMy1ldS1jZW50cmFsLTEuYW1hem9uYXdzLmNvbS91c2VyUGljL3hxY2djNFR4R1AycHllVnhCYnAxYnEuanBlZyIsImJpbyI6ImJpbzAiLCJkYXRlIjoiMTk5My0wNy0wOFQyMTowMDowMC4wMDBaIiwidXNlclBpYyI6Imh0dHBzOi8vd2lzaGx5LnMzLmV1LWNlbnRyYWwtMS5hbWF6b25hd3MuY29tL3VzZXJQaWMvMjIuanBlZyIsImlhdCI6MTYzNjAyNjk4OCwiZXhwIjoxNjM2MDMwNTg4fQ.nXUFgAUu09J-Cfblf93EUNcpqmGsOzW5MwQgIb05v50
+
+{
+  "name": "Vitaliy",
+  "bio": "bio01",
+  "date": "07.09.1993"
+}
+
+### UPDATE USER
+PUT http://localhost:5000/api/user/userPic
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBhc3R1aDdAaS51YSIsImlkIjoiNjE3NmEyZTVlZmEzZDY5YTNlNjRhOTE4IiwiaXNBY3RpdmF0ZWQiOnRydWUsIndpc2hsaXN0IjpbeyJfaWQiOiI2MTc2YTMzNmVmYTNkNjlhM2U2NGE5MjcifSx7Il9pZCI6IjYxNzZhYTM4MDI5N2VmNGQzYjg2ZTQ5MSJ9LHsiX2lkIjoiNjE3NmFiOWYwZGY4YmJhZTEyMWVhYzJlIn0seyJfaWQiOiI2MTc3YzRhNjNlNGYxYzMyY2MzNWUxYmUifV0sIm5hbWUiOiJodHRwczovL3dpc2hseS5zMy1ldS1jZW50cmFsLTEuYW1hem9uYXdzLmNvbS91c2VyUGljL3hxY2djNFR4R1AycHllVnhCYnAxYnEuanBlZyIsImJpbyI6ImJpbzAiLCJkYXRlIjoiMTk5My0wNy0wOFQyMTowMDowMC4wMDBaIiwidXNlclBpYyI6Imh0dHBzOi8vd2lzaGx5LnMzLWV1LWNlbnRyYWwtMS5hbWF6b25hd3MuY29tL3VzZXJQaWMvYWl5S2hUQ3hrRkZmU1RIN2Z1OUd6cS5qcGVnIiwiaWF0IjoxNjM2MDIxNTg2LCJleHAiOjE2MzYwMjUxODZ9.eBeAszeGmU2BnOO-NF8QIhhZ4Wm_GshlI88HBRz-drw
+
+{
+  "userPic": "https://wishly.s3.eu-central-1.amazonaws.com/userPic/22.jpeg"
+}

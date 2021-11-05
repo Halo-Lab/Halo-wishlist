@@ -1,4 +1,5 @@
 import { FC, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Switch, Redirect, Route, useHistory } from 'react-router-dom';
 
@@ -14,7 +15,11 @@ import { checkUserLogin } from './store/user-reducer';
 const App: FC = () => {
   const dispatch = useDispatch();
   const user = useSelector<AppRootStateType, UserStateType>((state) => state.users);
+
   const history = useHistory();
+
+  const { i18n } = useTranslation();
+
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
@@ -28,9 +33,25 @@ const App: FC = () => {
     return <div>Loading...</div>;
   }
 
+  const changeLanguage = (lang: string) => {
+    i18n.changeLanguage(lang);
+  };
+
   if (!user.isLoggedIn) {
     return (
       <div className="main-wrapper">
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            margin: '20px',
+            zIndex: 2,
+            position: 'relative',
+          }}
+        >
+          <button onClick={() => changeLanguage('uk')}>ua</button>
+          <button onClick={() => changeLanguage('en')}>en</button>
+        </div>
         <Switch>
           <Route path="/" render={() => <LoginForm />} exact />
           <Route path="/registration" render={() => <RegistrationForm />} />
