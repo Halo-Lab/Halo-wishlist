@@ -20,7 +20,6 @@ const App: FC = () => {
 
   const { i18n } = useTranslation();
 
-
   useEffect(() => {
     if (localStorage.getItem('token')) {
       dispatch(checkUserLogin());
