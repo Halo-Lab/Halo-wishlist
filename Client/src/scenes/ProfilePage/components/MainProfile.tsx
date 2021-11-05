@@ -17,6 +17,8 @@ import styles from './MainProfile.module.scss';
 
 export const MainProfile: FC = () => {
   const user = useSelector<AppRootStateType, IUser>((state) => state.users.user);
+  console.log('-> ', process.env.AWS_ACCESS_ID);
+  console.log('-> ', process.env.AWS_ACCESS_KEY);
 
   return (
     <div className={styles.main}>
