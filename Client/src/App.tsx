@@ -31,7 +31,6 @@ const App: FC = () => {
   if (!user.isLoggedIn) {
     return (
       <div className="main-wrapper">
-        {console.log(1)}
         <Switch>
           <Route path="/" render={() => <LoginForm />} exact />
           <Route path="/registration" render={() => <RegistrationForm />} />

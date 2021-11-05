@@ -11,8 +11,6 @@ interface IButton {
 }
 
 export const ButtonService: FC<IButton> = (props) => {
-  console.log(props.className);
-
   return (
     <div className={styles.button}>
       <input

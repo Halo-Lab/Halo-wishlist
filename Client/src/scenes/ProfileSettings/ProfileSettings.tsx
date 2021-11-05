@@ -1,5 +1,4 @@
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
-import cn from 'classnames';
 
 import { ButtonService } from '../../components/common/ButtonSendForm/ButtonSendForm';
 import Icon from '../../components/common/IconComponent/Icon';
@@ -53,19 +52,17 @@ export const ProfileSettings = () => {
             <div className={styles.selectors}>
               <div>
                 <label>Language</label>
-                <select name="select">
+                <select name="select" defaultValue="value2">
                   <option value="value1">Значение 1</option>
-                  <option value="value2" selected>
-                    Значение 2
-                  </option>
+                  <option value="value2">Значение 2</option>
                   <option value="value3">Значение 3</option>
                 </select>
               </div>
               <div>
                 <label>Membership</label>
-                <select name="select">
+                <select name="select" defaultValue="value3">
                   <option value="value1">Значение 1</option>
-                  <option value="value2" selected>
+                  <option value="value2" defaultValue="true">
                     Значение 2
                   </option>
                   <option value="value3">Значение 3</option>
