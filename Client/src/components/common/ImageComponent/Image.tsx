@@ -7,7 +7,7 @@ export interface IImage {
   src: string;
   alt: string;
   width: number;
-  height: number;
+  height?: number;
   circle?: boolean;
   className?: string;
 }
@@ -21,7 +21,9 @@ const Image: FC<IImage> = ({
   circle,
   ...attrs
 }) => {
-  const classes = classNames(className, { [styles.circle]: circle });
+  const classes = classNames(className, styles.baseImage, {
+    [styles.circle]: circle,
+  });
 
   if (!src) {
     src = `https://via.placeholder.com/${width}x${height}`;

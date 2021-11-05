@@ -93,7 +93,7 @@ const RegistrationForm: FC = () => {
         </div>
         <p className={styles.loginLink}>
           {t('auth.haveAccount')}{' '}
-          <NavLink to="/login" className={styles.navLink}>
+          <NavLink to="/" className={styles.navLink}>
             {t('auth.login')}
           </NavLink>
         </p>
