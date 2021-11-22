@@ -12,7 +12,6 @@ import Icon from '../../components/common/IconComponent/Icon';
 import Image from '../../components/common/ImageComponent/Image';
 import { AppRootStateType } from '../../store/store';
 
-import profilePhoto from '../../assets/png/testphoto.png';
 import wishliLogo from '../../assets/svg/wishli-logo.svg';
 
 import styles from './ProfileSettings.module.scss';
