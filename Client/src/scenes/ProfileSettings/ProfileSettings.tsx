@@ -45,6 +45,8 @@ export const ProfileSettings = () => {
     email,
     bio,
     nickName,
+    password: '',
+    newPassword: '',
   };
 
   return (
@@ -59,6 +61,8 @@ export const ProfileSettings = () => {
             values.bio,
             values.birthday,
             values.nickName,
+            values.password,
+            values.newPassword,
           )
         }
       >
@@ -149,11 +153,9 @@ export const ProfileSettings = () => {
                     </div>
                     <div>
                       <label>Membership</label>
-                      <select name="select" defaultValue="value3">
-                        <option value="value1">Значение 1</option>
-                        <option value="value2" defaultValue="true">
-                          Значение 2
-                        </option>
+                      <select name="select" defaultValue="value1" disabled>
+                        <option value="value1">Best user ever!</option>
+                        <option value="value2">Значение 2</option>
                         <option value="value3">Значение 3</option>
                       </select>
                     </div>
@@ -167,11 +169,19 @@ export const ProfileSettings = () => {
                 <div className={styles.selectors}>
                   <div>
                     <label>Old password</label>
-                    <input type="text" />
+                    <FormikTextInput
+                      type="password"
+                      name="password"
+                      placeholder="old password"
+                    />
                   </div>
                   <div>
                     <label>New password</label>
-                    <input type="text" />
+                    <FormikTextInput
+                      type="password"
+                      name="newPassword"
+                      placeholder="new password"
+                    />
                   </div>
                 </div>
               </section>

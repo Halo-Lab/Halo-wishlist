@@ -12,7 +12,9 @@ export default class UserRequest {
     bio: string,
     date: any,
     nickName: string,
+    password?: string | number,
+    newPassword?: string | number,
   ): Promise<AxiosResponse> {
-    return api.put('/user', { name, bio, date, nickName });
+    return api.put('/user', { name, bio, date, nickName, password, newPassword });
   }
 }

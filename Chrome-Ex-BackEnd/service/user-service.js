@@ -123,6 +123,20 @@ class UserService {
     await user.save();
     return { user };
   }
+
+  async changePassword(_id, password, newPassword) {
+    const user = await UserModel.findOne({ _id });
+    const isPassEquals = await bcrypt.compare(password, user.password);
+    if (!isPassEquals) {
+      throw ApiError.BadRequest(`Incorrect Password`);
+    }
+    
+    const hashNewPassword = await bcrypt.hash(newPassword, 3);
+    user.password = hashNewPassword
+
+    await user.save()
+    return { user };
+  }
 }
 
 module.exports = new UserService();

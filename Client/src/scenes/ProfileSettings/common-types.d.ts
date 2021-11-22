@@ -4,4 +4,6 @@ export type IInitialValues = {
   email: string;
   bio: string;
   nickName: string;
+  password?: string | number;
+  newPassword?: string | number;
 };
