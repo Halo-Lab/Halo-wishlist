@@ -24,6 +24,11 @@ const initialState: UserStateType = {
     name: '',
     bio: '',
     date: '',
+
+    nickName: '',
+    facebook: '',
+    instagram: '',
+    twitter: '',
     userPic: '',
     wishlist: [],
   },

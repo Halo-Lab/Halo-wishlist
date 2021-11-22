@@ -11,6 +11,7 @@ import { FormikTextInput } from '../../components/common/FormikInput/FormikInput
 import Icon from '../../components/common/IconComponent/Icon';
 import Image from '../../components/common/ImageComponent/Image';
 import { AppRootStateType } from '../../store/store';
+import { IInitialValues } from './common-types';
 
 
 import profilePhoto from '../../assets/png/testphoto.png';
@@ -20,7 +21,12 @@ import wishlyLogo from '../../assets/svg/wishly-logo.svg';
 import styles from './ProfileSettings.module.scss';
 
 export const ProfileSettings = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+
+  const changeLanguage = (lang: string) => {
+    i18n.changeLanguage(lang);
+  };
+
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
       .email(t('errors.notValidEmail'))
@@ -32,9 +38,21 @@ export const ProfileSettings = () => {
       .required(t('errors.required')),
   });
 
-  const { email, userPic, bio, date, name } = useSelector(
-    (state: AppRootStateType) => state.users.user,
-  );
+  const { email, userPic, bio, date, name, nickName, facebook, instagram, twitter } =
+    useSelector((state: AppRootStateType) => state.users.user);
+
+  const initialValues: IInitialValues = {
+    name,
+    date,
+    email,
+    bio,
+    nickName,
+    password: '',
+    newPassword: '',
+    facebook,
+    twitter,
+    instagram,
+  };
 
   return (
     <div className={styles.pageWrapper}>
@@ -95,15 +113,10 @@ export const ProfileSettings = () => {
                 </select>
       <img className={styles.logo} src={wishliLogo} alt="Wishli logo"></img>
       <Formik
-        initialValues={{
-          name,
-          birthday: date,
-          email,
-          bio,
-        }}
+        initialValues={initialValues}
         validationSchema={LoginSchema}
         onSubmit={(values) =>
-          UserRequest.updateUSerProfile(values.name, values.bio, values.birthday)
+          UserRequest.updateUSerProfile({ ...values, date: values.date })
         }
       >
         {({ errors, values, setFieldValue }) => (
@@ -136,12 +149,12 @@ export const ProfileSettings = () => {
                   <label>Birthday date</label>
 
                   <DatePicker
-                    selected={new Date(values.birthday)}
+                    selected={new Date(values.date)}
                     dateFormat="d.MM.yyyy"
-                    name="birthday"
+                    name="date"
                     peekNextMonth={false}
                     className={styles.datePicker}
-                    onChange={(date) => setFieldValue('birthday', date)}
+                    onChange={(date) => setFieldValue('date', date)}
                     placeholderText="12.12.1998"
                   />
                   <label>Email</label>
@@ -167,26 +180,35 @@ export const ProfileSettings = () => {
                 </div>
                 <div className={styles.section}>
                   <label>Username</label>
-                  <input placeholder="Darrell Steward" className={styles.userName} />
+                  <FormikTextInput
+                    className={styles.userName}
+                    name="nickName"
+                    type="text"
+                    placeholder="darrell_steward"
+                  />
                   <p className={styles.url}>
-                    Your Wish URL: https://wish.com/darrell_steward
+                    Your Wish URL:
+                    {`https://wish.com/${
+                      nickName.length > 0 ? nickName : 'darrell_steward'
+                    }`}
                   </p>
                   <div className={styles.selectors}>
                     <div>
                       <label>Language</label>
-                      <select name="select" defaultValue="value2">
-                        <option value="value1">Значение 1</option>
-                        <option value="value2">Значение 2</option>
-                        <option value="value3">Значение 3</option>
+                      <select
+                        name="select"
+                        defaultValue="value1"
+                        onChange={(e) => changeLanguage(e.target.value)}
+                      >
+                        <option value="en">English</option>
+                        <option value="uk">Ukrainian</option>
                       </select>
                     </div>
                     <div>
                       <label>Membership</label>
-                      <select name="select" defaultValue="value3">
-                        <option value="value1">Значение 1</option>
-                        <option value="value2" defaultValue="true">
-                          Значение 2
-                        </option>
+                      <select name="select" defaultValue="value1" disabled>
+                        <option value="value1">Best user ever!</option>
+                        <option value="value2">Значение 2</option>
                         <option value="value3">Значение 3</option>
                       </select>
                     </div>
@@ -200,11 +222,19 @@ export const ProfileSettings = () => {
                 <div className={styles.selectors}>
                   <div>
                     <label>Old password</label>
-                    <input type="text" />
+                    <FormikTextInput
+                      type="password"
+                      name="password"
+                      placeholder="old password"
+                    />
                   </div>
                   <div>
                     <label>New password</label>
-                    <input type="text" />
+                    <FormikTextInput
+                      type="password"
+                      name="newPassword"
+                      placeholder="new password"
+                    />
                   </div>
                 </div>
               </section>
@@ -214,19 +244,22 @@ export const ProfileSettings = () => {
                 </div>
                 <div className={styles.section}>
                   <label>Facebook</label>
-                  <input
+                  <FormikTextInput
                     type="text"
-                    placeholder="https://ru-ru.facebook.com/login/"
+                    name="facebook"
+                    placeholder="https://facebook.com"
                   />
                   <label>Twitter</label>
-                  <input
+                  <FormikTextInput
                     type="text"
-                    placeholder="https://ru-ru.facebook.com/login/"
+                    name="twitter"
+                    placeholder="https://twitter.com"
                   />
                   <label>Instagram</label>
-                  <input
+                  <FormikTextInput
                     type="text"
-                    placeholder="https://ru-ru.facebook.com/login/"
+                    name="instagram"
+                    placeholder="https://instagram.com"
                   />
                 </div>
               </section>

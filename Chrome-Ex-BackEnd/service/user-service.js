@@ -97,7 +97,7 @@ class UserService {
     return { user };
   }
 
-  async updateUser(_id, name, bio, date) {
+  async updateUser(_id, name, bio, date, nickName, facebook, twitter, instagram) {
     const user = await UserModel.findOne({ _id });
     if (!user) {
       throw ApiError.BadRequest(`User not found`);
@@ -106,6 +106,10 @@ class UserService {
     user.name = name;
     user.bio = bio;
     user.date = date;
+    user.nickName = nickName;
+    user.facebook = facebook;
+    user.instagram = instagram;
+    user.twitter = twitter;
 
     await user.save();
     return { user };
@@ -120,6 +124,20 @@ class UserService {
     user.userPic = userPic;
 
     await user.save();
+    return { user };
+  }
+
+  async changePassword(_id, password, newPassword) {
+    const user = await UserModel.findOne({ _id });
+    const isPassEquals = await bcrypt.compare(password, user.password);
+    if (!isPassEquals) {
+      throw ApiError.BadRequest(`Incorrect Password`);
+    }
+    
+    const hashNewPassword = await bcrypt.hash(newPassword, 3);
+    user.password = hashNewPassword
+
+    await user.save()
     return { user };
   }
 }

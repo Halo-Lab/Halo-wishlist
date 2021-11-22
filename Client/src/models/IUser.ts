@@ -3,10 +3,14 @@ export interface IUser {
   isActivated: boolean;
   id: string;
   name: string;
+  nickName: string;
+  facebook: string;
+  instagram: string;
+  twitter: string;
   bio: string;
   date: string;
   userPic: string;
-  wishlist: Array<string>
+  wishlist: Array<string>;
 }
 
 export interface ILogin {

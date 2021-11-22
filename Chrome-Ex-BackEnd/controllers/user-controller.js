@@ -100,8 +100,11 @@ class UserController {
       if (!errors.isEmpty()) {
         return next(ApiError.BadRequest('Validation Error', errors.array()));
       }
-      const { name, bio, date } = req.body;
-      const userData = await userService.updateUser(id, name, bio, date);
+      const { name, bio, date, nickName, password, newPassword, facebook, instagram,twitter } = req.body;
+      if(newPassword?.length > 0) {
+        await userService.changePassword(id, password, newPassword)
+      }
+      const userData = await userService.updateUser(id, name, bio, date, nickName, facebook, instagram,twitter);
       return res.json(userData);
     } catch (e) {
       next(e);
