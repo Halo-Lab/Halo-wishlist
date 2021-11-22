@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import { logoutUser } from '../../../store/user-reducer';
 
-import wishliLogo from '../../../assets/svg/wishli-logo.svg';
+import wishliLogo from '../../../assets/svg/wishly-logo.svg';
 
 import styles from './SideBar.module.scss';
 
