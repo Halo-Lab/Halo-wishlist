@@ -15,6 +15,9 @@ const UserSchema = new Schema({
   date: {type: Date, default: ''},
   userPic: {type: String, default: ''},
   nickName: {type: String, default: ''},
+  facebook: {type: String, default: ''},
+  instagram: {type: String, default: ''},
+  twitter: {type: String, default: ''},
 });
 
 module.exports = model('User', UserSchema);

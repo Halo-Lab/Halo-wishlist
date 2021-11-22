@@ -26,6 +26,9 @@ const initialState: UserStateType = {
     bio: '',
     date: '',
     nickName: '',
+    facebook: '',
+    instagram: '',
+    twitter: '',
   },
 };
 

@@ -35,9 +35,8 @@ export const ProfileSettings = () => {
       .required(t('errors.required')),
   });
 
-  const { email, userPic, bio, date, name, nickName } = useSelector(
-    (state: AppRootStateType) => state.users.user,
-  );
+  const { email, userPic, bio, date, name, nickName, facebook, instagram, twitter } =
+    useSelector((state: AppRootStateType) => state.users.user);
 
   const initialValues: IInitialValues = {
     name,
@@ -47,6 +46,9 @@ export const ProfileSettings = () => {
     nickName,
     password: '',
     newPassword: '',
+    facebook,
+    twitter,
+    instagram,
   };
 
   return (
@@ -61,6 +63,9 @@ export const ProfileSettings = () => {
             values.bio,
             values.birthday,
             values.nickName,
+            values.facebook,
+            values.twitter,
+            values.instagram,
             values.password,
             values.newPassword,
           )
@@ -191,19 +196,22 @@ export const ProfileSettings = () => {
                 </div>
                 <div className={styles.section}>
                   <label>Facebook</label>
-                  <input
+                  <FormikTextInput
                     type="text"
-                    placeholder="https://ru-ru.facebook.com/login/"
+                    name="facebook"
+                    placeholder="https://facebook.com"
                   />
                   <label>Twitter</label>
-                  <input
+                  <FormikTextInput
                     type="text"
-                    placeholder="https://ru-ru.facebook.com/login/"
+                    name="twitter"
+                    placeholder="https://twitter.com"
                   />
                   <label>Instagram</label>
-                  <input
+                  <FormikTextInput
                     type="text"
-                    placeholder="https://ru-ru.facebook.com/login/"
+                    name="instagram"
+                    placeholder="https://instagram.com"
                   />
                 </div>
               </section>

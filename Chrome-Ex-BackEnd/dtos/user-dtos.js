@@ -8,6 +8,9 @@ module.exports = class UserDto {
   date;
   userPic;
   nickName;
+  facebook;
+  instagram;
+  twitter;
 
   constructor(modal) {
     this.email = modal.email;
@@ -19,5 +22,8 @@ module.exports = class UserDto {
     this.date = modal.date;
     this.userPic = modal.userPic;
     this.nickName = modal.nickName;
+    this.facebook = modal.facebook;
+    this.instagram = modal.instagram;
+    this.twitter = modal.twitter;
   }
 };

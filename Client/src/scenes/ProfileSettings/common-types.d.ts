@@ -1,9 +1,12 @@
 export type IInitialValues = {
   name: string;
   birthday: string;
-  email: string;
+  email?: string;
   bio: string;
   nickName: string;
-  password?: string | number;
-  newPassword?: string | number;
+  facebook: string;
+  twitter: string;
+  instagram: string;
+  password: string;
+  newPassword: string;
 };

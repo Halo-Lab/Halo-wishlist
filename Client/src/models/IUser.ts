@@ -7,6 +7,9 @@ export interface IUser {
   date: any;
   name: string;
   nickName: string;
+  facebook: string;
+  instagram: string;
+  twitter: string;
 }
 
 export interface ILogin {
