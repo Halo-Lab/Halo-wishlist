@@ -40,7 +40,7 @@ export const ProfileSettings = () => {
 
   const initialValues: IInitialValues = {
     name,
-    birthday: date,
+    date,
     email,
     bio,
     nickName,
@@ -58,17 +58,7 @@ export const ProfileSettings = () => {
         initialValues={initialValues}
         validationSchema={LoginSchema}
         onSubmit={(values) =>
-          UserRequest.updateUSerProfile(
-            values.name,
-            values.bio,
-            values.birthday,
-            values.nickName,
-            values.facebook,
-            values.twitter,
-            values.instagram,
-            values.password,
-            values.newPassword,
-          )
+          UserRequest.updateUSerProfile({ ...values, date: values.date })
         }
       >
         {({ errors, values, setFieldValue }) => (
@@ -101,12 +91,12 @@ export const ProfileSettings = () => {
                   <label>Birthday date</label>
 
                   <DatePicker
-                    selected={new Date(values.birthday)}
+                    selected={new Date(values.date)}
                     dateFormat="d.MM.yyyy"
-                    name="birthday"
+                    name="date"
                     peekNextMonth={false}
                     className={styles.datePicker}
-                    onChange={(date) => setFieldValue('birthday', date)}
+                    onChange={(date) => setFieldValue('date', date)}
                     placeholderText="12.12.1998"
                   />
                   <label>Email</label>
@@ -139,7 +129,7 @@ export const ProfileSettings = () => {
                     placeholder="darrell_steward"
                   />
                   <p className={styles.url}>
-                    Your Wish URL:{' '}
+                    Your Wish URL:
                     {`https://wish.com/${
                       nickName.length > 0 ? nickName : 'darrell_steward'
                     }`}
