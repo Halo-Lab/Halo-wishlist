@@ -2,11 +2,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { Dispatch } from 'redux';
 
+import { API_URL } from '../api';
 import AuthRequest from '../api/request/AuthRequest';
 import UserRequest from '../api/request/UserRequest';
-import { API_URL } from './../api/index';
-import { IUser } from './../models/IUser';
-import { AuthResponse } from './../models/response/AuthResponse';
+import { IUser } from '../models/IUser';
+import { AuthResponse } from '../models/response/AuthResponse';
 
 export type UserStateType = {
   isLoggedIn: boolean;
@@ -21,14 +21,16 @@ const initialState: UserStateType = {
     email: '',
     isActivated: false,
     id: '',
-    userPic: '',
     name: '',
     bio: '',
     date: '',
+
     nickName: '',
     facebook: '',
     instagram: '',
     twitter: '',
+    userPic: '',
+    wishlist: [],
   },
 };
 

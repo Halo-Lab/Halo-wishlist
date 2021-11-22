@@ -19,7 +19,6 @@ const Upload = () => {
     try {
       const res = await s3.uploadFile(file);
       if (res.status === 204) {
-        console.log(res.location);
         dispatch(updateUserPic(res.location));
       }
     } catch (exception) {

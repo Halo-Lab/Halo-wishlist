@@ -1,16 +1,16 @@
 import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { Switch, Redirect, Route, useHistory } from 'react-router-dom';
+import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 
 import LoginForm from './components/LoginForm/LoginForm';
 import RegistrationForm from './components/RegistrationForm/RegistrationForm';
+import { MainLayout } from './components/layout/MainLayout';
+import { AdminPage } from './scenes/AdminPage/AdminPage';
 import { ProfilePage } from './scenes/ProfilePage/ProfilePage';
 import { ProfileSettings } from './scenes/ProfileSettings/ProfileSettings';
-import { ViewPage } from './scenes/ViewPage';
 import { AppRootStateType } from './store/store';
-import { UserStateType } from './store/user-reducer';
-import { checkUserLogin } from './store/user-reducer';
+import { checkUserLogin, UserStateType } from './store/user-reducer';
 
 const App: FC = () => {
   const dispatch = useDispatch();
@@ -54,7 +54,7 @@ const App: FC = () => {
         <Switch>
           <Route path="/" render={() => <LoginForm />} exact />
           <Route path="/registration" render={() => <RegistrationForm />} />
-          <Route path={`/:${nick}/:listID`} render={() => <ViewPage />} />
+          {/*<Route path={`/:${nick}/:listID`} render={() => <MainLayout />} />*/}
           <Route
             render={() => (
               <div>
@@ -72,6 +72,7 @@ const App: FC = () => {
     <div className="main-wrapper">
       <Switch>
         <Route path="/settings" render={() => <ProfileSettings />} exact />
+        <Route path={`/admin`} render={() => <AdminPage />} exact />
         <Route
           path="/"
           render={() => (
