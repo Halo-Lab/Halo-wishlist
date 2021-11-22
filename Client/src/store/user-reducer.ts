@@ -2,11 +2,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { Dispatch } from 'redux';
 
+import { API_URL } from '../api';
 import AuthRequest from '../api/request/AuthRequest';
 import UserRequest from '../api/request/UserRequest';
-import { API_URL } from './../api/index';
-import { IUser } from './../models/IUser';
-import { AuthResponse } from './../models/response/AuthResponse';
+import { IUser } from '../models/IUser';
+import { AuthResponse } from '../models/response/AuthResponse';
 
 export type UserStateType = {
   isLoggedIn: boolean;
@@ -17,7 +17,16 @@ export type UserStateType = {
 const initialState: UserStateType = {
   isLoggedIn: false,
   isLoading: false,
-  user: { email: '', isActivated: false, id: '', userPic: '' },
+  user: {
+    email: '',
+    isActivated: false,
+    id: '',
+    name: '',
+    bio: '',
+    date: '',
+    userPic: '',
+    wishlist: [],
+  },
 };
 
 const slice = createSlice({
@@ -84,20 +93,19 @@ export const checkUserLogin = () => async (dispatch: Dispatch) => {
   }
 };
 
-export const updateUserPic =
-  (userPic: string) => (dispatch: Dispatch) => {
-    dispatch(setLoadingAc(true));
-    UserRequest.updateUserPic(userPic)
-      .then((res) => {
-        dispatch(setUserAC(res.data.user));
-      })
-      .catch((e) => {
-        console.log(e);
-      })
-      .finally(() => {
-        dispatch(setLoadingAc(false));
-      });
-  };
+export const updateUserPic = (userPic: string) => (dispatch: Dispatch) => {
+  dispatch(setLoadingAc(true));
+  UserRequest.updateUserPic(userPic)
+    .then((res) => {
+      dispatch(setUserAC(res.data.user));
+    })
+    .catch((e) => {
+      console.log(e);
+    })
+    .finally(() => {
+      dispatch(setLoadingAc(false));
+    });
+};
 
 export const userReducer = slice.reducer;
 export const { setUserAC, setIsLoggedInAC, setLoadingAc } = slice.actions;

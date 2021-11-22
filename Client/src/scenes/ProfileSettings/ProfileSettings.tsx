@@ -5,14 +5,14 @@ import Icon from '../../components/common/IconComponent/Icon';
 import Image from '../../components/common/ImageComponent/Image';
 
 import profilePhoto from '../../assets/png/testphoto.png';
-import wishliLogo from '../../assets/svg/wishli-logo.svg';
+import wishlyLogo from '../../assets/svg/wishly-logo.svg';
 
 import styles from './ProfileSettings.module.scss';
 
 export const ProfileSettings = () => {
   return (
     <div className={styles.pageWrapper}>
-      <img className={styles.logo} src={wishliLogo} alt="Wishli logo"></img>
+      <img className={styles.logo} src={wishlyLogo} alt="Wishli logo"></img>
       <div className={styles.settings}>
         <section className={styles.iconBlock}>
           <Image alt="User Photo" src={profilePhoto} width={88} height={88} circle />

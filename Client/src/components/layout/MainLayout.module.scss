@@ -4,10 +4,12 @@
   position: relative;
   flex-direction: column;
   width: 100%;
-  padding: 2rem;
-  direction: flex;
+  padding: 16px 24px;
   background: $color__white;
 
+  &__header {
+
+  }
   &__top {
     display: flex;
     align-items: center;
@@ -18,7 +20,7 @@
 
   &__middle {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: space-between;
     margin: 0 0 1.5rem 0;
     padding: 0.75rem 0;
@@ -37,6 +39,21 @@
     display: flex;
     flex-direction: column;
   }
+}
+
+.tabs span{
+  margin-right: 24px;
+  cursor: pointer;
+}
+
+.tab{
+  padding-bottom: 5px;
+}
+
+.activeTab {
+  padding-bottom: 10px;
+  border-bottom: 2px solid black;
+  transition: .2s;
 }
 
 .user {

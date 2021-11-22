@@ -2,7 +2,7 @@ import api from '..';
 import { AxiosResponse } from 'axios';
 
 import { AuthResponse } from '../../models/response/AuthResponse';
-import { WishlistResponse } from '../../models/response/WishlistResponse';
+import { IWishlist } from '../../models/IWishlist';
 
 export default class AuthRequest {
   static async login(
@@ -22,6 +22,6 @@ export default class AuthRequest {
     return api.post('/logout');
   }
   static async getWishlist(listID: string) {
-    return api.get<WishlistResponse>(`/wishlist/${listID}`);
+    return api.get<IWishlist>(`/wishlist/${listID}`);
   }
 }

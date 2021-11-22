@@ -1,7 +1,7 @@
+import { IProduct } from './IProduct';
+
 export interface IWishlist {
-  url: string;
-  nameURL: string;
-  image: string;
-  price: string;
-  _id: string;
+  userId: string;
+  name: string;
+  items: IProduct[];
 }
