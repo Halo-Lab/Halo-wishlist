@@ -11,13 +11,19 @@ import { FormikTextInput } from '../../components/common/FormikInput/FormikInput
 import Icon from '../../components/common/IconComponent/Icon';
 import Image from '../../components/common/ImageComponent/Image';
 import { AppRootStateType } from '../../store/store';
+import { IInitialValues } from './common-types';
 
 import wishliLogo from '../../assets/svg/wishli-logo.svg';
 
 import styles from './ProfileSettings.module.scss';
 
 export const ProfileSettings = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+
+  const changeLanguage = (lang: string) => {
+    i18n.changeLanguage(lang);
+  };
+
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
       .email(t('errors.notValidEmail'))
@@ -29,23 +35,31 @@ export const ProfileSettings = () => {
       .required(t('errors.required')),
   });
 
-  const { email, userPic, bio, date, name } = useSelector(
+  const { email, userPic, bio, date, name, nickName } = useSelector(
     (state: AppRootStateType) => state.users.user,
   );
+
+  const initialValues: IInitialValues = {
+    name,
+    birthday: date,
+    email,
+    bio,
+    nickName,
+  };
 
   return (
     <div className={styles.pageWrapper}>
       <img className={styles.logo} src={wishliLogo} alt="Wishli logo"></img>
       <Formik
-        initialValues={{
-          name,
-          birthday: date,
-          email,
-          bio,
-        }}
+        initialValues={initialValues}
         validationSchema={LoginSchema}
         onSubmit={(values) =>
-          UserRequest.updateUSerProfile(values.name, values.bio, values.birthday)
+          UserRequest.updateUSerProfile(
+            values.name,
+            values.bio,
+            values.birthday,
+            values.nickName,
+          )
         }
       >
         {({ errors, values, setFieldValue }) => (
@@ -109,17 +123,28 @@ export const ProfileSettings = () => {
                 </div>
                 <div className={styles.section}>
                   <label>Username</label>
-                  <input placeholder="Darrell Steward" className={styles.userName} />
+                  <FormikTextInput
+                    className={styles.userName}
+                    name="nickName"
+                    type="text"
+                    placeholder="darrell_steward"
+                  />
                   <p className={styles.url}>
-                    Your Wish URL: https://wish.com/darrell_steward
+                    Your Wish URL:{' '}
+                    {`https://wish.com/${
+                      nickName.length > 0 ? nickName : 'darrell_steward'
+                    }`}
                   </p>
                   <div className={styles.selectors}>
                     <div>
                       <label>Language</label>
-                      <select name="select" defaultValue="value2">
-                        <option value="value1">Значение 1</option>
-                        <option value="value2">Значение 2</option>
-                        <option value="value3">Значение 3</option>
+                      <select
+                        name="select"
+                        defaultValue="value1"
+                        onChange={(e) => changeLanguage(e.target.value)}
+                      >
+                        <option value="en">English</option>
+                        <option value="uk">Ukrainian</option>
                       </select>
                     </div>
                     <div>

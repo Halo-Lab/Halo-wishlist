@@ -100,8 +100,8 @@ class UserController {
       if (!errors.isEmpty()) {
         return next(ApiError.BadRequest('Validation Error', errors.array()));
       }
-      const { name, bio, date } = req.body;
-      const userData = await userService.updateUser(id, name, bio, date);
+      const { name, bio, date, nickName } = req.body;
+      const userData = await userService.updateUser(id, name, bio, date, nickName);
       return res.json(userData);
     } catch (e) {
       next(e);

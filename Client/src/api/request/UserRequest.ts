@@ -11,7 +11,8 @@ export default class UserRequest {
     name: string,
     bio: string,
     date: any,
+    nickName: string,
   ): Promise<AxiosResponse> {
-    return api.put('/user', { name, bio, date });
+    return api.put('/user', { name, bio, date, nickName });
   }
 }

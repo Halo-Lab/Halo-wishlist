@@ -97,7 +97,7 @@ class UserService {
     return { user };
   }
 
-  async updateUser(_id, name, bio, date) {
+  async updateUser(_id, name, bio, date, nickName) {
     const user = await UserModel.findOne({ _id });
     if (!user) {
       throw ApiError.BadRequest(`User not found`);
@@ -106,6 +106,7 @@ class UserService {
     user.name = name;
     user.bio = bio;
     user.date = date;
+    user.nickName = nickName;
 
     await user.save();
     return { user };

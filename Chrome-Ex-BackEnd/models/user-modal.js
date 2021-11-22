@@ -14,6 +14,7 @@ const UserSchema = new Schema({
   bio: {type: String, default: ''},
   date: {type: Date, default: ''},
   userPic: {type: String, default: ''},
+  nickName: {type: String, default: ''},
 });
 
 module.exports = model('User', UserSchema);

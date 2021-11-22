@@ -25,6 +25,7 @@ const initialState: UserStateType = {
     name: '',
     bio: '',
     date: '',
+    nickName: '',
   },
 };
 

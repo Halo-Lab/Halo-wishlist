@@ -6,6 +6,7 @@ export interface IUser {
   bio: string;
   date: any;
   name: string;
+  nickName: string;
 }
 
 export interface ILogin {
