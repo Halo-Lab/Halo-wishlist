@@ -17,7 +17,15 @@ export type UserStateType = {
 const initialState: UserStateType = {
   isLoggedIn: false,
   isLoading: false,
-  user: { email: '', isActivated: false, id: '', userPic: '' },
+  user: {
+    email: '',
+    isActivated: false,
+    id: '',
+    userPic: '',
+    name: '',
+    bio: '',
+    date: '',
+  },
 };
 
 const slice = createSlice({
@@ -84,20 +92,19 @@ export const checkUserLogin = () => async (dispatch: Dispatch) => {
   }
 };
 
-export const updateUserPic =
-  (userPic: string) => (dispatch: Dispatch) => {
-    dispatch(setLoadingAc(true));
-    UserRequest.updateUserPic(userPic)
-      .then((res) => {
-        dispatch(setUserAC(res.data.user));
-      })
-      .catch((e) => {
-        console.log(e);
-      })
-      .finally(() => {
-        dispatch(setLoadingAc(false));
-      });
-  };
+export const updateUserPic = (userPic: string) => (dispatch: Dispatch) => {
+  dispatch(setLoadingAc(true));
+  UserRequest.updateUserPic(userPic)
+    .then((res) => {
+      dispatch(setUserAC(res.data.user));
+    })
+    .catch((e) => {
+      console.log(e);
+    })
+    .finally(() => {
+      dispatch(setLoadingAc(false));
+    });
+};
 
 export const userReducer = slice.reducer;
 export const { setUserAC, setIsLoggedInAC, setLoadingAc } = slice.actions;
