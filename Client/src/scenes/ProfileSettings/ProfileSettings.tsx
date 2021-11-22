@@ -55,7 +55,7 @@ export const ProfileSettings = () => {
               <section className={styles.iconBlock}>
                 <Image
                   alt="User Photo"
-                  src={profilePhoto}
+                  src={userPic}
                   width={88}
                   height={88}
                   circle
