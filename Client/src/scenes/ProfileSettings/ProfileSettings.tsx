@@ -102,25 +102,24 @@ export const ProfileSettings = () => {
                   <Icon size="sm" name={faUpload} />
                   <input
                     type="file"
-                    id="1"
                     className={styles.uploadInput}
                     onChange={handleFileInput}
                   />
-                  <span>upload</span>
+                  <span>{t('settings.upload')}</span>
                 </div>
               </section>
               <section>
                 <div className={styles.sectionName}>
-                  <p>Public profile</p>
+                  <p>{t('settings.PublicProfile')}</p>
                 </div>
                 <div className={styles.section}>
-                  <label>Name</label>
+                  <label>{t('settings.name')}</label>
                   <FormikTextInput
                     name="name"
                     type="text"
                     placeholder="Darrell Steward"
                   />
-                  <label>Birthday date</label>
+                  <label> {t('settings.birthdayDate')}</label>
 
                   <DatePicker
                     selected={new Date(values.date)}
@@ -131,14 +130,14 @@ export const ProfileSettings = () => {
                     onChange={(date) => setFieldValue('date', date)}
                     placeholderText="12.12.1998"
                   />
-                  <label>Email</label>
+                  <label>{t('settings.email')}</label>
                   <FormikTextInput
                     name="email"
                     type="email"
                     disabled={true}
                     placeholder="darrell@steward.com"
                   />
-                  <label>Bio</label>
+                  <label>{t('settings.bio')}</label>
                   <FormikTextInput
                     name="bio"
                     type="text"
@@ -150,10 +149,10 @@ export const ProfileSettings = () => {
               </section>
               <section>
                 <div className={styles.sectionName}>
-                  <p>Account setting</p>
+                  <p> {t('settings.AccountSetting')}</p>
                 </div>
                 <div className={styles.section}>
-                  <label>Username</label>
+                  <label>{t('settings.username')}</label>
                   <FormikTextInput
                     className={styles.userName}
                     name="nickName"
@@ -161,17 +160,17 @@ export const ProfileSettings = () => {
                     placeholder="darrell_steward"
                   />
                   <p className={styles.url}>
-                    Your Wish URL:
-                    {`https://wish.com/${
+                    {t('settings.url')}:
+                    {` https://wish.com/${
                       nickName.length > 0 ? nickName : 'darrell_steward'
                     }`}
                   </p>
                   <div className={styles.selectors}>
                     <div>
-                      <label>Language</label>
+                      <label>{t('settings.language')}</label>
                       <select
                         name="select"
-                        defaultValue="value1"
+                        defaultValue={localStorage.getItem('i18nextLng') || 'en'}
                         onChange={(e) => changeLanguage(e.target.value)}
                       >
                         <option value="en">English</option>
@@ -191,11 +190,11 @@ export const ProfileSettings = () => {
               </section>
               <section className={styles.section}>
                 <div className={styles.sectionName}>
-                  <p>Password</p>
+                  <p>{t('settings.Password')}</p>
                 </div>
                 <div className={styles.selectors}>
                   <div>
-                    <label>Old password</label>
+                    <label> {t('settings.oldPassword')}</label>
                     <FormikTextInput
                       type="password"
                       name="password"
@@ -203,7 +202,7 @@ export const ProfileSettings = () => {
                     />
                   </div>
                   <div>
-                    <label>New password</label>
+                    <label> {t('settings.newPassword')}</label>
                     <FormikTextInput
                       type="password"
                       name="newPassword"

@@ -155,11 +155,18 @@
 
 .uploadBox {
   position: relative;
+  cursor: pointer;
+}
+
+input[type=file], /* FF, IE7+, chrome (except button) */
+input[type=file]::-webkit-file-upload-button {
+  /* chromes and blink button */
+  cursor: pointer;
 }
 
 .uploadInput {
   opacity: 0;
   position: absolute;
   left: 0;
-  width: 70px;
+  width: 90px;
 }
