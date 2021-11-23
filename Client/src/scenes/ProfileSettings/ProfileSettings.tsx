@@ -7,13 +7,12 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
-import UserRequest from '../../api/request/UserRequest';
 import { ButtonService } from '../../components/common/ButtonSendForm/ButtonSendForm';
 import { FormikTextInput } from '../../components/common/FormikInput/FormikInput';
 import Icon from '../../components/common/IconComponent/Icon';
 import Image from '../../components/common/ImageComponent/Image';
 import { AppRootStateType } from '../../store/store';
-import { updateUserPic } from '../../store/user-reducer';
+import { updateUser, updateUserPic } from '../../store/user-reducer';
 import { s3Config } from '../../utils/s3Config';
 import { IInitialValues } from './common-types';
 
@@ -77,15 +76,17 @@ export const ProfileSettings = () => {
     instagram,
   };
 
+  const handleSubmitForm = (values) => {
+    dispatch(updateUser({ ...values, date: values.date }));
+  };
+
   return (
     <div className={styles.pageWrapper}>
       <img className={styles.logo} src={wishliLogo} alt="Wishli logo"></img>
       <Formik
         initialValues={initialValues}
         validationSchema={LoginSchema}
-        onSubmit={(values) =>
-          UserRequest.updateUSerProfile({ ...values, date: values.date })
-        }
+        onSubmit={(values) => handleSubmitForm(values)}
       >
         {({ errors, values, setFieldValue }) => (
           <Form>
@@ -162,7 +163,7 @@ export const ProfileSettings = () => {
                   <p className={styles.url}>
                     {t('settings.url')}:
                     {` https://wish.com/${
-                      nickName.length > 0 ? nickName : 'darrell_steward'
+                      nickName?.length > 0 ? nickName : 'darrell_steward'
                     }`}
                   </p>
                   <div className={styles.selectors}>
