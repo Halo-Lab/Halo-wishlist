@@ -99,16 +99,12 @@ export const checkUserLogin = () => async (dispatch: Dispatch) => {
 };
 
 export const updateUserPic = (userPic: string) => (dispatch: Dispatch) => {
-  dispatch(setLoadingAc(true));
   UserRequest.updateUserPic(userPic)
     .then((res) => {
       dispatch(setUserAC(res.data.user));
     })
     .catch((e) => {
       console.log(e);
-    })
-    .finally(() => {
-      dispatch(setLoadingAc(false));
     });
 };
 

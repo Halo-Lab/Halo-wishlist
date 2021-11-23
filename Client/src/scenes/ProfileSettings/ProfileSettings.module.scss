@@ -152,3 +152,14 @@
     color: rgb(236, 230, 217);
   }
 }
+
+.uploadBox {
+  position: relative;
+}
+
+.uploadInput {
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  width: 70px;
+}

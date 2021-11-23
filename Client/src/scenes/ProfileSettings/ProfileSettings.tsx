@@ -1,8 +1,10 @@
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { Form, Formik } from 'formik';
+import React from 'react';
+import ReactS3Client from 'react-aws-s3-typescript';
 import DatePicker from 'react-datepicker';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
 import UserRequest from '../../api/request/UserRequest';
@@ -11,6 +13,8 @@ import { FormikTextInput } from '../../components/common/FormikInput/FormikInput
 import Icon from '../../components/common/IconComponent/Icon';
 import Image from '../../components/common/ImageComponent/Image';
 import { AppRootStateType } from '../../store/store';
+import { updateUserPic } from '../../store/user-reducer';
+import { s3Config } from '../../utils/s3Config';
 import { IInitialValues } from './common-types';
 
 import wishliLogo from '../../assets/svg/wishly-logo.svg';
@@ -18,6 +22,7 @@ import wishliLogo from '../../assets/svg/wishly-logo.svg';
 import styles from './ProfileSettings.module.scss';
 
 export const ProfileSettings = () => {
+  const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
 
   const changeLanguage = (lang: string) => {
@@ -34,6 +39,27 @@ export const ProfileSettings = () => {
       .max(50, t('errors.passwordMaxLength'))
       .required(t('errors.required')),
   });
+
+  const handleUpload = async (file) => {
+    const s3 = new ReactS3Client(s3Config);
+
+    try {
+      const res = await s3.uploadFile(file);
+      if (res.status === 204) {
+        dispatch(updateUserPic(res.location));
+      }
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
+  const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    e.preventDefault();
+    if (e.target.files == null) {
+      throw new Error('Error finding e.target.files');
+    }
+    handleUpload(e.target.files[0]);
+  };
 
   const { email, userPic, bio, date, name, nickName, facebook, instagram, twitter } =
     useSelector((state: AppRootStateType) => state.users.user);
@@ -72,8 +98,14 @@ export const ProfileSettings = () => {
                   height={88}
                   circle
                 />
-                <div>
+                <div className={styles.uploadBox}>
                   <Icon size="sm" name={faUpload} />
+                  <input
+                    type="file"
+                    id="1"
+                    className={styles.uploadInput}
+                    onChange={handleFileInput}
+                  />
                   <span>upload</span>
                 </div>
               </section>
