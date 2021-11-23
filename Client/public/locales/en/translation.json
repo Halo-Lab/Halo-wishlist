@@ -19,7 +19,7 @@
     "passwordMaxLength": "max: 50 characters!"
   },
   "settings": {
-    "upload": "upload",
+    "upload": "Uploud new picture",
     "PublicProfile": "Public Profile",
     "name": "Name",
     "birthdayDate": "Birthday date",
@@ -29,8 +29,9 @@
     "username": "Username",
     "url": "Your Wish URL",
     "language": "Language",
-    "Password": "Password Settings",
+    "Password": "Password",
     "oldPassword": "Old password",
-    "newPassword": "New password"
+    "newPassword": "New password",
+    "socialProfiles": "Social profiles"
   }
 }

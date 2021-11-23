@@ -1,4 +1,3 @@
-import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { Form, Formik } from 'formik';
 import React from 'react';
 import ReactS3Client from 'react-aws-s3-typescript';
@@ -9,7 +8,6 @@ import * as Yup from 'yup';
 
 import { ButtonService } from '../../components/common/ButtonSendForm/ButtonSendForm';
 import { FormikTextInput } from '../../components/common/FormikInput/FormikInput';
-import Icon from '../../components/common/IconComponent/Icon';
 import Image from '../../components/common/ImageComponent/Image';
 import { AppRootStateType } from '../../store/store';
 import { updateUser, updateUserPic } from '../../store/user-reducer';
@@ -100,13 +98,13 @@ export const ProfileSettings = () => {
                   circle
                 />
                 <div className={styles.uploadBox}>
-                  <Icon size="sm" name={faUpload} />
+                  <label htmlFor="upload">{t('settings.upload')}</label>
                   <input
                     type="file"
+                    id="upload"
                     className={styles.uploadInput}
                     onChange={handleFileInput}
                   />
-                  <span>{t('settings.upload')}</span>
                 </div>
               </section>
               <section>
@@ -124,7 +122,7 @@ export const ProfileSettings = () => {
 
                   <DatePicker
                     selected={new Date(values.date)}
-                    dateFormat="d.MM.yyyy"
+                    dateFormat="dd.MM.yyyy"
                     name="date"
                     peekNextMonth={false}
                     className={styles.datePicker}
@@ -167,7 +165,7 @@ export const ProfileSettings = () => {
                     }`}
                   </p>
                   <div className={styles.selectors}>
-                    <div>
+                    <div className={styles.selectorCuret}>
                       <label>{t('settings.language')}</label>
                       <select
                         name="select"
@@ -178,7 +176,7 @@ export const ProfileSettings = () => {
                         <option value="uk">Ukrainian</option>
                       </select>
                     </div>
-                    <div>
+                    <div className={styles.selectorCuret}>
                       <label>Membership</label>
                       <select name="select" defaultValue="value1" disabled>
                         <option value="value1">Best user ever!</option>
@@ -196,25 +194,17 @@ export const ProfileSettings = () => {
                 <div className={styles.selectors}>
                   <div>
                     <label> {t('settings.oldPassword')}</label>
-                    <FormikTextInput
-                      type="password"
-                      name="password"
-                      placeholder="old password"
-                    />
+                    <FormikTextInput type="password" name="password" />
                   </div>
                   <div>
                     <label> {t('settings.newPassword')}</label>
-                    <FormikTextInput
-                      type="password"
-                      name="newPassword"
-                      placeholder="new password"
-                    />
+                    <FormikTextInput type="password" name="newPassword" />
                   </div>
                 </div>
               </section>
               <section>
                 <div className={styles.sectionName}>
-                  <p>Public profile</p>
+                  <p>{t('settings.socialProfiles')}</p>
                 </div>
                 <div className={styles.section}>
                   <label>Facebook</label>

@@ -19,7 +19,7 @@
     "passwordMaxLength": "максимум: 20 символів!"
   },
   "settings": {
-    "upload": "завантажити",
+    "upload": "Завантажити нове зображення",
     "PublicProfile": "Публічний профіль",
     "name": "Ім'я",
     "birthdayDate": "Дата народження",
@@ -29,8 +29,9 @@
     "username": "Ім'я користувача",
     "url": "URL-адреса вашого бажання",
     "language": "Мова",
-    "Password": "Налаштування паролю",
+    "Password": "Пароль",
     "oldPassword": "Старий пароль",
-    "newPassword": "Новий пароль"
+    "newPassword": "Новий пароль",
+    "socialProfiles": "Соціальні профілі"
   }
 }
