@@ -1,6 +1,5 @@
 import cn from 'classnames';
 import { FC } from 'react';
-import { string } from 'yup/lib/locale';
 
 import styles from './ButtonSendForm.module.scss';
 
