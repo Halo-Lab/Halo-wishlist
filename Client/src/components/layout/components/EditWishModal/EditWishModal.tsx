@@ -3,14 +3,13 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 
-import { addWishlist } from '../../../../store/wishlist-reducer';
 import { ButtonService } from '../../../common/ButtonSendForm/ButtonSendForm';
 import { FormikTextInput } from '../../../common/FormikInput/FormikInput';
 import { Modal } from '../../../common/Modal/Modal';
 
 import styles from '../../../common/Modal/Modal.module.scss';
 
-const AddWishlistModal: React.FC<IProps> = ({ isModal, setIsModal }) => {
+const EditWishModal: React.FC<IProps> = ({ isModal, setIsModal }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -19,30 +18,63 @@ const AddWishlistModal: React.FC<IProps> = ({ isModal, setIsModal }) => {
       .min(4, 'Min length 4 symbol')
       .max(50, 'Max length 50 symbol')
       .required('Required!'),
+    price: Yup.string()
+      .nullable()
+      .max(10, 'Max length 10 symbol')
+      .required('Required!'),
+    link: Yup.string()
+      .url('nottt')
+      .max(50, 'Max length 50 symbol')
+      .required('Required!'),
   });
 
   const handleSubmitForm = (values) => {
-    dispatch(addWishlist(values.name));
+    console.log(values);
     setIsModal(false);
   };
 
   return (
     <Modal isOpen={isModal} setIsOpen={setIsModal}>
       <div className={styles.modal_container}>
-        <h3 className={styles.title}>{t('modal.createWishlist')}</h3>
+        <h3 className={styles.title}>{t('modal.editWish')}</h3>
         <Formik
-          initialValues={{ name: '' }}
+          initialValues={{ name: '', price: null, link: '' }}
           validationSchema={Schema}
           onSubmit={handleSubmitForm}
         >
           {({ dirty }) => (
             <Form>
+              <div className={styles.row}>
+                <div className={styles.input_name}>
+                  <label>
+                    {t('modal.name')}
+                    <FormikTextInput
+                      type="text"
+                      name="name"
+                      placeholder="Apple Iphone X"
+                      className={styles.input}
+                    />
+                  </label>
+                </div>
+                <div className={styles.input_price}>
+                  <label>
+                    {t('modal.price')}
+                    <FormikTextInput
+                      type="string"
+                      name="price"
+                      placeholder="1200"
+                      className={styles.input}
+                    />
+                  </label>
+                  <span className={styles.price}>&nbsp;$</span>
+                </div>
+              </div>
               <label>
-                {t('modal.name')}
+                {t('modal.link')}
                 <FormikTextInput
                   type="text"
-                  name="name"
-                  placeholder={t('modal.placeholder')}
+                  name="link"
+                  placeholder="https://wish.com/darrell_steward/"
                   className={styles.input}
                 />
               </label>
@@ -71,4 +103,4 @@ interface IProps {
   setIsModal: (value: boolean) => void;
 }
 
-export { AddWishlistModal };
+export { EditWishModal };

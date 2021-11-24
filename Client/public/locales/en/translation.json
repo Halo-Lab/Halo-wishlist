@@ -55,6 +55,9 @@
     "save": "Save",
     "required": "Required!",
     "nameMinLength": "min 4 characters!",
-    "nameMaxLength": "max: 50 characters!"
+    "nameMaxLength": "max: 50 characters!",
+    "editWish": "Edit your wish",
+    "price": "Price",
+    "link": "Link"
   }
 }
