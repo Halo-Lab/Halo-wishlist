@@ -1,4 +1,4 @@
-import { MouseEventHandler } from 'react';
+import React, { MouseEventHandler } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
@@ -15,6 +15,7 @@ import styles from './MainLayout.module.scss';
 const MainLayout: React.FC<IProps> = ({
   children,
   changeView,
+  customTab,
   tabs,
   changeTab,
   activeTab,
@@ -23,7 +24,7 @@ const MainLayout: React.FC<IProps> = ({
   const { name, userPic, date: birthday } = user;
 
   const { t } = useTranslation();
-
+  console.log(customTab);
   return (
     <main className={styles.container}>
       <div className={styles.header}>
@@ -49,18 +50,19 @@ const MainLayout: React.FC<IProps> = ({
       </div>
       <div className={styles.container__middle}>
         <div className={styles.tabs}>
-          {tabs &&
-            tabs.map((tab, index) => {
-              return (
-                <span
-                  key={tab}
-                  onClick={() => changeTab && changeTab(index)}
-                  className={activeTab == index ? styles.activeTab : styles.tab}
-                >
-                  {tab}
-                </span>
-              );
-            })}
+          {customTab ||
+            (tabs &&
+              tabs.map((tab, index) => {
+                return (
+                  <span
+                    key={tab}
+                    onClick={() => changeTab && changeTab(index)}
+                    className={activeTab == index ? styles.activeTab : styles.tab}
+                  >
+                    {tab}
+                  </span>
+                );
+              }))}
         </div>
         {changeView && (
           <button className={styles.button} onClick={changeView}>
@@ -79,6 +81,7 @@ interface IProps {
   tabs?: string[];
   activeTab?: number;
   changeTab?: (value: number) => void;
+  customTab?: React.ReactNode;
 }
 
 export { MainLayout };

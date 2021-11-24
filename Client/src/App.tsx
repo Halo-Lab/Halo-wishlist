@@ -5,8 +5,9 @@ import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 
 import LoginForm from './components/LoginForm/LoginForm';
 import RegistrationForm from './components/RegistrationForm/RegistrationForm';
+import { MainLayout } from './components/layout/MainLayout';
 import { AdminPage } from './scenes/AdminPage/AdminPage';
-import { ProfilePage } from './scenes/ProfilePage/ProfilePage';
+import { ListPage } from './scenes/ListPage';
 import { ProfileSettings } from './scenes/ProfileSettings/ProfileSettings';
 import { AppRootStateType } from './store/store';
 import { checkUserLogin, UserStateType } from './store/user-reducer';
@@ -24,8 +25,6 @@ const App: FC = () => {
       dispatch(checkUserLogin());
     }
   }, []);
-
-  // const nick = 'mario';
 
   if (user.isLoading) {
     return <div>Loading...</div>;
@@ -53,7 +52,10 @@ const App: FC = () => {
         <Switch>
           <Route path="/" render={() => <LoginForm />} exact />
           <Route path="/registration" render={() => <RegistrationForm />} />
-          {/*<Route path={`/:${nick}/:listID`} render={() => <MainLayout />} />*/}
+          <Route
+            path={`/:${user.user.nickName || user.user.id}/:listID`}
+            render={() => <MainLayout />}
+          />
           <Route
             render={() => (
               <div>
@@ -72,6 +74,11 @@ const App: FC = () => {
       <Switch>
         <Route path="/settings" render={() => <ProfileSettings />} exact />
         <Route path={`/`} render={() => <AdminPage />} exact />
+        <Route path={`/:listId`} render={() => <ListPage />} exact />
+        <Route
+          path={`/:${user.user.nickName || user.user.id}/:listID`}
+          render={() => <MainLayout />}
+        />
         <Redirect to="/" />
       </Switch>
     </div>
