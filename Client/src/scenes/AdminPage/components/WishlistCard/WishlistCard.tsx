@@ -8,7 +8,7 @@ const WishlistCard: React.FC<IProps> = ({ data, isListView }) => {
   const { name, items } = data;
 
   return (
-    <div className={isListView ? styles.container : styles.container_list}>
+    <div className={isListView ? styles.container_list : styles.container}>
       <img className={styles.background} src={wishlistImg} alt="card background" />
       <div className={styles.bottom}>
         <div className={styles.name}>{name}</div>

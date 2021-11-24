@@ -21,3 +21,12 @@ body {
   margin: 0 auto;
   max-width: 1280px;
 }
+
+a {
+  text-decoration: none;
+  width: 100%;
+}
+
+a:visited {
+  color: $color__font;
+}

@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { IUser } from '../../models/IUser';
 import { AppRootStateType } from '../../store/store';
 import Image from '../common/ImageComponent/Image';
+import { UserMenu } from './components/UserMenu/UserMenu';
 
 import squaresSvg from '../../assets/svg/squares.svg';
 import wishlyLogo from '../../assets/svg/wishly-logo.svg';
@@ -24,10 +25,18 @@ const MainLayout: React.FC<IProps> = ({
     <main className={styles.container}>
       <div className={styles.header}>
         <Image alt="wishlyLogo" src={wishlyLogo} width={125} height={37} />
+        <UserMenu userPic={userPic} />
       </div>
       <div className={styles.container__top}>
         <div className={styles.user}>
-          <img className={styles.user__pic} src={userPic} alt="user" />
+          <Image
+            alt="user"
+            src={userPic}
+            width={80}
+            height={80}
+            circle
+            className={styles.user__pic}
+          />
           <p className={styles.user__name}>{name}</p>
           <p>
             {new Date().getFullYear() - new Date(birthday).getFullYear()}

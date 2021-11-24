@@ -6,10 +6,6 @@
   width: 100%;
   padding: 16px 24px;
   background: $color__white;
-
-  &__header {
-
-  }
   &__top {
     display: flex;
     align-items: center;
@@ -41,6 +37,11 @@
   }
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
 .tabs span{
   margin-right: 24px;
   cursor: pointer;
@@ -62,11 +63,8 @@
   align-items: center;
 
   &__pic {
-    width: 4.75rem;
-    height: 4.75rem;
     margin: 0 0 1rem 0;
-    background: $color__loading-placeholder;
-    border-radius: 50%;
+    object-position: center;
   }
 
   &__name {
