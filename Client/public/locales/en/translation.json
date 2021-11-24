@@ -33,5 +33,27 @@
     "oldPassword": "Old password",
     "newPassword": "New password",
     "socialProfiles": "Social profiles"
+  },
+  "years": "years old",
+  "wishlists": "Wishlists",
+  "archive": "Archive",
+  "changeView": "Change view",
+  "items": "Items",
+  "new": "New",
+  "emptyArchive": "Archive is empty",
+  "nav": {
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Log Out"
+  },
+  "modal": {
+    "createWishlist": "Create new wishlist",
+    "name": "Name",
+    "placeholder": "My birthday",
+    "cancel": "Cancel",
+    "save": "Save",
+    "required": "Required!",
+    "nameMinLength": "min 4 characters!",
+    "nameMaxLength": "max: 50 characters!"
   }
 }

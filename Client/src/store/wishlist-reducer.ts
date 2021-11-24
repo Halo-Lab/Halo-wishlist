@@ -21,7 +21,6 @@ const slice = createSlice({
     },
 
     addWishlistAC(state, action: PayloadAction<{ wishlist: IWishlist }>) {
-      console.log('-> action', action);
       state.wishlists.push(action.payload.wishlist);
     },
   },

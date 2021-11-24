@@ -71,17 +71,7 @@ const App: FC = () => {
     <div className="main-wrapper">
       <Switch>
         <Route path="/settings" render={() => <ProfileSettings />} exact />
-        <Route path={`/admin`} render={() => <AdminPage />} exact />
-        <Route
-          path="/"
-          render={() => (
-            <ProfilePage
-              email={user.user.email}
-              id={user.user.id}
-              isActivated={user.user.isActivated}
-            />
-          )}
-        />
+        <Route path={`/`} render={() => <AdminPage />} exact />
         <Redirect to="/" />
       </Switch>
     </div>

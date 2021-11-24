@@ -1,0 +1,35 @@
+.nav {
+  min-width: 160px;
+  padding: 6px 12px ;
+  border-radius: 6px;
+  background-color: #ffffff;
+  box-shadow: 0 20px 36px rgba(0, 0, 0, 0.15);
+  position: absolute;
+  top: 75px;
+  right: 55px;
+
+  @media (max-width: 768px) {
+    right: 0;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+.link {
+  border-bottom: 1px solid #e8f0fe;
+  display: flex;
+  padding: 12px 0;
+}
+
+.link:last-child {
+  border: none;
+}
+
+.link img {
+  padding-right: 18px;
+  vertical-align: middle;
+}
+
+.selected {
+  font-weight: bold;
+}

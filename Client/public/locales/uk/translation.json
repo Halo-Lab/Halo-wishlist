@@ -33,5 +33,27 @@
     "oldPassword": "Старий пароль",
     "newPassword": "Новий пароль",
     "socialProfiles": "Соціальні профілі"
+  },
+  "years": "років",
+  "wishlists": "Списки бажань",
+  "archive": "Архів",
+  "changeView": "Змінити вигляд",
+  "items": "Кількість",
+  "new": "Створити",
+  "emptyArchive": "Архів порожній",
+  "nav": {
+    "profile": "Мій профіль",
+    "settings": "Налаштування",
+    "logout": "Вихід"
+  },
+  "modal": {
+    "createWishlist": "Створити новий список бажань",
+    "name": "Ім'я",
+    "placeholder": "Мій день народження",
+    "cancel": "Відміна",
+    "save": "Зберегти",
+    "required": "Обов'язково!",
+    "nameMinLength": "мінімум: 4 символи!",
+    "nameMaxLength": "максимум: 50 символів!"
   }
 }

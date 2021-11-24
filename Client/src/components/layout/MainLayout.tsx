@@ -1,4 +1,5 @@
 import { MouseEventHandler } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
 import { IUser } from '../../models/IUser';
@@ -21,6 +22,8 @@ const MainLayout: React.FC<IProps> = ({
   const user = useSelector<AppRootStateType, IUser>((state) => state.users.user);
   const { name, userPic, date: birthday } = user;
 
+  const { t } = useTranslation();
+
   return (
     <main className={styles.container}>
       <div className={styles.header}>
@@ -40,21 +43,21 @@ const MainLayout: React.FC<IProps> = ({
           <p className={styles.user__name}>{name}</p>
           <p>
             {new Date().getFullYear() - new Date(birthday).getFullYear()}
-            {` years old`}
+            {` ${t('years')}`}
           </p>
         </div>
       </div>
       <div className={styles.container__middle}>
         <div className={styles.tabs}>
           {tabs &&
-            tabs.map((t, index) => {
+            tabs.map((tab, index) => {
               return (
                 <span
-                  key={t}
+                  key={tab}
                   onClick={() => changeTab && changeTab(index)}
                   className={activeTab == index ? styles.activeTab : styles.tab}
                 >
-                  {t}
+                  {tab}
                 </span>
               );
             })}
@@ -62,7 +65,7 @@ const MainLayout: React.FC<IProps> = ({
         {changeView && (
           <button className={styles.button} onClick={changeView}>
             <img className={styles.button__icon} src={squaresSvg} alt="icon" />
-            <p>Change view</p>
+            <p>{t('changeView')}</p>
           </button>
         )}
       </div>
