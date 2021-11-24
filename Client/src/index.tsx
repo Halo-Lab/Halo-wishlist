@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
 import App from './App';
 import { store } from './store/store';
@@ -14,6 +15,7 @@ ReactDOM.render(
       <Suspense fallback="Loading...">
         <Router>
           <App />
+          <ToastContainer />
         </Router>
       </Suspense>
     </React.StrictMode>

@@ -7,6 +7,8 @@ import AuthRequest from '../api/request/AuthRequest';
 import UserRequest from '../api/request/UserRequest';
 import { IUser } from '../models/IUser';
 import { AuthResponse } from '../models/response/AuthResponse';
+import * as notify from '../utils/notifications';
+import { IInitialValues } from './../scenes/ProfileSettings/common-types.d';
 
 export type UserStateType = {
   isLoggedIn: boolean;
@@ -99,16 +101,23 @@ export const checkUserLogin = () => async (dispatch: Dispatch) => {
 };
 
 export const updateUserPic = (userPic: string) => (dispatch: Dispatch) => {
-  dispatch(setLoadingAc(true));
   UserRequest.updateUserPic(userPic)
     .then((res) => {
       dispatch(setUserAC(res.data.user));
     })
     .catch((e) => {
       console.log(e);
+    });
+};
+
+export const updateUser = (userData: IInitialValues) => (dispatch: Dispatch) => {
+  UserRequest.updateUSerProfile(userData)
+    .then((res) => {
+      dispatch(setUserAC(res.data.user));
     })
-    .finally(() => {
-      dispatch(setLoadingAc(false));
+    .then(() => notify.successes('User update!'))
+    .catch((e) => {
+      notify.error(e.response.data.message);
     });
 };
 

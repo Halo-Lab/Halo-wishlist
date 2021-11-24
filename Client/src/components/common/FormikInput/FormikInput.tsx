@@ -7,7 +7,7 @@ import styles from './FormikInput.module.scss';
 interface Props {
   name: string;
   type: string;
-  placeholder: string;
+  placeholder?: string;
   className?: any;
   as?: string;
   rows?: string;

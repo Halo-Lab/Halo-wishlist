@@ -7,12 +7,17 @@ interface IButton {
   btnName: string;
   disabled?: boolean;
   className?: any;
+  width?: string;
+  height?: string;
   handleClickButton?: () => void;
 }
 
 export const ButtonService: FC<IButton> = (props) => {
   return (
-    <div className={styles.button}>
+    <div
+      className={styles.button}
+      style={{ width: props.width, height: props.height }}
+    > 
       {props.children}
       <input
         className={cn(styles.inputStyles, props.className)}

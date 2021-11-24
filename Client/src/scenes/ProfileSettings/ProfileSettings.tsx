@@ -1,16 +1,17 @@
-import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { Form, Formik } from 'formik';
+import React from 'react';
+import ReactS3Client from 'react-aws-s3-typescript';
 import DatePicker from 'react-datepicker';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 
-import UserRequest from '../../api/request/UserRequest';
 import { ButtonService } from '../../components/common/ButtonSendForm/ButtonSendForm';
 import { FormikTextInput } from '../../components/common/FormikInput/FormikInput';
-import Icon from '../../components/common/IconComponent/Icon';
 import Image from '../../components/common/ImageComponent/Image';
 import { AppRootStateType } from '../../store/store';
+import { updateUser, updateUserPic } from '../../store/user-reducer';
+import { s3Config } from '../../utils/s3Config';
 import { IInitialValues } from './common-types';
 
 import wishliLogo from '../../assets/svg/wishly-logo.svg';
@@ -18,6 +19,7 @@ import wishliLogo from '../../assets/svg/wishly-logo.svg';
 import styles from './ProfileSettings.module.scss';
 
 export const ProfileSettings = () => {
+  const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
 
   const changeLanguage = (lang: string) => {
@@ -35,6 +37,27 @@ export const ProfileSettings = () => {
       .required(t('errors.required')),
   });
 
+  const handleUpload = async (file) => {
+    const s3 = new ReactS3Client(s3Config);
+
+    try {
+      const res = await s3.uploadFile(file);
+      if (res.status === 204) {
+        dispatch(updateUserPic(res.location));
+      }
+    } catch (exception) {
+      console.log(exception);
+    }
+  };
+
+  const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    e.preventDefault();
+    if (e.target.files == null) {
+      throw new Error('Error finding e.target.files');
+    }
+    handleUpload(e.target.files[0]);
+  };
+
   const { email, userPic, bio, date, name, nickName, facebook, instagram, twitter } =
     useSelector((state: AppRootStateType) => state.users.user);
 
@@ -51,15 +74,17 @@ export const ProfileSettings = () => {
     instagram,
   };
 
+  const handleSubmitForm = (values) => {
+    dispatch(updateUser({ ...values, date: values.date }));
+  };
+
   return (
     <div className={styles.pageWrapper}>
       <img className={styles.logo} src={wishliLogo} alt="Wishli logo"></img>
       <Formik
         initialValues={initialValues}
         validationSchema={LoginSchema}
-        onSubmit={(values) =>
-          UserRequest.updateUSerProfile({ ...values, date: values.date })
-        }
+        onSubmit={(values) => handleSubmitForm(values)}
       >
         {({ errors, values, setFieldValue }) => (
           <Form>
@@ -72,41 +97,46 @@ export const ProfileSettings = () => {
                   height={88}
                   circle
                 />
-                <div>
-                  <Icon size="sm" name={faUpload} />
-                  <span>upload</span>
+                <div className={styles.uploadBox}>
+                  <label htmlFor="upload">{t('settings.upload')}</label>
+                  <input
+                    type="file"
+                    id="upload"
+                    className={styles.uploadInput}
+                    onChange={handleFileInput}
+                  />
                 </div>
               </section>
               <section>
                 <div className={styles.sectionName}>
-                  <p>Public profile</p>
+                  <p>{t('settings.PublicProfile')}</p>
                 </div>
                 <div className={styles.section}>
-                  <label>Name</label>
+                  <label>{t('settings.name')}</label>
                   <FormikTextInput
                     name="name"
                     type="text"
                     placeholder="Darrell Steward"
                   />
-                  <label>Birthday date</label>
+                  <label> {t('settings.birthdayDate')}</label>
 
                   <DatePicker
                     selected={new Date(values.date)}
-                    dateFormat="d.MM.yyyy"
+                    dateFormat="dd.MM.yyyy"
                     name="date"
                     peekNextMonth={false}
                     className={styles.datePicker}
                     onChange={(date) => setFieldValue('date', date)}
                     placeholderText="12.12.1998"
                   />
-                  <label>Email</label>
+                  <label>{t('settings.email')}</label>
                   <FormikTextInput
                     name="email"
                     type="email"
                     disabled={true}
                     placeholder="darrell@steward.com"
                   />
-                  <label>Bio</label>
+                  <label>{t('settings.bio')}</label>
                   <FormikTextInput
                     name="bio"
                     type="text"
@@ -118,10 +148,10 @@ export const ProfileSettings = () => {
               </section>
               <section>
                 <div className={styles.sectionName}>
-                  <p>Account setting</p>
+                  <p> {t('settings.AccountSetting')}</p>
                 </div>
                 <div className={styles.section}>
-                  <label>Username</label>
+                  <label>{t('settings.username')}</label>
                   <FormikTextInput
                     className={styles.userName}
                     name="nickName"
@@ -129,24 +159,24 @@ export const ProfileSettings = () => {
                     placeholder="darrell_steward"
                   />
                   <p className={styles.url}>
-                    Your Wish URL:
-                    {`https://wish.com/${
-                      nickName.length > 0 ? nickName : 'darrell_steward'
+                    {t('settings.url')}:
+                    {` https://wish.com/${
+                      nickName?.length > 0 ? nickName : 'darrell_steward'
                     }`}
                   </p>
                   <div className={styles.selectors}>
-                    <div>
-                      <label>Language</label>
+                    <div className={styles.selectorCuret}>
+                      <label>{t('settings.language')}</label>
                       <select
                         name="select"
-                        defaultValue="value1"
+                        defaultValue={localStorage.getItem('i18nextLng') || 'en'}
                         onChange={(e) => changeLanguage(e.target.value)}
                       >
                         <option value="en">English</option>
                         <option value="uk">Ukrainian</option>
                       </select>
                     </div>
-                    <div>
+                    <div className={styles.selectorCuret}>
                       <label>Membership</label>
                       <select name="select" defaultValue="value1" disabled>
                         <option value="value1">Best user ever!</option>
@@ -159,30 +189,22 @@ export const ProfileSettings = () => {
               </section>
               <section className={styles.section}>
                 <div className={styles.sectionName}>
-                  <p>Password</p>
+                  <p>{t('settings.Password')}</p>
                 </div>
                 <div className={styles.selectors}>
                   <div>
-                    <label>Old password</label>
-                    <FormikTextInput
-                      type="password"
-                      name="password"
-                      placeholder="old password"
-                    />
+                    <label> {t('settings.oldPassword')}</label>
+                    <FormikTextInput type="password" name="password" />
                   </div>
                   <div>
-                    <label>New password</label>
-                    <FormikTextInput
-                      type="password"
-                      name="newPassword"
-                      placeholder="new password"
-                    />
+                    <label> {t('settings.newPassword')}</label>
+                    <FormikTextInput type="password" name="newPassword" />
                   </div>
                 </div>
               </section>
               <section>
                 <div className={styles.sectionName}>
-                  <p>Public profile</p>
+                  <p>{t('settings.socialProfiles')}</p>
                 </div>
                 <div className={styles.section}>
                   <label>Facebook</label>

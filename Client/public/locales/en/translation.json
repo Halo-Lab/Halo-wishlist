@@ -17,5 +17,21 @@
     "required": "Required!",
     "passwordMinLength": "min 4 characters!",
     "passwordMaxLength": "max: 50 characters!"
+  },
+  "settings": {
+    "upload": "Uploud new picture",
+    "PublicProfile": "Public Profile",
+    "name": "Name",
+    "birthdayDate": "Birthday date",
+    "email": "Email",
+    "bio": "Bio",
+    "AccountSetting": "Account Setting",
+    "username": "Username",
+    "url": "Your Wish URL",
+    "language": "Language",
+    "Password": "Password",
+    "oldPassword": "Old password",
+    "newPassword": "New password",
+    "socialProfiles": "Social profiles"
   }
 }
