@@ -19,7 +19,7 @@
     "passwordMaxLength": "максимум: 20 символів!"
   },
   "settings": {
-    "upload": "Завантажити нове зображення",
+    "upload": "Змінити аватар",
     "PublicProfile": "Публічний профіль",
     "name": "Ім'я",
     "birthdayDate": "Дата народження",

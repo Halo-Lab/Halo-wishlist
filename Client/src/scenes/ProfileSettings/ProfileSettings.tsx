@@ -4,6 +4,7 @@ import ReactS3Client from 'react-aws-s3-typescript';
 import DatePicker from 'react-datepicker';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import { ButtonService } from '../../components/common/ButtonSendForm/ButtonSendForm';
@@ -80,7 +81,9 @@ export const ProfileSettings = () => {
 
   return (
     <div className={styles.pageWrapper}>
-      <img className={styles.logo} src={wishliLogo} alt="Wishli logo"></img>
+      <Link to="/">
+        <img className={styles.logo} src={wishliLogo} alt="Wishli logo"></img>
+      </Link>
       <Formik
         initialValues={initialValues}
         validationSchema={LoginSchema}
@@ -229,14 +232,15 @@ export const ProfileSettings = () => {
               </section>
               <div className={styles.buttonsBlock}>
                 <ButtonService
+                  className={styles.sendFormBtn}
                   btnName="Save profile"
                   disabled={Object.keys(errors).length > 0}
                 />
-                <ButtonService
+                {/* <ButtonService
                   btnName="Delete Account"
                   disabled={false}
                   className={styles.deleteButton}
-                />
+                /> */}
               </div>
             </div>
           </Form>
