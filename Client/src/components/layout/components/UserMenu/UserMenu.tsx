@@ -29,7 +29,6 @@ const UserMenu: React.FC<IProps> = ({ userPic }) => {
 
       <ButtonService
         btnName={t('new')}
-        height="32px"
         className={styles.addButton}
         handleClickButton={() => setIsModal(true)}
       >
