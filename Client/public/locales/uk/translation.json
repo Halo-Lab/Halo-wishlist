@@ -14,6 +14,7 @@
   "errors": {
     "notValidEmail": "Не правильна електронна адреса!",
     "emailMaxLength": "Надто довга електронна адреса!",
+    "tooShort": "Занадто короткий!",
     "required": "Обов'язково!",
     "passwordMinLength": "мінімум: 4 символи!",
     "passwordMaxLength": "максимум: 20 символів!"
