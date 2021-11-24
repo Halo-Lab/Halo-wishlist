@@ -37,14 +37,15 @@ router.post(
 );
 router.post(
   '/addWishlist',
-  body(['userId', 'name']).isString(),
+  body('name').isString(),
+  authMiddleware,
   wishlistController.createWishlist,
 );
 router.post(
   '/addUrl',
   body(['_id', 'nameURL', 'image', 'price']).isString(),
   body('url').isURL(),
-  wishlistController.addUrl
+  wishlistController.addUrl,
 );
 router.get('/wishlist/:wishlistId', wishlistController.getWishlist);
 router.get('/user/:userId', wishlistController.getWishlists);

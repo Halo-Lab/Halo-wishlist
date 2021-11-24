@@ -2,6 +2,8 @@
 
 .button {
   height: 50px;
+  display: flex;
+  align-items: center;
 }
 
 .inputStyles {
@@ -10,7 +12,6 @@
   padding: 0 30px;
   color: #fff;
   font-weight: bold;
-  font-weight: 500;
   font-size: 18px;
   line-height: 21px;
   background: #3a414e;

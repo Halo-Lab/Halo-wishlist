@@ -13,13 +13,14 @@ interface IButton {
 export const ButtonService: FC<IButton> = (props) => {
   return (
     <div className={styles.button}>
+      {props.children}
       <input
         className={cn(styles.inputStyles, props.className)}
         type="submit"
         value={props.btnName}
         disabled={props.disabled}
         onClick={props.handleClickButton}
-      ></input>
+      />
     </div>
   );
 };
