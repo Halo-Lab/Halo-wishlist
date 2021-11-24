@@ -14,12 +14,13 @@
   "errors": {
     "notValidEmail": "Must be a valid email!",
     "emailMaxLength": "Too Long!",
+    "tooShort": "Too short!",
     "required": "Required!",
     "passwordMinLength": "min 4 characters!",
     "passwordMaxLength": "max: 50 characters!"
   },
   "settings": {
-    "upload": "Uploud new picture",
+    "upload": "Upload new picture",
     "PublicProfile": "Public Profile",
     "name": "Name",
     "birthdayDate": "Birthday date",
