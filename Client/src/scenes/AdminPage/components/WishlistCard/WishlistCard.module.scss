@@ -6,7 +6,7 @@
   flex-direction: column;
   justify-content: flex-end;
   padding: 18px;
-  flex-grow: 1;
+  flex-wrap: wrap;
   overflow: hidden;
   border-radius: 0.5rem;
   color: $color__white;
@@ -15,7 +15,7 @@
 
 .container {
   @extend %card;
-  max-width: 280px;
+  min-width: 280px;
   height: 245px;
 }
 

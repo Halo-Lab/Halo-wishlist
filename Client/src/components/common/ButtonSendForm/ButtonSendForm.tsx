@@ -17,14 +17,15 @@ export const ButtonService: FC<IButton> = (props) => {
     <div
       className={styles.button}
       style={{ width: props.width, height: props.height }}
-    >
+    > 
+      {props.children}
       <input
         className={cn(styles.inputStyles, props.className)}
         type="submit"
         value={props.btnName}
         disabled={props.disabled}
         onClick={props.handleClickButton}
-      ></input>
+      />
     </div>
   );
 };
