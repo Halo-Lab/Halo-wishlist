@@ -6,7 +6,6 @@ import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 import LoginForm from './components/LoginForm/LoginForm';
 import RegistrationForm from './components/RegistrationForm/RegistrationForm';
 import { AdminPage } from './scenes/AdminPage/AdminPage';
-import { ProfilePage } from './scenes/ProfilePage/ProfilePage';
 import { ProfileSettings } from './scenes/ProfileSettings/ProfileSettings';
 import { AppRootStateType } from './store/store';
 import { checkUserLogin, UserStateType } from './store/user-reducer';
