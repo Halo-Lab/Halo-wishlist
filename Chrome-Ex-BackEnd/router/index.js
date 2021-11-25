@@ -41,6 +41,13 @@ router.post(
   authMiddleware,
   wishlistController.createWishlist,
 );
+
+router.delete(
+  '/wishlist/:wishlistId',
+  authMiddleware,
+  wishlistController.deleteWishlist,
+);
+
 router.post(
   '/addUrl',
   body(['_id', 'nameURL', 'image', 'price']).isString(),
