@@ -1,8 +1,17 @@
+@import '../../../components/common/helpers.scss';
+
 .square {
   position: relative;
   display: block;
   max-height: 245px;
   max-width: 300px;
+
+  :hover {
+    .iconWrapper {
+      opacity: 1;
+      transition-duration: 1.2s;
+    }
+  }
 }
 
 .square:after {
@@ -57,4 +66,45 @@
 .img {
   width: inherit;
   height: inherit;
+}
+
+.iconWrapper {
+  position: absolute;
+  opacity: 0;
+  left: 16px;
+  top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #757373;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+
+  @media (max-width: $tablet) {
+    left: 8px;
+    top: 8px;
+  }
+}
+
+.iconStyle {
+  color: #ffffff;
+}
+
+.rotate {
+  animation: rotation 1s linear;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+.menuPosition {
+  top: 43px;
+  left: 0;
 }
