@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { MainLayout } from '../../components/layout/MainLayout';
 import { IUser } from '../../models/IUser';
@@ -31,7 +32,11 @@ export const AdminPage: React.FC = () => {
   const wishlistsTab = (
     <div className={styles.cardType}>
       {wishlists.map((i) => {
-        return <WishlistCard key={i._id} data={i} isListView={isListView} />;
+        return (
+          <Link key={i._id} to={i._id}>
+            <WishlistCard data={i} isListView={isListView} />
+          </Link>
+        );
       })}
     </div>
   );
