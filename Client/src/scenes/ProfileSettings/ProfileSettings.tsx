@@ -2,6 +2,7 @@ import { Form, Formik } from 'formik';
 import React from 'react';
 import ReactS3Client from 'react-aws-s3-typescript';
 import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -146,7 +147,6 @@ export const ProfileSettings = () => {
                     placeholder="Darrell Steward"
                   />
                   <label> {t('settings.birthdayDate')}</label>
-
                   <DatePicker
                     selected={new Date(values.date)}
                     dateFormat="dd.MM.yyyy"
