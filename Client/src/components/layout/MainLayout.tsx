@@ -1,6 +1,7 @@
-import { MouseEventHandler } from 'react';
+import React, { MouseEventHandler } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { IUser } from '../../models/IUser';
 import { AppRootStateType } from '../../store/store';
@@ -15,6 +16,7 @@ import styles from './MainLayout.module.scss';
 const MainLayout: React.FC<IProps> = ({
   children,
   changeView,
+  customTab,
   tabs,
   changeTab,
   activeTab,
@@ -27,7 +29,9 @@ const MainLayout: React.FC<IProps> = ({
   return (
     <main className={styles.container}>
       <div className={styles.header}>
-        <Image alt="wishlyLogo" src={wishlyLogo} width={125} height={37} />
+        <Link to="/">
+          <Image alt="wishlyLogo" src={wishlyLogo} width={125} height={37} />
+        </Link>
         <UserMenu userPic={userPic} />
       </div>
       <div className={styles.container__top}>
@@ -49,18 +53,19 @@ const MainLayout: React.FC<IProps> = ({
       </div>
       <div className={styles.container__middle}>
         <div className={styles.tabs}>
-          {tabs &&
-            tabs.map((tab, index) => {
-              return (
-                <span
-                  key={tab}
-                  onClick={() => changeTab && changeTab(index)}
-                  className={activeTab == index ? styles.activeTab : styles.tab}
-                >
-                  {tab}
-                </span>
-              );
-            })}
+          {customTab ||
+            (tabs &&
+              tabs.map((tab, index) => {
+                return (
+                  <span
+                    key={tab}
+                    onClick={() => changeTab && changeTab(index)}
+                    className={activeTab == index ? styles.activeTab : styles.tab}
+                  >
+                    {tab}
+                  </span>
+                );
+              }))}
         </div>
         {changeView && (
           <button className={styles.button} onClick={changeView}>
@@ -79,6 +84,7 @@ interface IProps {
   tabs?: string[];
   activeTab?: number;
   changeTab?: (value: number) => void;
+  customTab?: React.ReactNode;
 }
 
 export { MainLayout };

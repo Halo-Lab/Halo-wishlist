@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  font-size: 14px;
+  line-height: 150%;
+
+  :first-child {
+    font-weight: 700;
+    margin-right: 10px;
+  }
+  :last-child {
+    opacity: 0.34;
+  }
+}

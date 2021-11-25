@@ -1,0 +1,118 @@
+@import '../../../components/common/helpers.scss';
+
+.square {
+  position: relative;
+  display: block;
+  max-height: 245px;
+  max-width: 300px;
+
+  :hover {
+    .iconWrapper {
+      opacity: 1;
+      transition-duration: 1.2s;
+    }
+  }
+}
+
+.square:after {
+  content: '';
+  display: block;
+  padding-top: 100%;
+}
+
+.content {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #c4c4c4;
+  border-radius: 8px;
+
+  .info {
+    opacity: 0;
+  }
+
+  &:hover {
+    .info {
+      transition-duration: 1.2s;
+      opacity: 1;
+    }
+  }
+}
+
+.info {
+  position: absolute;
+  display: flex;
+  justify-content: space-around;
+  padding: 15px 0;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 12px;
+  bottom: 23px;
+  width: 100%;
+  max-width: 250px;
+  background-color: #ffffff;
+
+  :last-child {
+    color: #00993d;
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+  @media (max-width: $tablet) {
+    max-width: 200px;
+  }
+
+  @media (max-width: $tabletM) {
+    max-width: 180px;
+  }
+}
+
+.img {
+  width: inherit;
+  height: inherit;
+}
+
+.iconWrapper {
+  position: absolute;
+  opacity: 0;
+  left: 16px;
+  top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #757373;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+
+  @media (max-width: $tablet) {
+    left: 8px;
+    top: 8px;
+  }
+}
+
+.iconStyle {
+  color: #ffffff;
+}
+
+.rotate {
+  animation: rotation 0.5s linear;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+.menuPosition {
+  top: 43px;
+  left: 0;
+}
