@@ -49,6 +49,27 @@ class WishlistService {
     return wishlist;
   }
 
+  async deleteWish(wishId) {
+    const wish = await WishlistModel.updateMany(
+      //find wish
+      {
+        items: {
+          $elemMatch: {
+            _id: wishId,
+          },
+        },
+      },
+      //delete wish
+      { $pull: { items: { _id: wishId } } },
+    );
+    if (wish.modifiedCount === 0) {
+      throw ApiError.BadRequest(`Wish not found ${wishId}`);
+    }
+    if (wish.modifiedCount !== 0) {
+      return { status: 'ok' };
+    }
+  }
+
   async getWishlists(userId) {
     const wishlist = await WishlistModel.findOne({ userId });
     if (!wishlist) {

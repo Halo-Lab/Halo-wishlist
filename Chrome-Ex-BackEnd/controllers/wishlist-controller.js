@@ -62,6 +62,16 @@ class WishlistController {
     }
   }
 
+  async deleteWish(req, res, next) {
+    try {
+      const { wishId } = req.params;
+      const wish = await wishlistService.deleteWish(wishId);
+      return res.json(wish);
+    } catch (e) {
+      next(e);
+    }
+  }
+
   async getWishlists(req, res, next) {
     try {
       const errors = validationResult(req);

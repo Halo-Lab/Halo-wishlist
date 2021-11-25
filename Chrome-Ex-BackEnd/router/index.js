@@ -55,6 +55,7 @@ router.post(
   wishlistController.addUrl,
 );
 router.get('/wishlist/:wishlistId', wishlistController.getWishlist);
+router.delete('/wish/:wishId', authMiddleware, wishlistController.deleteWish);
 router.get('/user/:userId', wishlistController.getWishlists);
 router.get('/categories/:userId', wishlistController.getCategories);
 
