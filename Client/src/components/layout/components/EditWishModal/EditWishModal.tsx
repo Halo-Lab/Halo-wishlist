@@ -15,17 +15,17 @@ const EditWishModal: React.FC<IProps> = ({ isModal, setIsModal }) => {
 
   const Schema = Yup.object().shape({
     name: Yup.string()
-      .min(4, 'Min length 4 symbol')
-      .max(50, 'Max length 50 symbol')
-      .required('Required!'),
+      .min(4, t('errors.min4Length'))
+      .max(50, t('errors.max50Length'))
+      .required(t('errors.required')),
     price: Yup.string()
       .nullable()
-      .max(10, 'Max length 10 symbol')
-      .required('Required!'),
+      .max(10, t('errors.passwordMaxLength'))
+      .required(t('errors.required')),
     link: Yup.string()
-      .url('nottt')
-      .max(50, 'Max length 50 symbol')
-      .required('Required!'),
+      .url(t('errors.url'))
+      .max(50, t('errors.max50Length'))
+      .required(t('errors.required')),
   });
 
   const handleSubmitForm = (values) => {

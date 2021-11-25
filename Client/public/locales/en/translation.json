@@ -17,7 +17,8 @@
     "tooShort": "Too short!",
     "required": "Required!",
     "passwordMinLength": "min 4 characters!",
-    "passwordMaxLength": "max: 50 characters!"
+    "passwordMaxLength": "max: 50 characters!",
+    "url": "Url is not valid"
   },
   "settings": {
     "upload": "Upload new picture",
@@ -54,10 +55,16 @@
     "cancel": "Cancel",
     "save": "Save",
     "required": "Required!",
-    "nameMinLength": "min 4 characters!",
-    "nameMaxLength": "max: 50 characters!",
+    "min4Length": "min 4 characters!",
+    "max50Length": "max: 50 characters!",
+    "max10Length": "max: 50 characters!",
     "editWish": "Edit your wish",
     "price": "Price",
-    "link": "Link"
+    "link": "Link",
+    "shareWishlist": "Share this with your social Community",
+    "copyLink": "or copy link",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "failed": "Failed!"
   }
 }

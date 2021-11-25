@@ -16,9 +16,9 @@ const AddWishlistModal: React.FC<IProps> = ({ isModal, setIsModal }) => {
 
   const Schema = Yup.object().shape({
     name: Yup.string()
-      .min(4, 'Min length 4 symbol')
-      .max(50, 'Max length 50 symbol')
-      .required('Required!'),
+      .min(4, t('errors.min4Length'))
+      .max(50, t('errors.max50Length'))
+      .required(t('errors.required')),
   });
 
   const handleSubmitForm = (values) => {

@@ -165,4 +165,50 @@ label {
   height: 50px;
 }
 
+.shareModal {
+  margin: 0 12px 24px;
+  width: -webkit-fill-available;
+}
 
+.social_icons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 32px;
+}
+
+.social_icons .icon {
+  cursor: pointer;
+  margin: 0 16px;
+}
+
+.icon {
+  background-color: #f1f1f1;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.copy {
+  display: flex;
+  align-items: baseline;
+}
+
+.copy .input {
+  border-radius: 5px 0 0 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input_link input:focus {
+  outline: none;
+  border: 2px solid black;
+  border-radius: 5px 0 0 5px;
+}
+
+.btn_copy input{
+  height: 50px;
+  border-radius: 0 5px 5px 0;
+}
