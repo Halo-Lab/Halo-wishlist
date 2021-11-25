@@ -13,9 +13,48 @@
 
 .content {
   position: absolute;
+  display: flex;
+  justify-content: center;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: khaki;
+  background: #c4c4c4;
+  border-radius: 8px;
+
+  .info {
+    opacity: 0;
+  }
+
+  &:hover {
+    .info {
+      transition-duration: 1.2s;
+      opacity: 1;
+    }
+  }
+}
+
+.info {
+  position: absolute;
+  display: flex;
+  justify-content: space-around;
+  padding: 15px 0;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 12px;
+  bottom: 23px;
+  width: 100%;
+  max-width: 250px;
+  background-color: #ffffff;
+
+  :last-child {
+    color: #00993d;
+    font-weight: bold;
+    font-size: 14px;
+  }
+}
+
+.img {
+  width: inherit;
+  height: inherit;
 }

@@ -24,13 +24,9 @@ export const ListPage = () => {
   return (
     <MainLayout customTab={<CustomTab itemsCount={lists?.items.length} />}>
       <div className={styles.itemsWrapper}>
-        <ListItem />
-        <ListItem />
-        <ListItem />
-        <ListItem />
-        <ListItem />
-        <ListItem />
-        <ListItem />
+        {lists?.items.map((item) => {
+          return <ListItem key={item._id} image={item.image} />;
+        })}
       </div>
     </MainLayout>
   );
