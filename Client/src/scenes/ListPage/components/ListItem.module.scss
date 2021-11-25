@@ -61,6 +61,14 @@
     font-weight: bold;
     font-size: 14px;
   }
+
+  @media (max-width: $tablet) {
+    max-width: 200px;
+  }
+
+  @media (max-width: $tabletM) {
+    max-width: 180px;
+  }
 }
 
 .img {
@@ -92,7 +100,7 @@
 }
 
 .rotate {
-  animation: rotation 1s linear;
+  animation: rotation 0.5s linear;
 }
 
 @keyframes rotation {

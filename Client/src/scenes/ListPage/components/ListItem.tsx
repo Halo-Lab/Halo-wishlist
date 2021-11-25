@@ -10,6 +10,18 @@ import logo from '../../../assets/svg/wishly-logo.svg';
 
 import styles from './ListItem.module.scss';
 
+type ISettings = {
+  name: string;
+  id: number;
+};
+
+const settingsList: Array<ISettings> = [
+  { name: 'Share', id: 0 },
+  { name: 'Edit', id: 1 },
+  { name: 'Archive', id: 2 },
+  { name: 'Delete', id: 3 },
+];
+
 export const ListItem = ({ image }) => {
   const [visible, setVisible] = useState(false);
 
@@ -32,7 +44,11 @@ export const ListItem = ({ image }) => {
             name={faCog}
             className={cn(styles.iconStyle, { [styles.rotate]: visible })}
           />
-          <SettingsMenu open={visible} className={styles.menuPosition} />
+          <SettingsMenu open={visible} className={styles.menuPosition}>
+            {settingsList.map((item) => (
+              <p key={item.id}>{item.name}</p>
+            ))}
+          </SettingsMenu>
         </div>
         <img
           className={styles.img}
