@@ -10,6 +10,16 @@
   visibility: hidden;
   opacity: 0;
   transition: visibility 0s linear 0.5s, opacity 0.5s linear;
+
+  &::before {
+    content: '';
+    position: absolute;
+    border: 7px solid transparent;
+    border-bottom: 7px solid #ffffff;
+    left: 10px;
+    top: 0;
+    transform: translateY(-100%);
+  }
 }
 
 .viewStyle {

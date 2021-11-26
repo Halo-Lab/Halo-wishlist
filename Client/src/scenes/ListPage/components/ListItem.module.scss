@@ -17,6 +17,7 @@
 .square:after {
   content: '';
   display: block;
+
   padding-top: 100%;
 }
 
@@ -28,18 +29,19 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: #c4c4c4;
+  background: #ffffff;
   border-radius: 8px;
 
-  .info {
-    opacity: 0;
-  }
-
-  &:hover {
-    .info {
-      transition-duration: 1.2s;
-      opacity: 1;
-    }
+  &::before {
+    content: '';
+    position: absolute;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 40.57%,
+      rgba(0, 0, 0, 0.076) 100%
+    );
+    width: 100%;
+    height: 100%;
   }
 }
 
@@ -74,6 +76,7 @@
 .img {
   width: inherit;
   height: inherit;
+  object-fit: contain;
 }
 
 .iconWrapper {
