@@ -53,7 +53,9 @@ export const ListItem: FC<IListItem> = ({ data }) => {
           />
           <SettingsMenu open={visible} className={styles.menuPosition}>
             {settingsList.map((item) => (
-              <p key={item.id}>{item.name}</p>
+              <p className={styles.menuItems} key={item.id}>
+                {item.name}
+              </p>
             ))}
           </SettingsMenu>
         </div>
