@@ -1,10 +1,11 @@
 import { faCog } from '@fortawesome/free-solid-svg-icons';
 import cn from 'classnames';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { useDetectClickOutside } from 'react-detect-click-outside';
 
 import Icon from '../../../components/common/IconComponent/Icon';
 import { SettingsMenu } from '../../../components/common/SettingsMenu';
+import { IProduct } from '../../../models/IProduct';
 
 import logo from '../../../assets/svg/wishly-logo.svg';
 
@@ -15,6 +16,10 @@ type ISettings = {
   id: number;
 };
 
+type IListItem = {
+  data: IProduct;
+};
+
 const settingsList: Array<ISettings> = [
   { name: 'Share', id: 0 },
   { name: 'Edit', id: 1 },
@@ -22,8 +27,10 @@ const settingsList: Array<ISettings> = [
   { name: 'Delete', id: 3 },
 ];
 
-export const ListItem = ({ image }) => {
+export const ListItem: FC<IListItem> = ({ data }) => {
   const [visible, setVisible] = useState(false);
+
+  const { image, nameURL, price, url } = data;
 
   const handleVisible = () => {
     setVisible(false);
@@ -56,8 +63,10 @@ export const ListItem = ({ image }) => {
           alt="card background"
         />
         <div className={styles.info}>
-          <p>Apple Iphone X</p>
-          <span>$820.00</span>
+          <p>{nameURL.slice(0, 33) + '...'}</p>
+          <a href={url} target="_blank">
+            {price.trim()}
+          </a>
         </div>
       </div>
     </div>

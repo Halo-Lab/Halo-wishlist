@@ -12,7 +12,7 @@ import { ListItem } from './components/ListItem';
 import styles from './ListPage.module.scss';
 
 export const ListPage = () => {
-  const [lists, setLists] = useState<IWishlist | null>(null);
+  const [lists, setLists] = useState<IWishlist | null | undefined>(null);
   const wishlists = useSelector<AppRootStateType, IWishlist[]>(
     (state) => state.wishlist.wishlists,
   );
@@ -26,6 +26,8 @@ export const ListPage = () => {
       AuthRequest.getWishlist(listId)
         .then((res) => setLists(res.data))
         .catch((error) => console.log(error.response.data.message));
+    } else {
+      setLists(wishlists.find((items) => items._id === listId));
     }
   }, []);
 
@@ -33,7 +35,7 @@ export const ListPage = () => {
     <MainLayout customTab={<CustomTab itemsCount={lists?.items.length} />}>
       <div className={styles.itemsWrapper}>
         {lists?.items.map((item) => {
-          return <ListItem key={item._id} image={item.image} />;
+          return <ListItem key={item._id} data={item} />;
         })}
       </div>
     </MainLayout>
