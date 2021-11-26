@@ -12,6 +12,10 @@
       transition-duration: 1.2s;
     }
   }
+
+  @media (max-width: $mobile) {
+    max-width: none;
+  }
 }
 
 .square:after {
@@ -49,7 +53,8 @@
   position: absolute;
   display: flex;
   justify-content: space-around;
-  padding: 15px 0;
+  align-items: center;
+  padding: 15px 5px;
   border-radius: 4px;
   font-weight: 500;
   font-size: 12px;
@@ -58,10 +63,15 @@
   max-width: 250px;
   background-color: #ffffff;
 
+  :first-child {
+    flex-basis: 150%;
+  }
+
   :last-child {
     color: #00993d;
     font-weight: bold;
     font-size: 14px;
+    text-align: end;
   }
 
   @media (max-width: $tablet) {
@@ -70,6 +80,9 @@
 
   @media (max-width: $tabletM) {
     max-width: 180px;
+  }
+  @media (max-width: $mobile) {
+    max-width: 250px;
   }
 }
 
