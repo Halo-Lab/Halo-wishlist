@@ -1,6 +1,7 @@
 const UserModel = require('../models/user-modal');
 const WishlistModel = require('../models/wishlist-modal');
 const ApiError = require('../exceptions/api-error');
+const WishlistDto = require('../dtos/wishlist-dto');
 
 class WishlistService {
   async createWishlist(userId, name) {
@@ -46,7 +47,11 @@ class WishlistService {
     if (!wishlist) {
       throw ApiError.BadRequest(`Wishlist not found ${wishlistId}`);
     }
-    return wishlist;
+    const user = await UserModel.findOne({ _id: wishlist.userId });
+    
+    const wishlistDto = new WishlistDto(wishlist, user)
+    
+    return wishlistDto;
   }
 
   async getWishlists(userId) {
