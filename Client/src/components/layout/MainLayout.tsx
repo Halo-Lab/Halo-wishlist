@@ -20,6 +20,8 @@ const MainLayout: React.FC<IProps> = ({
   tabs,
   changeTab,
   activeTab,
+  setLists,
+  wishlistId,
 }) => {
   const user = useSelector<AppRootStateType, IUser>((state) => state.users.user);
   const { name, userPic, date: birthday } = user;
@@ -32,7 +34,7 @@ const MainLayout: React.FC<IProps> = ({
         <Link to="/">
           <Image alt="wishlyLogo" src={wishlyLogo} width={125} height={37} />
         </Link>
-        <UserMenu userPic={userPic} />
+        <UserMenu userPic={userPic} setLists={setLists} wishlistId={wishlistId} />
       </div>
       <div className={styles.container__top}>
         <div className={styles.user}>
@@ -85,6 +87,8 @@ interface IProps {
   activeTab?: number;
   changeTab?: (value: number) => void;
   customTab?: React.ReactNode;
+  setLists?: (value: any) => void;
+  wishlistId?: string;
 }
 
 export { MainLayout };

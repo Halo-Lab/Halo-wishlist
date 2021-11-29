@@ -34,7 +34,7 @@ class WishlistService {
     }
     const wishlistUrl = wishlist.items.filter((i) => i.url === url);
     if (wishlistUrl[0]?.url) {
-      throw ApiError.BadRequest(`Wishlist with url ${url} already exists`);
+      throw ApiError.BadRequest(`Wish with url ${url} already exists`);
     }
     wishlist.items.push({ url, nameURL, image, price });
     await wishlist.save();

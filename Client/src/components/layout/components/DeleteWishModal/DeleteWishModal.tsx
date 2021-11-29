@@ -17,20 +17,22 @@ const DeleteWishModal: React.FC<IProps> = ({
   const { t } = useTranslation();
 
   const deleteWish = (data) => {
-    setLists((prev) => {
-      const newState = {
-        ...prev,
-        items: [...prev.items].filter((wish) => wish._id !== data._id),
-      };
-      WishlistRequest.deleteWish(data._id)
-        .then(() => notify.successes(t('modal.deleted')))
-        .catch((e) => {
-          notify.error(e);
+    WishlistRequest.deleteWish(data._id)
+      .then(() => {
+        setLists((prev) => {
+          const newState = {
+            ...prev,
+            items: [...prev.items].filter((wish) => wish._id !== data._id),
+          };
+          return {
+            ...newState,
+          };
         });
-      return {
-        ...newState,
-      };
-    });
+      })
+      .then(() => notify.successes(t('modal.deleted')))
+      .catch((e) => {
+        notify.error(e);
+      });
     setIsModal(false);
   };
 

@@ -133,6 +133,17 @@
   left: 0;
   width: 108px;
   cursor: pointer;
+  padding: 20px 15px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    border: 7px solid transparent;
+    border-bottom: 7px solid #ffffff;
+    left: 10px;
+    top: 0;
+    transform: translateY(-100%);
+  }
 }
 
 .menuItems {

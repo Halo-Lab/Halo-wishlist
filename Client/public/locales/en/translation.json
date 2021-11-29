@@ -18,7 +18,7 @@
     "required": "Required!",
     "passwordMinLength": "min 4 characters!",
     "passwordMaxLength": "max: 50 characters!",
-    "url": "Url is not valid"
+    "url": "Url is not valid!"
   },
   "settings": {
     "upload": "Upload new picture",
@@ -38,6 +38,8 @@
   },
   "years": "years old",
   "wishlists": "Wishlists",
+  "wishlist": "Wishlist",
+  "addWish": "Add wish",
   "archive": "Archive",
   "changeView": "Change view",
   "items": "Items",
@@ -61,6 +63,7 @@
     "editWish": "Edit your wish",
     "price": "Price",
     "link": "Link",
+    "image": "Image url",
     "edited": "Edited!",
     "shareWishlist": "Share this with your social Community",
     "copyLink": "or copy link",
@@ -70,6 +73,7 @@
     "deleteWish": "Are you sure? Do you want to delete the wish?",
     "yes": "Yes",
     "no": "No",
-    "deleted": "Deleted!"
+    "deleted": "Deleted!",
+    "created": "Created!"
   }
 }

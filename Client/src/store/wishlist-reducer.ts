@@ -1,8 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import i18n from 'i18next';
 import { Dispatch } from 'redux';
 
 import WishlistRequest from '../api/request/WishlistRequest';
 import { IWishlist } from '../models/IWishlist';
+import * as notify from '../utils/notifications';
 
 export type WishlistStateType = {
   wishlists: IWishlist[];
@@ -39,7 +41,12 @@ export const addWishlist = (title: string) => (dispatch: Dispatch) => {
     .then((res) => {
       dispatch(addWishlistAC(res.data));
     })
-    .catch((e) => console.log(e.response?.data?.message));
+    .then(() => {
+      notify.successes(i18n.t('modal.created'));
+    })
+    .catch((e) => {
+      notify.error(e.response?.data?.message);
+    });
 };
 
 export const wishlistReducer = slice.reducer;
