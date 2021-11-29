@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { MainLayout } from '../../components/layout/MainLayout';
@@ -17,11 +18,14 @@ export const AdminPage: React.FC = () => {
   );
   const [isListView, setIsListView] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<number>(0);
+  const { t } = useTranslation();
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(setWishlists(user.id));
-  }, []);
+    if (user.id) {
+      dispatch(setWishlists(user.id));
+    }
+  }, [user]);
 
   const changeView = () => setIsListView((prev) => !prev);
   const changeTab = (tab: number) => setActiveTab(tab);
@@ -34,8 +38,8 @@ export const AdminPage: React.FC = () => {
     </div>
   );
 
-  const archiveTab = <h2>Archive is empty</h2>;
-  const tabs = ['Wishlists', 'Archive'];
+  const archiveTab = <h2>{t('emptyArchive')}</h2>;
+  const tabs = [t('wishlists'), t('archive')];
 
   return (
     <MainLayout

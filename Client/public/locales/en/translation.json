@@ -14,12 +14,14 @@
   "errors": {
     "notValidEmail": "Must be a valid email!",
     "emailMaxLength": "Too Long!",
+    "tooShort": "Too short!",
     "required": "Required!",
     "passwordMinLength": "min 4 characters!",
-    "passwordMaxLength": "max: 50 characters!"
+    "passwordMaxLength": "max: 50 characters!",
+    "url": "Url is not valid"
   },
   "settings": {
-    "upload": "Uploud new picture",
+    "upload": "Upload new picture",
     "PublicProfile": "Public Profile",
     "name": "Name",
     "birthdayDate": "Birthday date",
@@ -33,5 +35,41 @@
     "oldPassword": "Old password",
     "newPassword": "New password",
     "socialProfiles": "Social profiles"
+  },
+  "years": "years old",
+  "wishlists": "Wishlists",
+  "archive": "Archive",
+  "changeView": "Change view",
+  "items": "Items",
+  "new": "New",
+  "emptyArchive": "Archive is empty",
+  "nav": {
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Log Out"
+  },
+  "modal": {
+    "createWishlist": "Create new wishlist",
+    "name": "Name",
+    "placeholder": "My birthday",
+    "cancel": "Cancel",
+    "save": "Save",
+    "required": "Required!",
+    "min4Length": "min 4 characters!",
+    "max50Length": "max: 50 characters!",
+    "max10Length": "max: 50 characters!",
+    "editWish": "Edit your wish",
+    "price": "Price",
+    "link": "Link",
+    "edited": "Edited!",
+    "shareWishlist": "Share this with your social Community",
+    "copyLink": "or copy link",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "failed": "Failed!",
+    "deleteWish": "Are you sure? Do you want to delete the wish?",
+    "yes": "Yes",
+    "no": "No",
+    "deleted": "Deleted!"
   }
 }

@@ -21,6 +21,11 @@
     margin: 0 0 1.5rem 0;
     padding: 0.75rem 0;
     border-bottom: 1px solid rgba($color: #000, $alpha: 0.1);
+
+    @media (max-width: 576px) {
+      align-items: unset;
+      flex-direction: column-reverse;
+    }
   }
 
   &__cards {
@@ -47,6 +52,12 @@
   cursor: pointer;
 }
 
+.tabs{
+  @media (max-width: 576px) {
+    margin-top: 24px;
+  }
+}
+
 .tab{
   padding-bottom: 5px;
 }
@@ -55,6 +66,7 @@
   padding-bottom: 10px;
   border-bottom: 2px solid black;
   transition: .2s;
+  font-weight: bold;
 }
 
 .user {

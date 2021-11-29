@@ -18,6 +18,16 @@ class WishlistController {
     }
   }
 
+  async deleteWishlist(req, res, next) {
+    try {
+      const { wishlistId } = req.params;
+      const wishlist = await wishlistService.deleteWishlist(wishlistId);
+      return res.json(wishlist);
+    } catch (e) {
+      next(e);
+    }
+  }
+
   async addUrl(req, res, next) {
     try {
       const errors = validationResult(req);
@@ -47,6 +57,33 @@ class WishlistController {
       const { wishlistId } = req.params;
       const wishlist = await wishlistService.getWishlist(wishlistId);
       return res.json(wishlist);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async deleteWish(req, res, next) {
+    try {
+      const { wishId } = req.params;
+      const wish = await wishlistService.deleteWish(wishId);
+      return res.json(wish);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async updateWish(req, res, next) {
+    const { url, nameURL, image, price } = req.body;
+    try {
+      const { wishId } = req.params;
+      const wish = await wishlistService.updateWish(
+        wishId,
+        url,
+        nameURL,
+        image,
+        price,
+      );
+      return res.json(wish);
     } catch (e) {
       next(e);
     }

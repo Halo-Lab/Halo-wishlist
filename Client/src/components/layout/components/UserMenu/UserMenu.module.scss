@@ -1,11 +1,10 @@
-@import '/src/styles/variables/colors';
-
 .menu_container {
   display: flex;
   align-items: center;
 }
 
 .addButton {
+  height: 32px;
   padding-left: 32px !important;
   font-size: 14px !important;
 }
@@ -29,50 +28,4 @@
 
 .userPic {
   object-position: center;
-}
-
-.nav_overlay {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.nav {
-  width: 160px;
-  padding: 6px 0;
-  border-radius: 6px;
-  background-color: #ffffff;
-  box-shadow: 0 20px 36px rgba(0, 0, 0, 0.15);
-  position: absolute;
-  top: 85px;
-  right: 70px;
-
-  @media (max-width: 768px) {
-    right: 0;
-    width: 100%;
-    margin: 0 auto;
-  }
-}
-
-.link {
-  border-bottom: 1px solid #e8f0fe;
-  display: flex;
-  padding: 12px 0;
-}
-
-.link:last-child {
-  border: none;
-}
-
-.link img {
-  padding: 0 18px;
-  vertical-align: middle;
-}
-
-.selected {
-  font-weight: bold;
 }

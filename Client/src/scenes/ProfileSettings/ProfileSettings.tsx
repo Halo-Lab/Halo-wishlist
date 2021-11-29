@@ -2,8 +2,10 @@ import { Form, Formik } from 'formik';
 import React from 'react';
 import ReactS3Client from 'react-aws-s3-typescript';
 import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import { ButtonService } from '../../components/common/ButtonSendForm/ButtonSendForm';
@@ -26,15 +28,29 @@ export const ProfileSettings = () => {
     i18n.changeLanguage(lang);
   };
 
-  const LoginSchema = Yup.object().shape({
+  const SettingsSchema = Yup.object().shape({
+    name: Yup.string()
+      .min(2, t('errors.tooShort'))
+      .max(50, t('errors.emailMaxLength'))
+      .required(t('errors.required')),
     email: Yup.string()
       .email(t('errors.notValidEmail'))
       .max(50, t('errors.emailMaxLength'))
       .required(t('errors.required')),
-    name: Yup.string()
-      .min(4, t('errors.passwordMinLength'))
-      .max(50, t('errors.passwordMaxLength'))
-      .required(t('errors.required')),
+    bio: Yup.string(),
+    nickName: Yup.string(),
+    facebook: Yup.string().matches(
+      /(?:https?:\/\/)?(?:www\.)?(?:facebook|fb|m\.facebook)\.(?:com|me)\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[\w\-]*\/)*([\w\-\.]+)(?:\/)?/i,
+      'Incorrect URL',
+    ),
+    twitter: Yup.string().matches(
+      /(?:http:\/\/)?(?:www\.)?twitter\.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[\w\-]*\/)*([\w\-]*)/,
+      'Incorrect URL',
+    ),
+    instagram: Yup.string().matches(
+      /(?:(?:http|https):\/\/)?(?:www\.)?(?:instagram\.com|instagr\.am)\/([A-Za-z0-9-_\.]+)/im,
+      'Incorrect URL',
+    ),
   });
 
   const handleUpload = async (file) => {
@@ -58,8 +74,18 @@ export const ProfileSettings = () => {
     handleUpload(e.target.files[0]);
   };
 
-  const { email, userPic, bio, date, name, nickName, facebook, instagram, twitter } =
-    useSelector((state: AppRootStateType) => state.users.user);
+  const {
+    email,
+    userPic,
+    bio,
+    date,
+    name,
+    nickName,
+    facebook,
+    instagram,
+    twitter,
+    id,
+  } = useSelector((state: AppRootStateType) => state.users.user);
 
   const initialValues: IInitialValues = {
     name,
@@ -80,10 +106,12 @@ export const ProfileSettings = () => {
 
   return (
     <div className={styles.pageWrapper}>
-      <img className={styles.logo} src={wishliLogo} alt="Wishli logo"></img>
+      <Link to="/">
+        <img className={styles.logo} src={wishliLogo} alt="Wishli logo"></img>
+      </Link>
       <Formik
         initialValues={initialValues}
-        validationSchema={LoginSchema}
+        validationSchema={SettingsSchema}
         onSubmit={(values) => handleSubmitForm(values)}
       >
         {({ errors, values, setFieldValue }) => (
@@ -119,7 +147,6 @@ export const ProfileSettings = () => {
                     placeholder="Darrell Steward"
                   />
                   <label> {t('settings.birthdayDate')}</label>
-
                   <DatePicker
                     selected={new Date(values.date)}
                     dateFormat="dd.MM.yyyy"
@@ -160,9 +187,7 @@ export const ProfileSettings = () => {
                   />
                   <p className={styles.url}>
                     {t('settings.url')}:
-                    {` https://wish.com/${
-                      nickName?.length > 0 ? nickName : 'darrell_steward'
-                    }`}
+                    {` https://wish.com/${nickName?.length > 0 ? nickName : id}`}
                   </p>
                   <div className={styles.selectors}>
                     <div className={styles.selectorCuret}>
@@ -229,14 +254,15 @@ export const ProfileSettings = () => {
               </section>
               <div className={styles.buttonsBlock}>
                 <ButtonService
+                  className={styles.sendFormBtn}
                   btnName="Save profile"
                   disabled={Object.keys(errors).length > 0}
                 />
-                <ButtonService
+                {/* <ButtonService
                   btnName="Delete Account"
                   disabled={false}
                   className={styles.deleteButton}
-                />
+                /> */}
               </div>
             </div>
           </Form>
