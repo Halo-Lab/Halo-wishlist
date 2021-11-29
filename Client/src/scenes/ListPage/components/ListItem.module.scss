@@ -132,11 +132,13 @@
   top: 43px;
   left: 0;
   width: 108px;
+  cursor: pointer;
 }
 
 .menuItems {
   font-weight: 500;
   font-size: 14px;
+
   &:not(:last-child) {
     margin-bottom: 16px;
   }

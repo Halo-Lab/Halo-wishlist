@@ -112,7 +112,10 @@ class UserService {
     user.twitter = twitter;
 
     await user.save();
-    return { user };
+
+    const userDto = new UserDto(user);
+
+    return { user: userDto };
   }
 
   async updateUserPic(_id, userPic) {
@@ -124,7 +127,9 @@ class UserService {
     user.userPic = userPic;
 
     await user.save();
-    return { user };
+    
+    const userDto = new UserDto(user);
+    return { user: userDto };
   }
 
   async changePassword(_id, password, newPassword) {
@@ -136,9 +141,10 @@ class UserService {
     
     const hashNewPassword = await bcrypt.hash(newPassword, 3);
     user.password = hashNewPassword
-
-    await user.save()
-    return { user };
+    
+    await user.save();
+    const userDto = new UserDto(user);
+    return { user: userDto };
   }
 }
 
