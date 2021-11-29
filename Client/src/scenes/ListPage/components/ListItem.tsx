@@ -2,8 +2,8 @@ import { faCog } from '@fortawesome/free-solid-svg-icons';
 import cn from 'classnames';
 import { FC, MouseEventHandler, useState } from 'react';
 import { useDetectClickOutside } from 'react-detect-click-outside';
-import { useTranslation } from 'react-i18next';
 
+// import { useTranslation } from 'react-i18next';
 import Icon from '../../../components/common/IconComponent/Icon';
 import { SettingsMenu } from '../../../components/common/SettingsMenu';
 import { DeleteWishModal } from '../../../components/layout/components/DeleteWishModal/DeleteWishModal';
@@ -34,7 +34,7 @@ export const ListItem: FC<IProps> = ({ data, setLists }) => {
 
   const { image, nameURL, price, url } = data;
 
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
 
   const settingsList: Array<ISettings> = [
     {
@@ -107,7 +107,11 @@ export const ListItem: FC<IProps> = ({ data, setLists }) => {
           />
           <SettingsMenu open={visible} className={styles.menuPosition}>
             {settingsList.map((item) => (
-              <p className={styles.menuItems} key={item.id} onClick={item.toggleModal}>
+              <p
+                className={styles.menuItems}
+                key={item.id}
+                onClick={item.toggleModal}
+              >
                 {item.name}
               </p>
             ))}
