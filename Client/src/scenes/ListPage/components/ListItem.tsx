@@ -107,7 +107,7 @@ export const ListItem: FC<IProps> = ({ data, setLists }) => {
           />
           <SettingsMenu open={visible} className={styles.menuPosition}>
             {settingsList.map((item) => (
-              <p key={item.id} onClick={item.toggleModal}>
+              <p className={styles.menuItems} key={item.id} onClick={item.toggleModal}>
                 {item.name}
               </p>
             ))}
