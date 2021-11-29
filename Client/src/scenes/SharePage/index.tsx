@@ -38,7 +38,9 @@ export const SharePage = () => {
     >
       <div className={styles.itemsWrapper}>
         {lists?.items.map((item) => {
-          return <ListItem key={item._id} data={item} />;
+          return (
+            <ListItem key={item._id} data={item} sharedPage={!user.isLoggedIn} />
+          );
         })}
       </div>
     </MainLayout>

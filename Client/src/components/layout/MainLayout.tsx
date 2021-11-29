@@ -17,7 +17,7 @@ const MainLayout: React.FC<IProps> = ({
   nameSh,
   userPicSh,
   birthdaySh,
-  hideMenu,
+  hideMenu = false,
   children,
   changeView,
   customTab,
