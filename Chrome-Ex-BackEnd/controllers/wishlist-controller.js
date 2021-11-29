@@ -72,6 +72,23 @@ class WishlistController {
     }
   }
 
+  async updateWish(req, res, next) {
+    const { url, nameURL, image, price } = req.body;
+    try {
+      const { wishId } = req.params;
+      const wish = await wishlistService.updateWish(
+        wishId,
+        url,
+        nameURL,
+        image,
+        price,
+      );
+      return res.json(wish);
+    } catch (e) {
+      next(e);
+    }
+  }
+
   async getWishlists(req, res, next) {
     try {
       const errors = validationResult(req);

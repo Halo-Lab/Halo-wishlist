@@ -32,10 +32,14 @@ export const ListPage = () => {
   }, []);
 
   return (
-    <MainLayout customTab={<CustomTab itemsCount={lists?.items.length} />}>
+    <MainLayout
+      customTab={
+        <CustomTab itemsCount={lists?.items.length} tabName={lists?.name} />
+      }
+    >
       <div className={styles.itemsWrapper}>
         {lists?.items.map((item) => {
-          return <ListItem key={item._id} data={item} />;
+          return <ListItem key={item._id} data={item} setLists={setLists} />;
         })}
       </div>
     </MainLayout>
