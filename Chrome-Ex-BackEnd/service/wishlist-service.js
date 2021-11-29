@@ -70,6 +70,35 @@ class WishlistService {
     }
   }
 
+  async updateWish(wishId, url, nameURL, image, price) {
+    console.log(wishId, url, nameURL, image, price);
+    const wish = await WishlistModel.updateMany(
+      //find wish
+      {
+        items: {
+          $elemMatch: {
+            _id: wishId,
+          },
+        },
+      },
+      //update wish
+      {
+        $set: {
+          'items.$.url': url,
+          'items.$.nameURL': nameURL,
+          'items.$.image': image,
+          'items.$.price': price,
+        },
+      },
+    );
+    if (wish.modifiedCount === 0) {
+      throw ApiError.BadRequest(`Wish not found ${wishId}`);
+    }
+    if (wish.modifiedCount !== 0) {
+      return { status: 'ok' };
+    }
+  }
+
   async getWishlists(userId) {
     const wishlist = await WishlistModel.findOne({ userId });
     if (!wishlist) {

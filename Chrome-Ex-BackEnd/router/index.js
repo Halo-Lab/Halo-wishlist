@@ -56,6 +56,16 @@ router.post(
 );
 router.get('/wishlist/:wishlistId', wishlistController.getWishlist);
 router.delete('/wish/:wishId', authMiddleware, wishlistController.deleteWish);
+router.put(
+  '/wish/:wishId',
+  body('url').isURL(),
+  body('nameURL').isString(),
+  body('image').isString(),
+  body('price').isString(),
+  authMiddleware,
+  wishlistController.updateWish,
+);
+
 router.get('/user/:userId', wishlistController.getWishlists);
 router.get('/categories/:userId', wishlistController.getCategories);
 

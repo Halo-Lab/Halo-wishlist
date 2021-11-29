@@ -22,8 +22,10 @@ export const AdminPage: React.FC = () => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(setWishlists(user.id));
-  }, []);
+    if (user.id) {
+      dispatch(setWishlists(user.id));
+    }
+  }, [user]);
 
   const changeView = () => setIsListView((prev) => !prev);
   const changeTab = (tab: number) => setActiveTab(tab);
