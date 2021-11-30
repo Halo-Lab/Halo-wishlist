@@ -6,7 +6,6 @@ import {
 import { Form, Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import * as Yup from 'yup';
 
 import { AppRootStateType } from '../../../../store/store';
 import * as notify from '../../../../utils/notifications';
