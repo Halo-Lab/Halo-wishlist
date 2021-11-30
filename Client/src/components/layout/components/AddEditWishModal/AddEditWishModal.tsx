@@ -23,7 +23,7 @@ const AddEditWishModal: React.FC<IProps> = ({
     nameURL: Yup.string().required(t('errors.required')),
     price: Yup.string().nullable().required(t('errors.required')),
     url: Yup.string().url(t('errors.url')).required(t('errors.required')),
-    image: Yup.string().url(t('errors.url')).required(t('errors.required')),
+    image: Yup.string().url(t('errors.url')),
   });
 
   const addWish = (values) => {
