@@ -85,6 +85,7 @@ export const ProfileSettings = () => {
     instagram,
     twitter,
     id,
+    isActivated,
   } = useSelector((state: AppRootStateType) => state.users.user);
 
   const initialValues: IInitialValues = {
@@ -178,6 +179,13 @@ export const ProfileSettings = () => {
                   <p> {t('settings.AccountSetting')}</p>
                 </div>
                 <div className={styles.section}>
+                  {isActivated && (
+                    <div className={styles.verification}>
+                      <p>
+                        Verification CODE: <span>{id}</span>
+                      </p>
+                    </div>
+                  )}
                   <label>{t('settings.username')}</label>
                   <FormikTextInput
                     className={styles.userName}
@@ -187,7 +195,9 @@ export const ProfileSettings = () => {
                   />
                   <p className={styles.url}>
                     {t('settings.url')}:
-                    {` https://wish.com/${nickName?.length > 0 ? nickName : id}`}
+                    {` ${process.env.REACT_APP_CLIENT_URL}${
+                      nickName?.length > 0 ? nickName : id
+                    }`}
                   </p>
                   <div className={styles.selectors}>
                     <div className={styles.selectorCuret}>
