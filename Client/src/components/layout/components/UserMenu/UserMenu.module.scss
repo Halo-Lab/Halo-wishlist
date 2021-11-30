@@ -26,6 +26,28 @@
   pointer-events: none;
 }
 
+.menuPosition {
+  top: 73px;
+  width: 160px;
+  right: 127px;
+}
+
+.menuItems {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+
+  img {
+    margin-right: 12px;
+  }
+}
+
+.menuItems:hover {
+  background-color: #EBEBEB;
+}
+
 .userPic {
   object-position: center;
 }
