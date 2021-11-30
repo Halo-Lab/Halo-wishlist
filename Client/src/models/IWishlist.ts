@@ -1,7 +1,7 @@
 import { IProduct } from './IProduct';
 
 export interface IWishlist {
-  _id: string;
+  id: string;
   userId: string;
   name: string;
   userName: string;

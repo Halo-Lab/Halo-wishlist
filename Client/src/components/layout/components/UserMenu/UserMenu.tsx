@@ -61,7 +61,7 @@ const UserMenu: React.FC<IProps> = ({ userPic, setLists, wishlistId }) => {
   };
 
   const ref = useDetectClickOutside({ onTriggered: handleVisible });
-
+  console.log('-> wishlistId', wishlistId);
   return (
     <div className={styles.menu_container}>
       {isAddWishlistModal && (

@@ -23,8 +23,8 @@ type ISettings = {
 
 type IProps = {
   data: IProduct;
-  sharedPage?: boolean | string;
   setLists?: (value: any) => void;
+  sharedPage?: string | boolean;
 };
 
 export const ListItem: FC<IProps> = ({ data, setLists, sharedPage = false }) => {
@@ -110,7 +110,11 @@ export const ListItem: FC<IProps> = ({ data, setLists, sharedPage = false }) => 
 
             <SettingsMenu open={visible} className={styles.menuPosition}>
               {settingsList.map((item) => (
-                <p className={styles.menuItems} key={item.id}>
+                <p
+                  className={styles.menuItems}
+                  key={item.id}
+                  onClick={item.toggleModal}
+                >
                   {item.name}
                 </p>
               ))}
