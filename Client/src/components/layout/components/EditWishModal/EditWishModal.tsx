@@ -1,35 +1,50 @@
 import { Form, Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 
+import WishlistRequest from '../../../../api/request/WishlistRequest';
+import { IProduct } from '../../../../models/IProduct';
+import * as notify from '../../../../utils/notifications';
 import { ButtonService } from '../../../common/ButtonSendForm/ButtonSendForm';
 import { FormikTextInput } from '../../../common/FormikInput/FormikInput';
 import { Modal } from '../../../common/Modal/Modal';
 
 import styles from '../../../common/Modal/Modal.module.scss';
 
-const EditWishModal: React.FC<IProps> = ({ isModal, setIsModal }) => {
-  const dispatch = useDispatch();
+const EditWishModal: React.FC<IProps> = ({
+  isModal,
+  setIsModal,
+  data,
+  setLists,
+}) => {
   const { t } = useTranslation();
 
   const Schema = Yup.object().shape({
-    name: Yup.string()
-      .min(4, t('errors.min4Length'))
-      .max(50, t('errors.max50Length'))
-      .required(t('errors.required')),
-    price: Yup.string()
-      .nullable()
-      .max(10, t('errors.passwordMaxLength'))
-      .required(t('errors.required')),
-    link: Yup.string()
-      .url(t('errors.url'))
-      .max(50, t('errors.max50Length'))
-      .required(t('errors.required')),
+    nameURL: Yup.string().required(t('errors.required')),
+    price: Yup.string().nullable().required(t('errors.required')),
+    url: Yup.string().url(t('errors.url')).required(t('errors.required')),
   });
 
   const handleSubmitForm = (values) => {
-    console.log(values);
+    setLists((prev) => {
+      const index = prev.items.findIndex((wish) => wish._id === values._id);
+      const newState = { ...prev, items: [...prev.items] };
+      newState.items[index] = values;
+      WishlistRequest.updateWish(
+        values._id,
+        values.url,
+        values.nameURL,
+        values.image,
+        values.price,
+      )
+        .then(() => notify.successes(t('modal.edited')))
+        .catch((e) => {
+          notify.error(e);
+        });
+      return {
+        ...newState,
+      };
+    });
     setIsModal(false);
   };
 
@@ -38,7 +53,7 @@ const EditWishModal: React.FC<IProps> = ({ isModal, setIsModal }) => {
       <div className={styles.modal_container}>
         <h3 className={styles.title}>{t('modal.editWish')}</h3>
         <Formik
-          initialValues={{ name: '', price: null, link: '' }}
+          initialValues={{ ...data }}
           validationSchema={Schema}
           onSubmit={handleSubmitForm}
         >
@@ -50,7 +65,7 @@ const EditWishModal: React.FC<IProps> = ({ isModal, setIsModal }) => {
                     {t('modal.name')}
                     <FormikTextInput
                       type="text"
-                      name="name"
+                      name="nameURL"
                       placeholder="Apple Iphone X"
                       className={styles.input}
                     />
@@ -66,14 +81,14 @@ const EditWishModal: React.FC<IProps> = ({ isModal, setIsModal }) => {
                       className={styles.input}
                     />
                   </label>
-                  <span className={styles.price}>&nbsp;$</span>
+                  <span className={styles.price}></span>
                 </div>
               </div>
               <label>
                 {t('modal.link')}
                 <FormikTextInput
                   type="text"
-                  name="link"
+                  name="url"
                   placeholder="https://wish.com/darrell_steward/"
                   className={styles.input}
                 />
@@ -101,6 +116,8 @@ const EditWishModal: React.FC<IProps> = ({ isModal, setIsModal }) => {
 interface IProps {
   isModal: boolean;
   setIsModal: (value: boolean) => void;
+  data: IProduct;
+  setLists: (value: any) => void;
 }
 
 export { EditWishModal };

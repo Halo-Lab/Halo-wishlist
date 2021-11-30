@@ -61,10 +61,15 @@
     "editWish": "Edit your wish",
     "price": "Price",
     "link": "Link",
+    "edited": "Edited!",
     "shareWishlist": "Share this with your social Community",
     "copyLink": "or copy link",
     "copy": "Copy",
     "copied": "Copied!",
-    "failed": "Failed!"
+    "failed": "Failed!",
+    "deleteWish": "Are you sure? Do you want to delete the wish?",
+    "yes": "Yes",
+    "no": "No",
+    "deleted": "Deleted!"
   }
 }
