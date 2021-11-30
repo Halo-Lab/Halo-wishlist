@@ -2,6 +2,7 @@ import { faCog } from '@fortawesome/free-solid-svg-icons';
 import cn from 'classnames';
 import { FC, MouseEventHandler, useState } from 'react';
 import { useDetectClickOutside } from 'react-detect-click-outside';
+import { useParams } from 'react-router-dom';
 
 // import { useTranslation } from 'react-i18next';
 import Icon from '../../../components/common/IconComponent/Icon';
@@ -32,6 +33,7 @@ export const ListItem: FC<IProps> = ({ data, setLists, sharedPage = false }) => 
   const [isShareModal, setIsShareModal] = useState<boolean>(false);
   const [isEditModal, setIsEditModal] = useState<boolean>(false);
   const [isDeleteModal, setIsDeleteModal] = useState<boolean>(false);
+  const { userNickname } = useParams<{ userNickname: string }>();
 
   const { image, nameURL, price, url } = data;
 
@@ -96,7 +98,7 @@ export const ListItem: FC<IProps> = ({ data, setLists, sharedPage = false }) => 
         />
       )}
       <div className={styles.content}>
-        {!sharedPage && (
+        {!sharedPage && !userNickname && (
           <div
             className={styles.iconWrapper}
             ref={ref}
