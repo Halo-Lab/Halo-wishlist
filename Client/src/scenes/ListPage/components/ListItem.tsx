@@ -6,8 +6,8 @@ import { useDetectClickOutside } from 'react-detect-click-outside';
 // import { useTranslation } from 'react-i18next';
 import Icon from '../../../components/common/IconComponent/Icon';
 import { SettingsMenu } from '../../../components/common/SettingsMenu';
+import { AddEditWishModal } from '../../../components/layout/components/AddEditWishModal/AddEditWishModal';
 import { DeleteWishModal } from '../../../components/layout/components/DeleteWishModal/DeleteWishModal';
-import { EditWishModal } from '../../../components/layout/components/EditWishModal/EditWishModal';
 import { ShareWishlistModal } from '../../../components/layout/components/ShareWishlistModal/ShareWishlistModal';
 import { IProduct } from '../../../models/IProduct';
 
@@ -23,10 +23,11 @@ type ISettings = {
 
 type IProps = {
   data: IProduct;
-  setLists: (value: any) => void;
+  setLists?: (value: any) => void;
+  sharedPage?: string | boolean;
 };
 
-export const ListItem: FC<IProps> = ({ data, setLists }) => {
+export const ListItem: FC<IProps> = ({ data, setLists, sharedPage = false }) => {
   const [visible, setVisible] = useState(false);
   const [isShareModal, setIsShareModal] = useState<boolean>(false);
   const [isEditModal, setIsEditModal] = useState<boolean>(false);
@@ -78,15 +79,15 @@ export const ListItem: FC<IProps> = ({ data, setLists }) => {
       {isShareModal && (
         <ShareWishlistModal isModal={isShareModal} setIsModal={setIsShareModal} />
       )}
-      {isEditModal && (
-        <EditWishModal
+      {isEditModal && setLists && (
+        <AddEditWishModal
           isModal={isEditModal}
           setIsModal={setIsEditModal}
           data={data}
           setLists={setLists}
         />
       )}
-      {isDeleteModal && (
+      {isDeleteModal && setLists && (
         <DeleteWishModal
           isModal={isDeleteModal}
           setIsModal={setIsDeleteModal}
@@ -95,39 +96,56 @@ export const ListItem: FC<IProps> = ({ data, setLists }) => {
         />
       )}
       <div className={styles.content}>
-        <div
-          className={styles.iconWrapper}
-          ref={ref}
-          onClick={() => setVisible(!visible)}
-        >
-          <Icon
-            size="lg"
-            name={faCog}
-            className={cn(styles.iconStyle, { [styles.rotate]: visible })}
-          />
-          <SettingsMenu open={visible} className={styles.menuPosition}>
-            {settingsList.map((item) => (
-              <p
-                className={styles.menuItems}
-                key={item.id}
-                onClick={item.toggleModal}
-              >
-                {item.name}
-              </p>
-            ))}
-          </SettingsMenu>
-        </div>
+        {!sharedPage && (
+          <div
+            className={styles.iconWrapper}
+            ref={ref}
+            onClick={() => setVisible(!visible)}
+          >
+            <Icon
+              size="lg"
+              name={faCog}
+              className={cn(styles.iconStyle, { [styles.rotate]: visible })}
+            />
+
+            <SettingsMenu open={visible} className={styles.menuPosition}>
+              {settingsList.map((item) => (
+                <p
+                  className={styles.menuItems}
+                  key={item.id}
+                  onClick={item.toggleModal}
+                >
+                  {item.name}
+                </p>
+              ))}
+            </SettingsMenu>
+          </div>
+        )}
         <img
           className={styles.img}
           src={image?.length <= 0 ? logo : image}
           alt="card background"
         />
-        <div className={styles.info}>
-          <p>{nameURL.slice(0, 33) + '...'}</p>
-          <a href={url} target="_blank">
-            {price.trim()}
-          </a>
-        </div>
+        {sharedPage ? (
+          <div className={styles.sharedPage}>
+            <div>
+              <p>{nameURL.slice(0, 20) + '...'}</p>
+              <p>{price.trim()}</p>
+            </div>
+            <div>
+              <a href={url} target="_blank">
+                Present
+              </a>
+            </div>
+          </div>
+        ) : (
+          <div className={styles.info}>
+            <p>{nameURL.slice(0, 33) + '...'}</p>
+            <a href={url} target="_blank">
+              {price.trim()}
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );

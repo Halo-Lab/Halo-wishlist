@@ -14,14 +14,21 @@ import wishlyLogo from '../../assets/svg/wishly-logo.svg';
 import styles from './MainLayout.module.scss';
 
 const MainLayout: React.FC<IProps> = ({
+  nameSh,
+  userPicSh,
+  birthdaySh,
+  hideMenu = false,
   children,
   changeView,
   customTab,
   tabs,
   changeTab,
   activeTab,
+  setLists,
+  wishlistId,
 }) => {
   const user = useSelector<AppRootStateType, IUser>((state) => state.users.user);
+
   const { name, userPic, date: birthday } = user;
 
   const { t } = useTranslation();
@@ -32,21 +39,22 @@ const MainLayout: React.FC<IProps> = ({
         <Link to="/">
           <Image alt="wishlyLogo" src={wishlyLogo} width={125} height={37} />
         </Link>
-        <UserMenu userPic={userPic} />
+        {!hideMenu && <UserMenu userPic={userPicSh || userPic} setLists={setLists} wishlistId={wishlistId}/>}
       </div>
       <div className={styles.container__top}>
         <div className={styles.user}>
           <Image
             alt="user"
-            src={userPic}
+            src={userPicSh || userPic}
             width={80}
             height={80}
             circle
             className={styles.user__pic}
           />
-          <p className={styles.user__name}>{name}</p>
+          <p className={styles.user__name}>{name || nameSh}</p>
           <p>
-            {new Date().getFullYear() - new Date(birthday).getFullYear()}
+            {new Date().getFullYear() -
+              new Date(birthdaySh || birthday).getFullYear()}
             {` ${t('years')}`}
           </p>
         </div>
@@ -83,8 +91,14 @@ interface IProps {
   changeView?: MouseEventHandler<HTMLButtonElement>;
   tabs?: string[];
   activeTab?: number;
-  changeTab?: (value: number) => void;
+  nameSh?: string;
+  userPicSh?: string;
+  birthdaySh?: string;
+  hideMenu?: boolean | string;
   customTab?: React.ReactNode;
+  setLists?: (value: any) => void;
+  wishlistId?: string;
+  changeTab?: (value: number) => void;
 }
 
 export { MainLayout };

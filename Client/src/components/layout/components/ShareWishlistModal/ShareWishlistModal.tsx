@@ -25,13 +25,6 @@ const ShareWishlistModal: React.FC<IProps> = ({ isModal, setIsModal }) => {
   );
   const { t } = useTranslation();
 
-  const Schema = Yup.object().shape({
-    url: Yup.string()
-      .url(t('errors.url'))
-      .max(50, t('errors.max50Length'))
-      .required(t('errors.required')),
-  });
-
   const handleSubmitForm = (values) => {
     navigator.clipboard
       .writeText(values)
@@ -95,7 +88,6 @@ const ShareWishlistModal: React.FC<IProps> = ({ isModal, setIsModal }) => {
         </div>
         <Formik
           initialValues={{ url: url }}
-          validationSchema={Schema}
           onSubmit={(values) => handleSubmitForm(values.url)}
         >
           <Form>

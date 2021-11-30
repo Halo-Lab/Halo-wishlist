@@ -36,6 +36,8 @@ export const ListPage = () => {
       customTab={
         <CustomTab itemsCount={lists?.items.length} tabName={lists?.name} />
       }
+      setLists={setLists}
+      wishlistId={lists?._id}
     >
       <div className={styles.itemsWrapper}>
         {lists?.items.map((item) => {
