@@ -23,3 +23,20 @@ $tablet: 768px;
 $tabletM: 650px;
 $mobileM: 480px;
 $mobile: 375px;
+
+@mixin gridTemplate() {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(4, minmax(150px, 300px));
+
+  @media (max-width: $tablet) {
+    grid-template-columns: repeat(3, minmax(150px, 280px));
+    grid-gap: 10px;
+  }
+  @media (max-width: $tabletM) {
+    grid-template-columns: repeat(2, minmax(150px, 280px));
+  }
+  @media (max-width: $mobile) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

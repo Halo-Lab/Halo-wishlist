@@ -5,10 +5,10 @@ import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
 
 import LoginForm from './components/LoginForm/LoginForm';
 import RegistrationForm from './components/RegistrationForm/RegistrationForm';
-import { MainLayout } from './components/layout/MainLayout';
 import { AdminPage } from './scenes/AdminPage/AdminPage';
 import { ListPage } from './scenes/ListPage';
 import { ProfileSettings } from './scenes/ProfileSettings/ProfileSettings';
+import { SharePage } from './scenes/SharePage';
 import { AppRootStateType } from './store/store';
 import { checkUserLogin, UserStateType } from './store/user-reducer';
 
@@ -53,8 +53,9 @@ const App: FC = () => {
           <Route path="/" render={() => <LoginForm />} exact />
           <Route path="/registration" render={() => <RegistrationForm />} />
           <Route
-            path={`/:${user.user.nickName || user.user.id}/:listID`}
-            render={() => <MainLayout />}
+            path={`/:userNickname/:listID`}
+            render={() => <SharePage />}
+            exact
           />
           <Route
             render={() => (
@@ -77,7 +78,7 @@ const App: FC = () => {
         <Route path={`/:listId`} render={() => <ListPage />} exact />
         <Route
           path={`/:${user.user.nickName || user.user.id}/:listID`}
-          render={() => <MainLayout />}
+          render={() => <SharePage />}
         />
         <Redirect to="/" />
       </Switch>
