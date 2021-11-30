@@ -30,7 +30,9 @@ export const SharePage = () => {
 
   return (
     <MainLayout
-      customTab={<CustomTab itemsCount={lists?.items.length} />}
+      customTab={
+        <CustomTab itemsCount={lists?.items.length} tabName={lists?.name} />
+      }
       nameSh={lists?.userName}
       userPicSh={lists?.userPic}
       birthdaySh={lists?.date}

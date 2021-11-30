@@ -24,6 +24,7 @@ type ISettings = {
 type IProps = {
   data: IProduct;
   sharedPage?: boolean | string;
+  setLists?: (value: any) => void;
 };
 
 export const ListItem: FC<IProps> = ({ data, setLists, sharedPage = false }) => {
@@ -78,7 +79,7 @@ export const ListItem: FC<IProps> = ({ data, setLists, sharedPage = false }) => 
       {isShareModal && (
         <ShareWishlistModal isModal={isShareModal} setIsModal={setIsShareModal} />
       )}
-      {isEditModal && (
+      {isEditModal && setLists && (
         <EditWishModal
           isModal={isEditModal}
           setIsModal={setIsEditModal}
@@ -86,7 +87,7 @@ export const ListItem: FC<IProps> = ({ data, setLists, sharedPage = false }) => 
           setLists={setLists}
         />
       )}
-      {isDeleteModal && (
+      {isDeleteModal && setLists && (
         <DeleteWishModal
           isModal={isDeleteModal}
           setIsModal={setIsDeleteModal}
