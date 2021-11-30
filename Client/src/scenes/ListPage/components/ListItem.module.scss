@@ -1,5 +1,22 @@
 @import '../../../components/common/helpers.scss';
 
+%shared {
+  position: absolute;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 15px 5px;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 12px;
+  bottom: 23px;
+  width: 100%;
+  max-width: 250px;
+  max-height: 70px;
+  height: 100%;
+  background-color: #ffffff;
+}
+
 .square {
   position: relative;
   display: block;
@@ -50,18 +67,7 @@
 }
 
 .info {
-  position: absolute;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding: 15px 5px;
-  border-radius: 4px;
-  font-weight: 500;
-  font-size: 12px;
-  bottom: 23px;
-  width: 100%;
-  max-width: 250px;
-  background-color: #ffffff;
+  @extend %shared;
 
   :first-child {
     flex-basis: 150%;
@@ -83,6 +89,39 @@
   }
   @media (max-width: $mobile) {
     max-width: 250px;
+  }
+}
+
+.sharedPage {
+  @extend %shared;
+
+  div:first-child {
+    font-size: 14px;
+    text-align: start;
+    margin-right: 5px;
+
+    :last-child {
+      color: #00993d;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+  }
+
+  div:last-child {
+    background: #000000;
+    border-radius: 6px;
+    padding: 10px 18px;
+    a {
+      font-weight: 500;
+      font-size: 14px;
+      width: 52px;
+      color: #fdfdfd;
+
+      @media (max-width: $tabletM) {
+        font-size: 12px;
+        width: 32px;
+      }
+    }
   }
 }
 

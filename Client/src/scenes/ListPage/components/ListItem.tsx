@@ -23,10 +23,10 @@ type ISettings = {
 
 type IProps = {
   data: IProduct;
-  setLists: (value: any) => void;
+  sharedPage?: boolean | string;
 };
 
-export const ListItem: FC<IProps> = ({ data, setLists }) => {
+export const ListItem: FC<IProps> = ({ data, setLists, sharedPage = false }) => {
   const [visible, setVisible] = useState(false);
   const [isShareModal, setIsShareModal] = useState<boolean>(false);
   const [isEditModal, setIsEditModal] = useState<boolean>(false);
@@ -95,39 +95,52 @@ export const ListItem: FC<IProps> = ({ data, setLists }) => {
         />
       )}
       <div className={styles.content}>
-        <div
-          className={styles.iconWrapper}
-          ref={ref}
-          onClick={() => setVisible(!visible)}
-        >
-          <Icon
-            size="lg"
-            name={faCog}
-            className={cn(styles.iconStyle, { [styles.rotate]: visible })}
-          />
-          <SettingsMenu open={visible} className={styles.menuPosition}>
-            {settingsList.map((item) => (
-              <p
-                className={styles.menuItems}
-                key={item.id}
-                onClick={item.toggleModal}
-              >
-                {item.name}
-              </p>
-            ))}
-          </SettingsMenu>
-        </div>
+        {!sharedPage && (
+          <div
+            className={styles.iconWrapper}
+            ref={ref}
+            onClick={() => setVisible(!visible)}
+          >
+            <Icon
+              size="lg"
+              name={faCog}
+              className={cn(styles.iconStyle, { [styles.rotate]: visible })}
+            />
+
+            <SettingsMenu open={visible} className={styles.menuPosition}>
+              {settingsList.map((item) => (
+                <p className={styles.menuItems} key={item.id}>
+                  {item.name}
+                </p>
+              ))}
+            </SettingsMenu>
+          </div>
+        )}
         <img
           className={styles.img}
           src={image?.length <= 0 ? logo : image}
           alt="card background"
         />
-        <div className={styles.info}>
-          <p>{nameURL.slice(0, 33) + '...'}</p>
-          <a href={url} target="_blank">
-            {price.trim()}
-          </a>
-        </div>
+        {sharedPage ? (
+          <div className={styles.sharedPage}>
+            <div>
+              <p>{nameURL.slice(0, 20) + '...'}</p>
+              <p>{price.trim()}</p>
+            </div>
+            <div>
+              <a href={url} target="_blank">
+                Present
+              </a>
+            </div>
+          </div>
+        ) : (
+          <div className={styles.info}>
+            <p>{nameURL.slice(0, 33) + '...'}</p>
+            <a href={url} target="_blank">
+              {price.trim()}
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );
