@@ -11,40 +11,78 @@ import { Modal } from '../../../common/Modal/Modal';
 
 import styles from '../../../common/Modal/Modal.module.scss';
 
-const EditWishModal: React.FC<IProps> = ({
+const AddEditWishModal: React.FC<IProps> = ({
   isModal,
   setIsModal,
   data,
   setLists,
+  wishlistId,
 }) => {
   const { t } = useTranslation();
-
   const Schema = Yup.object().shape({
     nameURL: Yup.string().required(t('errors.required')),
     price: Yup.string().nullable().required(t('errors.required')),
     url: Yup.string().url(t('errors.url')).required(t('errors.required')),
+    image: Yup.string().url(t('errors.url')).required(t('errors.required')),
   });
 
-  const handleSubmitForm = (values) => {
-    setLists((prev) => {
-      const index = prev.items.findIndex((wish) => wish._id === values._id);
-      const newState = { ...prev, items: [...prev.items] };
-      newState.items[index] = values;
-      WishlistRequest.updateWish(
-        values._id,
-        values.url,
-        values.nameURL,
-        values.image,
-        values.price,
-      )
-        .then(() => notify.successes(t('modal.edited')))
-        .catch((e) => {
-          notify.error(e);
+  const addWish = (values) => {
+    WishlistRequest.addWish(
+      wishlistId,
+      values.url,
+      values.nameURL,
+      values.image,
+      values.price,
+    )
+      .then(() => {
+        setLists((prev) => {
+          const newState = {
+            ...prev,
+            items: [...prev.items, { ...values }],
+          };
+          return {
+            ...newState,
+          };
         });
-      return {
-        ...newState,
-      };
-    });
+      })
+      .then(() => {
+        notify.successes(t('modal.created'));
+      })
+      .catch((e) => {
+        notify.error(e.response.data.message);
+      });
+  };
+
+  const updateWish = (values) => {
+    WishlistRequest.updateWish(
+      values._id,
+      values.url,
+      values.nameURL,
+      values.image,
+      values.price,
+    )
+      .then(() => {
+        setLists((prev) => {
+          const index = prev.items.findIndex((wish) => wish._id === values._id);
+          const newState = { ...prev, items: [...prev.items] };
+          newState.items[index] = values;
+          return {
+            ...newState,
+          };
+        });
+      })
+      .then(() => notify.successes(t('modal.edited')))
+      .catch((e) => {
+        notify.error(e);
+      });
+  };
+
+  const handleSubmitForm = (values) => {
+    if (data) {
+      updateWish(values);
+    } else {
+      addWish(values);
+    }
     setIsModal(false);
   };
 
@@ -53,7 +91,9 @@ const EditWishModal: React.FC<IProps> = ({
       <div className={styles.modal_container}>
         <h3 className={styles.title}>{t('modal.editWish')}</h3>
         <Formik
-          initialValues={{ ...data }}
+          initialValues={
+            data ? { ...data } : { nameURL: '', url: '', image: '', price: '' }
+          }
           validationSchema={Schema}
           onSubmit={handleSubmitForm}
         >
@@ -93,6 +133,15 @@ const EditWishModal: React.FC<IProps> = ({
                   className={styles.input}
                 />
               </label>
+              <label>
+                {t('modal.image')}
+                <FormikTextInput
+                  type="text"
+                  name="image"
+                  placeholder="https://wish.com/image.png"
+                  className={styles.input}
+                />
+              </label>
               <div className={styles.control}>
                 <ButtonService
                   btnName={t('modal.cancel')}
@@ -116,8 +165,9 @@ const EditWishModal: React.FC<IProps> = ({
 interface IProps {
   isModal: boolean;
   setIsModal: (value: boolean) => void;
-  data: IProduct;
+  data?: IProduct;
   setLists: (value: any) => void;
+  wishlistId?: string;
 }
 
-export { EditWishModal };
+export { AddEditWishModal };

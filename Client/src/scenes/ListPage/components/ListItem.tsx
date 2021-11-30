@@ -6,8 +6,8 @@ import { useDetectClickOutside } from 'react-detect-click-outside';
 // import { useTranslation } from 'react-i18next';
 import Icon from '../../../components/common/IconComponent/Icon';
 import { SettingsMenu } from '../../../components/common/SettingsMenu';
+import { AddEditWishModal } from '../../../components/layout/components/AddEditWishModal/AddEditWishModal';
 import { DeleteWishModal } from '../../../components/layout/components/DeleteWishModal/DeleteWishModal';
-import { EditWishModal } from '../../../components/layout/components/EditWishModal/EditWishModal';
 import { ShareWishlistModal } from '../../../components/layout/components/ShareWishlistModal/ShareWishlistModal';
 import { IProduct } from '../../../models/IProduct';
 
@@ -80,7 +80,7 @@ export const ListItem: FC<IProps> = ({ data, setLists, sharedPage = false }) => 
         <ShareWishlistModal isModal={isShareModal} setIsModal={setIsShareModal} />
       )}
       {isEditModal && setLists && (
-        <EditWishModal
+        <AddEditWishModal
           isModal={isEditModal}
           setIsModal={setIsEditModal}
           data={data}

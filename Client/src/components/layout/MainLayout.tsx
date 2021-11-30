@@ -24,6 +24,8 @@ const MainLayout: React.FC<IProps> = ({
   tabs,
   changeTab,
   activeTab,
+  setLists,
+  wishlistId,
 }) => {
   const user = useSelector<AppRootStateType, IUser>((state) => state.users.user);
 
@@ -37,7 +39,7 @@ const MainLayout: React.FC<IProps> = ({
         <Link to="/">
           <Image alt="wishlyLogo" src={wishlyLogo} width={125} height={37} />
         </Link>
-        {!hideMenu && <UserMenu userPic={userPicSh || userPic} />}
+        {!hideMenu && <UserMenu userPic={userPicSh || userPic} setLists={setLists} wishlistId={wishlistId}/>}
       </div>
       <div className={styles.container__top}>
         <div className={styles.user}>
@@ -94,6 +96,8 @@ interface IProps {
   birthdaySh?: string;
   hideMenu?: boolean | string;
   customTab?: React.ReactNode;
+  setLists?: (value: any) => void;
+  wishlistId?: string;
   changeTab?: (value: number) => void;
 }
 

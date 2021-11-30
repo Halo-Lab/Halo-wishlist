@@ -28,4 +28,14 @@ export default class WishlistRequest {
   static async deleteWish(wishId): Promise<AxiosResponse<{ wish: IProduct }>> {
     return api.delete(`wish/${wishId}`);
   }
+
+  static async addWish(
+    _id,
+    url,
+    nameURL,
+    image,
+    price,
+  ): Promise<AxiosResponse<{ wish: IProduct }>> {
+    return api.post(`addUrl`, { _id, url, nameURL, image, price });
+  }
 }
