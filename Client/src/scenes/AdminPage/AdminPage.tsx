@@ -33,7 +33,7 @@ export const AdminPage: React.FC = () => {
   const wishlistsTab = (
     <div className={styles.cardType}>
       {wishlists.map((i) => {
-        return <WishlistCard key={i.id} data={i} isListView={isListView} />;
+        return <WishlistCard key={i._id} data={i} isListView={isListView} />;
       })}
     </div>
   );

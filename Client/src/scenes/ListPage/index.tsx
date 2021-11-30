@@ -22,22 +22,22 @@ export const ListPage = () => {
   const { listId } = useParams<{ listId: string }>();
 
   useEffect(() => {
-    if (!wishlists.find((items) => items.id === listId)) {
+    if (!wishlists.find((items) => items._id === listId)) {
       AuthRequest.getWishlist(listId)
         .then((res) => setLists(res.data))
         .catch((error) => console.log(error.response.data.message));
     } else {
-      setLists(wishlists.find((items) => items.id === listId));
+      setLists(wishlists.find((items) => items._id === listId));
     }
   }, []);
-  console.log('-> lists?._id', lists);
+
   return (
     <MainLayout
       customTab={
         <CustomTab itemsCount={lists?.items.length} tabName={lists?.name} />
       }
       setLists={setLists}
-      wishlistId={lists?.id}
+      wishlistId={lists?._id}
     >
       <div className={styles.itemsWrapper}>
         {lists?.items.map((item) => {

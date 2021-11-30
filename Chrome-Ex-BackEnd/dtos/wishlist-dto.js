@@ -1,5 +1,5 @@
 module.exports = class WishlistDto {
-  id;
+  _id;
   userId;
   name;
   items;
@@ -10,7 +10,7 @@ module.exports = class WishlistDto {
  constructor(modal, user) {
     this.items = modal.items; 
     this.userId = modal.userId;
-    this.id = modal._id;
+    this._id = modal._id;
     this.name = modal.name;
     this.userName = user.name;
     this.date = user.date;

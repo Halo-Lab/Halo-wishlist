@@ -15,7 +15,7 @@ const WishlistCard: React.FC<IProps> = ({ data, isListView }) => {
   return (
     <div
       className={isListView ? styles.container_list : styles.container}
-      onClick={() => history.push(`/${data.id}`)}
+      onClick={() => history.push(`/${data._id}`)}
     >
       <img className={styles.background} src={wishlistImg} alt="card background" />
       <div className={styles.bottom}>
