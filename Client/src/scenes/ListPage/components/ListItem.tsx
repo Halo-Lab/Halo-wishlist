@@ -41,24 +41,10 @@ export const ListItem: FC<IProps> = ({ data, setLists, sharedPage = false }) => 
 
   const settingsList: Array<ISettings> = [
     {
-      name: 'Share',
-      id: 0,
-      toggleModal() {
-        setIsShareModal((prev) => !prev);
-      },
-    },
-    {
       name: 'Edit',
       id: 1,
       toggleModal() {
         setIsEditModal((prev) => !prev);
-      },
-    },
-    {
-      name: 'Archive',
-      id: 2,
-      toggleModal() {
-        setIsShareModal((prev) => !prev);
       },
     },
     {
@@ -78,9 +64,6 @@ export const ListItem: FC<IProps> = ({ data, setLists, sharedPage = false }) => 
 
   return (
     <div className={styles.square}>
-      {isShareModal && (
-        <ShareWishlistModal isModal={isShareModal} setIsModal={setIsShareModal} />
-      )}
       {isEditModal && setLists && (
         <AddEditWishModal
           isModal={isEditModal}

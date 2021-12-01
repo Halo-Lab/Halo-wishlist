@@ -1,7 +1,5 @@
-.cardType {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem 0;
-  column-gap: 15px;
-  justify-content: left;
+@import '../../components/common/helpers.scss';
+
+.itemsWrapper {
+  @include gridTemplate;
 }
