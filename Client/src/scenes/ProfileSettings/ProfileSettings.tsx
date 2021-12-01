@@ -231,11 +231,19 @@ export const ProfileSettings = () => {
                 <div className={styles.selectors}>
                   <div>
                     <label> {t('settings.oldPassword')}</label>
-                    <FormikTextInput type="password" name="password" />
+                    <FormikTextInput
+                      type="password"
+                      name="password"
+                      autoComplete="false"
+                    />
                   </div>
                   <div>
                     <label> {t('settings.newPassword')}</label>
-                    <FormikTextInput type="password" name="newPassword" />
+                    <FormikTextInput
+                      type="password"
+                      name="newPassword"
+                      autoComplete="false"
+                    />
                   </div>
                 </div>
               </section>
