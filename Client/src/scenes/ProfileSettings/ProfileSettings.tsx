@@ -122,6 +122,7 @@ export const ProfileSettings = () => {
                 <Image
                   alt="User Photo"
                   src={userPic}
+                  userPlaceholder="true"
                   width={88}
                   height={88}
                   circle

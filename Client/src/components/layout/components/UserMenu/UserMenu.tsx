@@ -105,6 +105,7 @@ const UserMenu: React.FC<IProps> = ({ userPic, setLists, wishlistId }) => {
       <div className={styles.menu_toggle} onClick={toggleNav}>
         <Image
           alt="user"
+          userPlaceholder="true"
           src={userPic}
           width={50}
           height={50}
