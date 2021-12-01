@@ -2,7 +2,10 @@ import { FC } from 'react';
 
 import styles from './CustomTab.module.scss';
 
-export const CustomTab: FC<IProps> = ({ itemsCount = 0, tabName }) => {
+export const CustomTab: FC<IProps> = ({
+  itemsCount = 0,
+  tabName = 'Wishlist name',
+}) => {
   return (
     <div className={styles.container}>
       <p className={styles.tab_name}>{tabName}:</p>
