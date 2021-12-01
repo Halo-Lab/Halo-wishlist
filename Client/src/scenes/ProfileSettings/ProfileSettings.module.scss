@@ -22,6 +22,18 @@
   }
 }
 
+.verification {
+  margin-bottom: 30px;
+  font-weight: bold;
+  color: rgb(219, 11, 11);
+  opacity: 0.7;
+
+  span {
+    color: initial;
+    text-decoration: underline dashed;
+  }
+}
+
 .iconBlock {
   width: max-content;
   display: flex;

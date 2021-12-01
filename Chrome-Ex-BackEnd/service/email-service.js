@@ -21,7 +21,7 @@ class EmailService {
       text: '',
       html: `
         <div>
-        <h1>Use this code to activate your extension account</h1>
+        <h1>Follow the link and use the code to activate your extension account</h1>
         <a href="${link}">${link}</a>
         </div>
       `,

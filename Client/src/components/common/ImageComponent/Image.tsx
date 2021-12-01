@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 import { FC } from 'react';
 
+import UserAvatar from '../../../assets/png/user_avatar.png';
+
 import styles from './Image.module.scss';
 
 export interface IImage {
@@ -10,6 +12,7 @@ export interface IImage {
   height?: number;
   circle?: boolean;
   className?: string;
+  userPlaceholder?: string | boolean;
 }
 
 const Image: FC<IImage> = ({
@@ -19,6 +22,7 @@ const Image: FC<IImage> = ({
   width,
   height,
   circle,
+  userPlaceholder,
   ...attrs
 }) => {
   const classes = classNames(className, styles.baseImage, {
@@ -26,7 +30,9 @@ const Image: FC<IImage> = ({
   });
 
   if (!src) {
-    src = `https://via.placeholder.com/${width}x${height}`;
+    src = userPlaceholder
+      ? UserAvatar
+      : `https://via.placeholder.com/${width}x${height}`;
   }
 
   return (

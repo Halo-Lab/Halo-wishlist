@@ -97,7 +97,7 @@ const WishlistCard: React.FC<IProps> = ({ data }) => {
             className={styles.img}
             src={wishlistImg}
             alt="card background"
-            onClick={() => history.push(`/${data._id}`)}
+            onClick={() => history.push(`/wishlists/${data._id}`)}
           />
           <div className={styles.info}>
             <div className={styles.name}>{name}</div>
