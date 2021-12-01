@@ -43,8 +43,10 @@
   "archive": "Архів",
   "changeView": "Змінити вигляд",
   "items": "Кількість",
+  "elements": "предмети",
   "new": "Створити",
   "emptyArchive": "Архів порожній",
+  "present": "Подарунок",
   "nav": {
     "profile": "Мій профіль",
     "settings": "Налаштування",

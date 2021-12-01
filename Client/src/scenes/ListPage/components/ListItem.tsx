@@ -2,6 +2,7 @@ import { faCog } from '@fortawesome/free-solid-svg-icons';
 import cn from 'classnames';
 import { FC, MouseEventHandler, useState } from 'react';
 import { useDetectClickOutside } from 'react-detect-click-outside';
+import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
 // import { useTranslation } from 'react-i18next';
@@ -34,7 +35,7 @@ export const ListItem: FC<IProps> = ({ data, setLists, sharedPage = false }) => 
   const { userNickname } = useParams<{ userNickname: string }>();
 
   const { image, nameURL, price, url } = data;
-
+  const { t } = useTranslation();
   // const { t } = useTranslation();
 
   const settingsList: Array<ISettings> = [
@@ -117,7 +118,7 @@ export const ListItem: FC<IProps> = ({ data, setLists, sharedPage = false }) => 
             </div>
             <div>
               <a href={url} target="_blank">
-                Present
+                {t('present')}
               </a>
             </div>
           </div>
