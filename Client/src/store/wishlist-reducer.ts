@@ -59,7 +59,7 @@ export const addWishlist = (title: string) => (dispatch: Dispatch) => {
 
 export const deleteWishlist = (wishlistId: string) => (dispatch: Dispatch) => {
   WishlistRequest.deleteWishlists(wishlistId)
-    .then((res) => {
+    .then(() => {
       dispatch(deleteWishlistAC({ wishlistId }));
     })
     .then(() => {

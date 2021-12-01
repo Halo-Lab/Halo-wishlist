@@ -9,7 +9,6 @@ import Icon from '../../../components/common/IconComponent/Icon';
 import { SettingsMenu } from '../../../components/common/SettingsMenu';
 import { AddEditWishModal } from '../../../components/layout/components/AddEditWishModal/AddEditWishModal';
 import { DeleteWishModal } from '../../../components/layout/components/DeleteWishModal/DeleteWishModal';
-import { ShareWishlistModal } from '../../../components/layout/components/ShareWishlistModal/ShareWishlistModal';
 import { IProduct } from '../../../models/IProduct';
 
 import logo from '../../../assets/svg/wishly-logo.svg';
@@ -30,7 +29,6 @@ type IProps = {
 
 export const ListItem: FC<IProps> = ({ data, setLists, sharedPage = false }) => {
   const [visible, setVisible] = useState(false);
-  const [isShareModal, setIsShareModal] = useState<boolean>(false);
   const [isEditModal, setIsEditModal] = useState<boolean>(false);
   const [isDeleteModal, setIsDeleteModal] = useState<boolean>(false);
   const { userNickname } = useParams<{ userNickname: string }>();
