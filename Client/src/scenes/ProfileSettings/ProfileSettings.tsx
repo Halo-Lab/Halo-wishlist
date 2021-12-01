@@ -38,6 +38,7 @@ export const ProfileSettings = () => {
       .max(50, t('errors.emailMaxLength'))
       .required(t('errors.required')),
     bio: Yup.string(),
+    date: Yup.string().required('errors.required'),
     nickName: Yup.string(),
     facebook: Yup.string().matches(
       /(?:https?:\/\/)?(?:www\.)?(?:facebook|fb|m\.facebook)\.(?:com|me)\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[\w\-]*\/)*([\w\-\.]+)(?:\/)?/i,
@@ -142,13 +143,13 @@ export const ProfileSettings = () => {
                   <p>{t('settings.PublicProfile')}</p>
                 </div>
                 <div className={styles.section}>
-                  <label>{t('settings.name')}</label>
+                  <label>{t('settings.name')}*</label>
                   <FormikTextInput
                     name="name"
                     type="text"
                     placeholder="Darrell Steward"
                   />
-                  <label> {t('settings.birthdayDate')}</label>
+                  <label> {t('settings.birthdayDate')}*</label>
                   <DatePicker
                     selected={new Date(values.date)}
                     dateFormat="dd.MM.yyyy"
