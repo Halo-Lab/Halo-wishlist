@@ -23,7 +23,9 @@ const ShareWishlistModal: React.FC<IProps> = ({
   setIsModal,
   wishlistId,
 }) => {
-  const { nickName } = useSelector((state: AppRootStateType) => state.users.user);
+  const { nickName, id } = useSelector(
+    (state: AppRootStateType) => state.users.user,
+  );
   const { t } = useTranslation();
 
   const handleSubmitForm = (values) => {
@@ -39,9 +41,10 @@ const ShareWishlistModal: React.FC<IProps> = ({
 
     setIsModal(false);
   };
+  console.log(wishlistId);
 
   const url = `${process.env.REACT_APP_CLIENT_URL}${
-    nickName ? nickName + '/' + wishlistId : wishlistId
+    (nickName || id) + '/' + wishlistId
   }`;
 
   return (
