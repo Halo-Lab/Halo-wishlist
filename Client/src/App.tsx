@@ -27,7 +27,7 @@ const App: FC = () => {
   }, []);
 
   if (user.isLoading) {
-    return <div>Loading...</div>;
+    return <div></div>;
   }
 
   const changeLanguage = (lang: string) => {
