@@ -34,7 +34,8 @@
     "Password": "Password",
     "oldPassword": "Old password",
     "newPassword": "New password",
-    "socialProfiles": "Social profiles"
+    "socialProfiles": "Social profiles",
+    "save": "Save profile"
   },
   "years": "years old",
   "wishlists": "Wishlists",

@@ -34,7 +34,8 @@
     "Password": "Пароль",
     "oldPassword": "Старий пароль",
     "newPassword": "Новий пароль",
-    "socialProfiles": "Соціальні профілі"
+    "socialProfiles": "Соціальні профілі",
+    "save": "Зберегти профіль"
   },
   "years": "років",
   "wishlists": "Списки бажань",

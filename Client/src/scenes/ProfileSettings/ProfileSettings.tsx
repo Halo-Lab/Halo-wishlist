@@ -275,7 +275,7 @@ export const ProfileSettings = () => {
               <div className={styles.buttonsBlock}>
                 <ButtonService
                   className={styles.sendFormBtn}
-                  btnName="Save profile"
+                  btnName={t('settings.save')}
                   disabled={Object.keys(errors).length > 0}
                 />
                 {/* <ButtonService
