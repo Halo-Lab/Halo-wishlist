@@ -1,7 +1,7 @@
 import React, { MouseEventHandler } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import { IUser } from '../../models/IUser';
 import { AppRootStateType } from '../../store/store';
@@ -29,7 +29,8 @@ const MainLayout: React.FC<IProps> = ({
 }) => {
   const user = useSelector<AppRootStateType, IUser>((state) => state.users.user);
 
-  const { name, userPic, date: birthday } = user;
+  const { name, userPic, date: birthday, isActivated } = user;
+  const location = useLocation();
 
   const { t } = useTranslation();
 
@@ -65,6 +66,11 @@ const MainLayout: React.FC<IProps> = ({
                 new Date(birthdaySh || birthday).getFullYear()
               : 'always 18'}
             {` ${t('years')}`}
+          </p>
+          <p className={styles.confirm}>
+            {isActivated &&
+              location.pathname === '/' &&
+              'Please, confirm your email!'}
           </p>
         </div>
       </div>
