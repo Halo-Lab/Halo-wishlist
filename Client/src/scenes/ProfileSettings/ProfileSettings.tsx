@@ -38,7 +38,7 @@ export const ProfileSettings = () => {
       .max(50, t('errors.emailMaxLength'))
       .required(t('errors.required')),
     bio: Yup.string(),
-    date: Yup.string().required('errors.required'),
+    date: Yup.mixed().required(t('errors.required')),
     nickName: Yup.string(),
     facebook: Yup.string().matches(
       /(?:https?:\/\/)?(?:www\.)?(?:facebook|fb|m\.facebook)\.(?:com|me)\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[\w\-]*\/)*([\w\-\.]+)(?:\/)?/i,
@@ -271,6 +271,11 @@ export const ProfileSettings = () => {
                     placeholder="https://instagram.com"
                   />
                 </div>
+                {!Object.entries(errors).length || (
+                  <div className={styles.requiredFields}>
+                    <p>* - required fields</p>
+                  </div>
+                )}
               </section>
               <div className={styles.buttonsBlock}>
                 <ButtonService
