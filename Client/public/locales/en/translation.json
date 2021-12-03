@@ -34,7 +34,8 @@
     "Password": "Password",
     "oldPassword": "Old password",
     "newPassword": "New password",
-    "socialProfiles": "Social profiles"
+    "socialProfiles": "Social profiles",
+    "save": "Save profile"
   },
   "years": "years old",
   "wishlists": "Wishlists",
@@ -43,8 +44,10 @@
   "archive": "Archive",
   "changeView": "Change view",
   "items": "Items",
+  "elements": "items",
   "new": "New",
   "emptyArchive": "Archive is empty",
+  "present": "Presents",
   "nav": {
     "profile": "Profile",
     "settings": "Settings",

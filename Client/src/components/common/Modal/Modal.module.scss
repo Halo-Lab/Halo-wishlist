@@ -14,7 +14,7 @@
   align-items: center;
   z-index: 100;
   scroll-behavior: unset;
-  animation-duration: .48s;
+  animation-duration: 0.48s;
   animation-timing-function: ease-out;
 }
 
@@ -57,7 +57,6 @@
     opacity: 1;
   }
 }
-
 
 .modal_container {
   padding: 0 24px;
@@ -203,12 +202,11 @@ label {
 }
 
 .input_link input:focus {
-  outline: none;
-  border: 2px solid black;
+  outline: -2px solid black;
   border-radius: 5px 0 0 5px;
 }
 
-.btn_copy input{
+.btn_copy input {
   height: 50px;
   border-radius: 0 5px 5px 0;
 }

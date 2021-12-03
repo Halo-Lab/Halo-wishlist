@@ -7,6 +7,7 @@ import { MainLayout } from '../../components/layout/MainLayout';
 import { IWishlist } from '../../models/IWishlist';
 import { AppRootStateType } from '../../store/store';
 import { UserStateType } from '../../store/user-reducer';
+import * as notify from '../../utils/notifications';
 import { CustomTab } from '../ListPage/components/CustomTab';
 import { ListItem } from '../ListPage/components/ListItem';
 
@@ -22,7 +23,7 @@ export const SharePage = () => {
     let cleanupFunction = false;
     AuthRequest.getWishlist(listID)
       .then((res) => !cleanupFunction && setLists(res.data))
-      .catch((error) => console.log(error.response.data.message));
+      .catch((error) => notify.warn(error.response.data.message));
     return () => {
       cleanupFunction = true;
     };

@@ -27,7 +27,7 @@ const App: FC = () => {
   }, []);
 
   if (user.isLoading) {
-    return <div>Loading...</div>;
+    return <div></div>;
   }
 
   const changeLanguage = (lang: string) => {
@@ -53,9 +53,8 @@ const App: FC = () => {
           <Route path="/" render={() => <LoginForm />} exact />
           <Route path="/registration" render={() => <RegistrationForm />} />
           <Route
-            path={`/:userNickname/:listID`}
+            path={`/shared/:userNickname/:listID`}
             render={() => <SharePage />}
-            exact
           />
           <Route
             render={() => (
@@ -76,7 +75,7 @@ const App: FC = () => {
         <Route path={`/`} render={() => <AdminPage />} exact />
         <Route path="/settings" render={() => <ProfileSettings />} exact />
         <Route path={`/wishlists/:listId`} render={() => <ListPage />} exact />
-        <Route path={`/:userNickname/:listID`} render={() => <SharePage />} />
+        <Route path={`/shared/:userNickname/:listID`} render={() => <SharePage />} />
         <Redirect to="/" />
       </Switch>
     </div>

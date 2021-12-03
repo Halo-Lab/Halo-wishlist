@@ -6,6 +6,7 @@ import AuthRequest from '../../api/request/AuthRequest';
 import { MainLayout } from '../../components/layout/MainLayout';
 import { IWishlist } from '../../models/IWishlist';
 import { AppRootStateType } from '../../store/store';
+import * as notify from '../../utils/notifications';
 import { CustomTab } from './components/CustomTab';
 import { ListItem } from './components/ListItem';
 
@@ -25,7 +26,7 @@ export const ListPage = () => {
     if (!wishlists.find((items) => items._id === listId)) {
       AuthRequest.getWishlist(listId)
         .then((res) => setLists(res.data))
-        .catch((error) => console.log(error.response.data.message));
+        .catch((error) => notify.warn(error.response.data.message));
     } else {
       setLists(wishlists.find((items) => items._id === listId));
     }

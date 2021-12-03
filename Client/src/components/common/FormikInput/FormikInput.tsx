@@ -12,6 +12,7 @@ interface Props {
   as?: string;
   rows?: string;
   disabled?: true;
+  [key: string]: any;
 }
 
 export const FormikTextInput: FC<Props> = (props) => {
