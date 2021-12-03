@@ -68,7 +68,7 @@ const MainLayout: React.FC<IProps> = ({
             {` ${t('years')}`}
           </p>
           <p className={styles.confirm}>
-            {isActivated &&
+            {!isActivated &&
               location.pathname === '/' &&
               'Please, confirm your email!'}
           </p>
