@@ -37,17 +37,9 @@ const App: FC = () => {
   if (!user.isLoggedIn) {
     return (
       <div className="main-wrapper">
-        <div
-          style={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            margin: '20px',
-            zIndex: 2,
-            position: 'relative',
-          }}
-        >
-          <button onClick={() => changeLanguage('uk')}>ua</button>
-          <button onClick={() => changeLanguage('en')}>en</button>
+        <div className="change__lang">
+          <button onClick={() => changeLanguage('uk')} />
+          <button onClick={() => changeLanguage('en')} />
         </div>
         <Switch>
           <Route path="/" render={() => <LoginForm />} exact />

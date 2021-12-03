@@ -30,7 +30,7 @@
 
   span {
     color: initial;
-    text-decoration: underline dashed;
+    border-bottom: 1px dashed;
   }
 }
 
@@ -242,4 +242,18 @@
   overflow: hidden;
   position: absolute;
   z-index: -1;
+}
+
+.error {
+  position: relative;
+  color: #d41f1f;
+  font-size: 14px;
+  top: -25px;
+}
+
+.requiredFields {
+  font-size: 14px;
+  line-height: 20px;
+  color: #da2020;
+  margin-bottom: 2px;
 }

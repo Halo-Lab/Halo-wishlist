@@ -30,3 +30,33 @@ a {
 a:visited {
   color: $color__font;
 }
+
+.change__lang {
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px;
+  z-index: 2;
+  position: relative;
+
+  button {
+    padding: 5px;
+    border: 1px solid black;
+    font: inherit;
+    color: inherit;
+    background-color: rgb(255, 255, 255);
+    cursor: pointer;
+    width: 30px;
+    height: 20px;
+    margin: 0.5px;
+    box-shadow: 1px 2px 5px rgb(59, 49, 49);
+
+    &:first-child {
+      background-image: url('../assets/png/Ukrainian.png');
+      background-size: cover;
+    }
+    &:last-child {
+      background-image: url('../assets/png/usa.png');
+      background-size: cover;
+    }
+  }
+}
