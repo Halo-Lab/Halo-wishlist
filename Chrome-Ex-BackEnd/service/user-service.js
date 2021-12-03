@@ -51,7 +51,7 @@ class UserService {
   async login(email, password, remember) {
     const user = await UserModel.findOne({ email });
     if (!user) {
-      throw ApiError.BadRequest(`User with email ${email} not found`);
+      throw ApiError.BadRequest(`User not found`);
     }
     const isPassEquals = await bcrypt.compare(password, user.password);
     if (!isPassEquals) {

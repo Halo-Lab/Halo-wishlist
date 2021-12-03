@@ -59,7 +59,7 @@ export const loginUser =
         dispatch(setIsLoggedInAC(true));
         dispatch(setUserAC(res.data.user));
       })
-      .catch((e) => console.log(e.response?.data?.message));
+      .catch((e) => notify.error(e.response?.data?.message));
   };
 
 export const registrationUser =
