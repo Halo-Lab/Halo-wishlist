@@ -60,8 +60,10 @@ const MainLayout: React.FC<IProps> = ({
           />
           <p className={styles.user__name}>{name || nameSh}</p>
           <p>
-            {new Date().getFullYear() -
-              new Date(birthdaySh || birthday).getFullYear()}
+            {birthday || birthday
+              ? new Date().getFullYear() -
+                new Date(birthdaySh || birthday).getFullYear()
+              : 'always 18'}
             {` ${t('years')}`}
           </p>
         </div>
