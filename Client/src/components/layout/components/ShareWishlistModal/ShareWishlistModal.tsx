@@ -6,7 +6,6 @@ import {
 import { Form, Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router';
 
 import { AppRootStateType } from '../../../../store/store';
 import * as notify from '../../../../utils/notifications';
@@ -19,8 +18,14 @@ import shareModal from '../../../../assets/png/share_modal.png';
 
 import styles from '../../../common/Modal/Modal.module.scss';
 
-const ShareWishlistModal: React.FC<IProps> = ({ isModal, setIsModal }) => {
-  const { nickName } = useSelector((state: AppRootStateType) => state.users.user);
+const ShareWishlistModal: React.FC<IProps> = ({
+  isModal,
+  setIsModal,
+  wishlistId,
+}) => {
+  const { nickName, id } = useSelector(
+    (state: AppRootStateType) => state.users.user,
+  );
   const { t } = useTranslation();
 
   const handleSubmitForm = (values) => {
@@ -36,10 +41,10 @@ const ShareWishlistModal: React.FC<IProps> = ({ isModal, setIsModal }) => {
 
     setIsModal(false);
   };
+  console.log(wishlistId);
 
-  const { listId } = useParams<{ listId: string }>();
-  const url = `${process.env.REACT_APP_CLIENT_URL}${
-    nickName ? nickName + '/' + listId : listId
+  const url = `${process.env.REACT_APP_CLIENT_URL}shared/${
+    (nickName || id) + '/' + wishlistId
   }`;
 
   return (
@@ -117,6 +122,7 @@ const ShareWishlistModal: React.FC<IProps> = ({ isModal, setIsModal }) => {
 interface IProps {
   isModal: boolean;
   setIsModal: (value: boolean) => void;
+  wishlistId?: string;
 }
 
 export { ShareWishlistModal };

@@ -39,13 +39,20 @@ const MainLayout: React.FC<IProps> = ({
         <Link to="/">
           <Image alt="wishlyLogo" src={wishlyLogo} width={125} height={37} />
         </Link>
-        {!hideMenu && <UserMenu userPic={userPicSh || userPic} setLists={setLists} wishlistId={wishlistId}/>}
+        {!hideMenu && (
+          <UserMenu
+            userPic={userPicSh || userPic}
+            setLists={setLists}
+            wishlistId={wishlistId}
+          />
+        )}
       </div>
       <div className={styles.container__top}>
         <div className={styles.user}>
           <Image
             alt="user"
             src={userPicSh || userPic}
+            userPlaceholder="true"
             width={80}
             height={80}
             circle

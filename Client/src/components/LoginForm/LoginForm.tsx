@@ -38,7 +38,7 @@ const LoginForm: FC = () => {
 
   const handleSubmitForm = (values: ILogin) => {
     const { email, password } = values;
-    dispatch(loginUser(email, password, isRemember));
+    dispatch(loginUser(email.toLocaleLowerCase(), password, isRemember));
   };
 
   const handelChangeRemember = () => {

@@ -1,45 +1,131 @@
 @import '/src/styles/variables/colors';
+@import './src/components/common/helpers';
 
-%card {
+.square {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 18px;
-  flex-wrap: wrap;
-  overflow: hidden;
-  border-radius: 0.5rem;
-  color: $color__white;
-  cursor: pointer;
+  display: block;
+  max-height: 245px;
+  max-width: 300px;
+
+  :hover {
+    .iconWrapper {
+      opacity: 1;
+      transition-duration: 1.2s;
+    }
+
+    .name {
+      text-decoration: underline;
+    }
+  }
+
+  @media (max-width: $mobile) {
+    max-width: none;
+  }
 }
 
-.container {
-  @extend %card;
-  min-width: 280px;
-  height: 245px;
+.square:after {
+  content: '';
+  display: block;
+  padding-top: 100%;
 }
 
-.container_list {
-  @extend %card;
-  width: 100%;
-  height: 80px;
-}
-
-.background {
+.content {
   position: absolute;
+  display: flex;
+  justify-content: center;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  user-select: none;
-  pointer-events: none;
+  background: #ffffff;
+  border-radius: 8px;
 }
 
-.bottom {
-  z-index: 1;
+.info {
+  position: absolute;
+  color: $color__white;
+  bottom: 18px;
+  left: 18px;
+}
+
+.img {
+  width: inherit;
+  height: inherit;
+}
+
+.iconWrapper {
+  position: absolute;
+  opacity: 0;
+  left: 16px;
+  top: 16px;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #757373;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+
+  @media (max-width: $tablet) {
+    left: 8px;
+    top: 8px;
+  }
+}
+
+.iconStyle {
+  color: #ffffff;
+}
+
+.rotate {
+  animation: rotation 0.5s linear;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+.menuPosition {
+  top: 43px;
+  left: 0;
+  width: 108px;
+  cursor: pointer;
+  padding: 20px 15px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    border: 7px solid transparent;
+    border-bottom: 7px solid #ffffff;
+    left: 10px;
+    top: 1px;
+    transform: translateY(-100%);
+  }
+}
+
+.menuItems {
+  font-weight: 500;
+  font-size: 14px;
+
+  &:not(:last-child) {
+    margin-bottom: 16px;
+  }
+
+  &:not(:last-child)::after {
+    content: '';
+    display: block;
+    position: absolute;
+    margin-top: 8px;
+    left: 0;
+    width: 100%;
+    height: 0.3px;
+    border-bottom: 0.3px solid rgba(0, 0, 0, 0.1);
+  }
 }
 
 .name {

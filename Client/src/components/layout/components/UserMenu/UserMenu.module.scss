@@ -22,8 +22,12 @@
 
 .icon {
   position: absolute;
-  padding-left: 8px;
+  padding-left: 4px;
   pointer-events: none;
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 
 .menuPosition {

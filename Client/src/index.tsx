@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -12,12 +12,10 @@ import './styles/_global.scss';
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
-      <Suspense fallback="Loading...">
-        <Router>
-          <App />
-          <ToastContainer />
-        </Router>
-      </Suspense>
+      <Router>
+        <App />
+        <ToastContainer />
+      </Router>
     </React.StrictMode>
   </Provider>,
 

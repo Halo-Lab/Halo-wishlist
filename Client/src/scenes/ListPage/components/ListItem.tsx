@@ -2,13 +2,14 @@ import { faCog } from '@fortawesome/free-solid-svg-icons';
 import cn from 'classnames';
 import { FC, MouseEventHandler, useState } from 'react';
 import { useDetectClickOutside } from 'react-detect-click-outside';
+import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
 
 // import { useTranslation } from 'react-i18next';
 import Icon from '../../../components/common/IconComponent/Icon';
 import { SettingsMenu } from '../../../components/common/SettingsMenu';
 import { AddEditWishModal } from '../../../components/layout/components/AddEditWishModal/AddEditWishModal';
 import { DeleteWishModal } from '../../../components/layout/components/DeleteWishModal/DeleteWishModal';
-import { ShareWishlistModal } from '../../../components/layout/components/ShareWishlistModal/ShareWishlistModal';
 import { IProduct } from '../../../models/IProduct';
 
 import logo from '../../../assets/svg/wishly-logo.svg';
@@ -29,34 +30,20 @@ type IProps = {
 
 export const ListItem: FC<IProps> = ({ data, setLists, sharedPage = false }) => {
   const [visible, setVisible] = useState(false);
-  const [isShareModal, setIsShareModal] = useState<boolean>(false);
   const [isEditModal, setIsEditModal] = useState<boolean>(false);
   const [isDeleteModal, setIsDeleteModal] = useState<boolean>(false);
+  const { userNickname } = useParams<{ userNickname: string }>();
 
   const { image, nameURL, price, url } = data;
-
+  const { t } = useTranslation();
   // const { t } = useTranslation();
 
   const settingsList: Array<ISettings> = [
-    {
-      name: 'Share',
-      id: 0,
-      toggleModal() {
-        setIsShareModal((prev) => !prev);
-      },
-    },
     {
       name: 'Edit',
       id: 1,
       toggleModal() {
         setIsEditModal((prev) => !prev);
-      },
-    },
-    {
-      name: 'Archive',
-      id: 2,
-      toggleModal() {
-        setIsShareModal((prev) => !prev);
       },
     },
     {
@@ -76,9 +63,6 @@ export const ListItem: FC<IProps> = ({ data, setLists, sharedPage = false }) => 
 
   return (
     <div className={styles.square}>
-      {isShareModal && (
-        <ShareWishlistModal isModal={isShareModal} setIsModal={setIsShareModal} />
-      )}
       {isEditModal && setLists && (
         <AddEditWishModal
           isModal={isEditModal}
@@ -96,7 +80,7 @@ export const ListItem: FC<IProps> = ({ data, setLists, sharedPage = false }) => 
         />
       )}
       <div className={styles.content}>
-        {!sharedPage && (
+        {!sharedPage && !userNickname && (
           <div
             className={styles.iconWrapper}
             ref={ref}
@@ -134,7 +118,7 @@ export const ListItem: FC<IProps> = ({ data, setLists, sharedPage = false }) => 
             </div>
             <div>
               <a href={url} target="_blank">
-                Present
+                {t('present')}
               </a>
             </div>
           </div>

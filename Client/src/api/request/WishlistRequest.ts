@@ -15,6 +15,12 @@ export default class WishlistRequest {
     return api.post(`addWishlist`, { name: title });
   }
 
+  static async deleteWishlists(
+    wishlistId: string,
+  ): Promise<AxiosResponse<{ status: string }>> {
+    return api.delete(`wishlist/${wishlistId}`);
+  }
+
   static async updateWish(
     wishId,
     url,

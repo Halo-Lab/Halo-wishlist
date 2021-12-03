@@ -16,7 +16,6 @@ export const AdminPage: React.FC = () => {
   const wishlists = useSelector<AppRootStateType, IWishlist[]>(
     (state) => state.wishlist.wishlists,
   );
-  const [isListView, setIsListView] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<number>(0);
   const { t } = useTranslation();
 
@@ -27,13 +26,12 @@ export const AdminPage: React.FC = () => {
     }
   }, [user]);
 
-  const changeView = () => setIsListView((prev) => !prev);
   const changeTab = (tab: number) => setActiveTab(tab);
 
   const wishlistsTab = (
-    <div className={styles.cardType}>
+    <div className={styles.itemsWrapper}>
       {wishlists.map((i) => {
-        return <WishlistCard key={i._id} data={i} isListView={isListView} />;
+        return <WishlistCard key={i._id} data={i} />;
       })}
     </div>
   );
@@ -42,12 +40,7 @@ export const AdminPage: React.FC = () => {
   const tabs = [t('wishlists'), t('archive')];
 
   return (
-    <MainLayout
-      changeView={changeView}
-      tabs={tabs}
-      changeTab={changeTab}
-      activeTab={activeTab}
-    >
+    <MainLayout tabs={tabs} changeTab={changeTab} activeTab={activeTab}>
       {activeTab === 0 && wishlistsTab}
       {activeTab === 1 && archiveTab}
     </MainLayout>

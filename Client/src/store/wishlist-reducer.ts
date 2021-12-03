@@ -25,6 +25,14 @@ const slice = createSlice({
     addWishlistAC(state, action: PayloadAction<{ wishlist: IWishlist }>) {
       state.wishlists.push(action.payload.wishlist);
     },
+    deleteWishlistAC(state, action: PayloadAction<{ wishlistId: string }>) {
+      const index = state.wishlists.findIndex(
+        (w) => w._id === action.payload.wishlistId,
+      );
+      if (index > -1) {
+        state.wishlists.splice(index, 1);
+      }
+    },
   },
 });
 
@@ -49,5 +57,18 @@ export const addWishlist = (title: string) => (dispatch: Dispatch) => {
     });
 };
 
+export const deleteWishlist = (wishlistId: string) => (dispatch: Dispatch) => {
+  WishlistRequest.deleteWishlists(wishlistId)
+    .then(() => {
+      dispatch(deleteWishlistAC({ wishlistId }));
+    })
+    .then(() => {
+      notify.successes(i18n.t('modal.deleted'));
+    })
+    .catch((e) => {
+      notify.error(e.response?.data?.message);
+    });
+};
+
 export const wishlistReducer = slice.reducer;
-export const { setWishlistAC, addWishlistAC } = slice.actions;
+export const { setWishlistAC, addWishlistAC, deleteWishlistAC } = slice.actions;

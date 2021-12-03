@@ -34,7 +34,8 @@
     "Password": "Password",
     "oldPassword": "Old password",
     "newPassword": "New password",
-    "socialProfiles": "Social profiles"
+    "socialProfiles": "Social profiles",
+    "save": "Save profile"
   },
   "years": "years old",
   "wishlists": "Wishlists",
@@ -43,8 +44,10 @@
   "archive": "Archive",
   "changeView": "Change view",
   "items": "Items",
+  "elements": "items",
   "new": "New",
   "emptyArchive": "Archive is empty",
+  "present": "Presents",
   "nav": {
     "profile": "Profile",
     "settings": "Settings",
@@ -61,6 +64,7 @@
     "max50Length": "max: 50 characters!",
     "max10Length": "max: 50 characters!",
     "editWish": "Edit your wish",
+    "createWish": "Create new wish",
     "price": "Price",
     "link": "Link",
     "image": "Image url",
@@ -71,6 +75,7 @@
     "copied": "Copied!",
     "failed": "Failed!",
     "deleteWish": "Are you sure? Do you want to delete the wish?",
+    "deleteWishlist": "Are you sure? Do you want to delete the wishlist?",
     "yes": "Yes",
     "no": "No",
     "deleted": "Deleted!",

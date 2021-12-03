@@ -38,6 +38,7 @@ export const ProfileSettings = () => {
       .max(50, t('errors.emailMaxLength'))
       .required(t('errors.required')),
     bio: Yup.string(),
+    date: Yup.string().required('errors.required'),
     nickName: Yup.string(),
     facebook: Yup.string().matches(
       /(?:https?:\/\/)?(?:www\.)?(?:facebook|fb|m\.facebook)\.(?:com|me)\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[\w\-]*\/)*([\w\-\.]+)(?:\/)?/i,
@@ -85,6 +86,7 @@ export const ProfileSettings = () => {
     instagram,
     twitter,
     id,
+    isActivated,
   } = useSelector((state: AppRootStateType) => state.users.user);
 
   const initialValues: IInitialValues = {
@@ -121,6 +123,7 @@ export const ProfileSettings = () => {
                 <Image
                   alt="User Photo"
                   src={userPic}
+                  userPlaceholder="true"
                   width={88}
                   height={88}
                   circle
@@ -140,13 +143,13 @@ export const ProfileSettings = () => {
                   <p>{t('settings.PublicProfile')}</p>
                 </div>
                 <div className={styles.section}>
-                  <label>{t('settings.name')}</label>
+                  <label>{t('settings.name')}*</label>
                   <FormikTextInput
                     name="name"
                     type="text"
                     placeholder="Darrell Steward"
                   />
-                  <label> {t('settings.birthdayDate')}</label>
+                  <label> {t('settings.birthdayDate')}*</label>
                   <DatePicker
                     selected={new Date(values.date)}
                     dateFormat="dd.MM.yyyy"
@@ -178,6 +181,13 @@ export const ProfileSettings = () => {
                   <p> {t('settings.AccountSetting')}</p>
                 </div>
                 <div className={styles.section}>
+                  {isActivated && (
+                    <div className={styles.verification}>
+                      <p>
+                        Verification CODE: <span>{id}</span>
+                      </p>
+                    </div>
+                  )}
                   <label>{t('settings.username')}</label>
                   <FormikTextInput
                     className={styles.userName}
@@ -187,7 +197,9 @@ export const ProfileSettings = () => {
                   />
                   <p className={styles.url}>
                     {t('settings.url')}:
-                    {` https://wish.com/${nickName?.length > 0 ? nickName : id}`}
+                    {` ${process.env.REACT_APP_CLIENT_URL}${
+                      nickName?.length > 0 ? nickName : id
+                    }`}
                   </p>
                   <div className={styles.selectors}>
                     <div className={styles.selectorCuret}>
@@ -219,11 +231,19 @@ export const ProfileSettings = () => {
                 <div className={styles.selectors}>
                   <div>
                     <label> {t('settings.oldPassword')}</label>
-                    <FormikTextInput type="password" name="password" />
+                    <FormikTextInput
+                      type="password"
+                      name="password"
+                      autoComplete="false"
+                    />
                   </div>
                   <div>
                     <label> {t('settings.newPassword')}</label>
-                    <FormikTextInput type="password" name="newPassword" />
+                    <FormikTextInput
+                      type="password"
+                      name="newPassword"
+                      autoComplete="false"
+                    />
                   </div>
                 </div>
               </section>
@@ -255,7 +275,7 @@ export const ProfileSettings = () => {
               <div className={styles.buttonsBlock}>
                 <ButtonService
                   className={styles.sendFormBtn}
-                  btnName="Save profile"
+                  btnName={t('settings.save')}
                   disabled={Object.keys(errors).length > 0}
                 />
                 {/* <ButtonService
