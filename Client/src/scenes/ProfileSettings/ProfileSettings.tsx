@@ -38,7 +38,7 @@ export const ProfileSettings = () => {
       .max(50, t('errors.emailMaxLength'))
       .required(t('errors.required')),
     bio: Yup.string(),
-    date: Yup.string().required('errors.required'),
+    date: Yup.mixed().required(t('errors.required')),
     nickName: Yup.string(),
     facebook: Yup.string().matches(
       /(?:https?:\/\/)?(?:www\.)?(?:facebook|fb|m\.facebook)\.(?:com|me)\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[\w\-]*\/)*([\w\-\.]+)(?:\/)?/i,
@@ -181,13 +181,12 @@ export const ProfileSettings = () => {
                   <p> {t('settings.AccountSetting')}</p>
                 </div>
                 <div className={styles.section}>
-                  {isActivated && (
-                    <div className={styles.verification}>
-                      <p>
-                        Verification CODE: <span>{id}</span>
-                      </p>
-                    </div>
-                  )}
+                  <div className={styles.verification}>
+                    <p>
+                      Verification CODE:{' '}
+                      <span>{isActivated ? id : 'check your mail'}</span>
+                    </p>
+                  </div>
                   <label>{t('settings.username')}</label>
                   <FormikTextInput
                     className={styles.userName}
@@ -271,6 +270,11 @@ export const ProfileSettings = () => {
                     placeholder="https://instagram.com"
                   />
                 </div>
+                {!Object.entries(errors).length || (
+                  <div className={styles.requiredFields}>
+                    <p>* - required fields</p>
+                  </div>
+                )}
               </section>
               <div className={styles.buttonsBlock}>
                 <ButtonService

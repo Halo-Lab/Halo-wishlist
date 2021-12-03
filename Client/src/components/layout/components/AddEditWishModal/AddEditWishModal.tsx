@@ -32,15 +32,15 @@ const AddEditWishModal: React.FC<IProps> = ({
     image: Yup.string().url(t('errors.url')),
   });
 
-  const [id, setId] = useState<string>('');
-  const dispatch = useDispatch();
-
   const userId = useSelector<AppRootStateType, string>(
     (state) => state.users.user.id,
   );
   const wishlists = useSelector<AppRootStateType, IWishlist[]>(
     (state) => state.wishlist.wishlists,
   );
+
+  const [id, setId] = useState<string>(wishlists[0]._id || '');
+  const dispatch = useDispatch();
 
   const addWish = (values) => {
     WishlistRequest.addWish(

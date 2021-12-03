@@ -47,25 +47,25 @@
   justify-content: space-between;
 }
 
-.tabs span{
+.tabs span {
   margin-right: 24px;
   cursor: pointer;
 }
 
-.tabs{
+.tabs {
   @media (max-width: 576px) {
     margin-top: 24px;
   }
 }
 
-.tab{
+.tab {
   padding-bottom: 5px;
 }
 
 .activeTab {
   padding-bottom: 10px;
   border-bottom: 2px solid black;
-  transition: .2s;
+  transition: 0.2s;
   font-weight: bold;
 }
 
@@ -101,5 +101,24 @@
   &__icon {
     width: 1rem;
     height: 1rem;
+  }
+}
+.confirm {
+  color: rgb(221, 30, 30);
+  font-weight: bold;
+  margin-top: 2px;
+  opacity: 0.7;
+  animation: confirm 1s linear;
+}
+
+@keyframes confirm {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.5);
+  }
+  0% {
+    transform: scale(1);
   }
 }
