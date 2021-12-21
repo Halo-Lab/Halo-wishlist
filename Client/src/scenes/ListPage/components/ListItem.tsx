@@ -114,7 +114,19 @@ export const ListItem: FC<IProps> = ({ data, setLists, sharedPage = false }) => 
           <div className={styles.sharedPage}>
             <div>
               <p>{nameURL.slice(0, 20) + '...'}</p>
-              <p>{price.trim()}</p>
+              <p
+                data-title={
+                  price.trim().length > 8
+                    ? price.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ')
+                    : 'none'
+                }
+              >
+                {price
+                  .trim()
+                  .slice(0, 8)
+                  .replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ') +
+                  (price.trim().length > 8 ? '...' : '')}
+              </p>
             </div>
             <div>
               <a href={url} target="_blank">
@@ -124,9 +136,21 @@ export const ListItem: FC<IProps> = ({ data, setLists, sharedPage = false }) => 
           </div>
         ) : (
           <div className={styles.info}>
-            <p>{nameURL.slice(0, 33) + '...'}</p>
-            <a href={url} target="_blank">
-              {price.trim()}
+            <p>{nameURL.slice(0, 33) + (nameURL.length > 33 ? '...' : '')}</p>
+            <a
+              href={url}
+              target="_blank"
+              data-title={
+                price.trim().length > 8
+                  ? price.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ')
+                  : 'none'
+              }
+            >
+              {price
+                .trim()
+                .slice(0, 8)
+                .replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ') +
+                (price.trim().length > 8 ? '...' : '')}
             </a>
           </div>
         )}

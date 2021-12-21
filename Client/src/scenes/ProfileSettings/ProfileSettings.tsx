@@ -154,6 +154,7 @@ export const ProfileSettings = () => {
                     selected={new Date(values.date)}
                     dateFormat="dd.MM.yyyy"
                     name="date"
+                    maxDate={new Date()}
                     peekNextMonth={false}
                     className={styles.datePicker}
                     onChange={(date) => setFieldValue('date', date)}
@@ -192,6 +193,7 @@ export const ProfileSettings = () => {
                     className={styles.userName}
                     name="nickName"
                     type="text"
+                    autoComplete="off"
                     placeholder="darrell_steward"
                   />
                   <p className={styles.url}>

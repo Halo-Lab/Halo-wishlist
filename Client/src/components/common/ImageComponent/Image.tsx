@@ -6,7 +6,7 @@ import UserAvatar from '../../../assets/png/user_avatar.png';
 import styles from './Image.module.scss';
 
 export interface IImage {
-  src: string;
+  src: string | undefined;
   alt: string;
   width: number;
   height?: number;
