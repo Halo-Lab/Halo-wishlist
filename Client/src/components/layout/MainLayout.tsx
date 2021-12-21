@@ -61,10 +61,10 @@ const MainLayout: React.FC<IProps> = ({
           />
           <p className={styles.user__name}>{name || nameSh}</p>
           <p>
-            {birthday || birthday
+            {birthday || birthdaySh || birthday
               ? new Date().getFullYear() -
                 new Date(birthdaySh || birthday).getFullYear()
-              : 'always 18'}
+              : t('foreverYang')}
             {` ${t('years')}`}
           </p>
           <p className={styles.confirm}>
