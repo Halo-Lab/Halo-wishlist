@@ -154,6 +154,7 @@ export const ProfileSettings = () => {
                     selected={new Date(values.date)}
                     dateFormat="dd.MM.yyyy"
                     name="date"
+                    maxDate={new Date()}
                     peekNextMonth={false}
                     className={styles.datePicker}
                     onChange={(date) => setFieldValue('date', date)}
