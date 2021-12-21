@@ -192,6 +192,7 @@ export const ProfileSettings = () => {
                     className={styles.userName}
                     name="nickName"
                     type="text"
+                    autoComplete="off"
                     placeholder="darrell_steward"
                   />
                   <p className={styles.url}>
