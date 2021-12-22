@@ -193,7 +193,6 @@ export const ProfileSettings = () => {
                     className={styles.userName}
                     name="nickName"
                     type="text"
-                    autoComplete="off"
                     placeholder="darrell_steward"
                   />
                   <p className={styles.url}>
@@ -235,7 +234,7 @@ export const ProfileSettings = () => {
                     <FormikTextInput
                       type="password"
                       name="password"
-                      autoComplete="false"
+                      autoComplete="new-password"
                     />
                   </div>
                   <div>
