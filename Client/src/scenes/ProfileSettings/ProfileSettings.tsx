@@ -143,13 +143,18 @@ export const ProfileSettings = () => {
                   <p>{t('settings.PublicProfile')}</p>
                 </div>
                 <div className={styles.section}>
-                  <label>{t('settings.name')}*</label>
+                  <label className={styles.requiredStars}>
+                    {t('settings.name')}
+                  </label>
                   <FormikTextInput
                     name="name"
                     type="text"
                     placeholder="Darrell Steward"
                   />
-                  <label> {t('settings.birthdayDate')}*</label>
+                  <label className={styles.requiredStars}>
+                    {' '}
+                    {t('settings.birthdayDate')}
+                  </label>
                   <DatePicker
                     selected={new Date(values.date)}
                     dateFormat="dd.MM.yyyy"
