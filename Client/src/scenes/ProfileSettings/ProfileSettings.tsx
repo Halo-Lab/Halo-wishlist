@@ -83,9 +83,11 @@ export const ProfileSettings = () => {
       file[0]?.type !== 'image/jpg'
     ) {
       notify.warn('Please, upload only png or jpeg files');
+      return;
     }
     if (file[0]?.size > 10000000) {
       notify.warn('The file exceeds 10 MB');
+      return;
     }
 
     handleUpload(file[0]);
