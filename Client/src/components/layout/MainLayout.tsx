@@ -5,6 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import { IUser } from '../../models/IUser';
 import { AppRootStateType } from '../../store/store';
+import { ChangeLanguage } from '../common/ChangeLanguage';
 import Image from '../common/ImageComponent/Image';
 import { UserMenu } from './components/UserMenu/UserMenu';
 
@@ -26,6 +27,7 @@ const MainLayout: React.FC<IProps> = ({
   activeTab,
   setLists,
   wishlistId,
+  changeLang = false,
 }) => {
   const user = useSelector<AppRootStateType, IUser>((state) => state.users.user);
 
@@ -50,6 +52,7 @@ const MainLayout: React.FC<IProps> = ({
         {!hideMenu && (
           <UserMenu userPic={userPic} setLists={setLists} wishlistId={wishlistId} />
         )}
+        {changeLang && <ChangeLanguage />}
       </div>
       <div className={styles.container__top}>
         <div className={styles.user}>
@@ -118,6 +121,7 @@ interface IProps {
   userPicSh?: string;
   birthdaySh?: string;
   hideMenu?: boolean | string;
+  changeLang?: boolean | string;
   customTab?: React.ReactNode;
   setLists?: (value: any) => void;
   wishlistId?: string;

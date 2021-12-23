@@ -8,6 +8,7 @@ import * as Yup from 'yup';
 import { ILogin } from '../../models/IUser';
 import { registrationUser } from '../../store/user-reducer';
 import { ButtonService } from '../common/ButtonSendForm/ButtonSendForm';
+import { ChangeLanguage } from '../common/ChangeLanguage';
 import { EyePass } from '../common/SvgComponents/EyePass';
 
 import styles from './RegistrationForm.module.scss';
@@ -41,6 +42,7 @@ const RegistrationForm: FC = () => {
 
   return (
     <div className={styles.overlay}>
+      <ChangeLanguage className={styles.language} />
       <div className={styles.modal}>
         <div className={styles.form}>
           <h1 className={styles.title}>{t('auth.signUp')}</h1>
