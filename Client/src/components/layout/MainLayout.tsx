@@ -31,8 +31,15 @@ const MainLayout: React.FC<IProps> = ({
 
   const { name, userPic, date: birthday, isActivated } = user;
   const location = useLocation();
+  const isShared = location.pathname.startsWith('/shared');
 
   const { t } = useTranslation();
+
+  const getFullAge = (date) => {
+    return date
+      ? new Date().getFullYear() - new Date(date).getFullYear()
+      : t('foreverYang');
+  };
 
   return (
     <main className={styles.container}>
@@ -41,32 +48,33 @@ const MainLayout: React.FC<IProps> = ({
           <Image alt="wishlyLogo" src={wishlyLogo} width={125} height={37} />
         </Link>
         {!hideMenu && (
-          <UserMenu
-            userPic={userPicSh || userPic}
-            setLists={setLists}
-            wishlistId={wishlistId}
-          />
+          <UserMenu userPic={userPic} setLists={setLists} wishlistId={wishlistId} />
         )}
       </div>
       <div className={styles.container__top}>
         <div className={styles.user}>
           <Image
             alt="user"
-            src={userPicSh || userPic}
+            src={isShared ? userPicSh : userPic}
             userPlaceholder="true"
             width={80}
             height={80}
             circle
             className={styles.user__pic}
           />
-          <p className={styles.user__name}>{name || nameSh}</p>
-          <p>
-            {birthday || birthday
-              ? new Date().getFullYear() -
-                new Date(birthdaySh || birthday).getFullYear()
-              : 'always 18'}
-            {` ${t('years')}`}
-          </p>
+          <p className={styles.user__name}>{isShared ? nameSh : name}</p>
+          {isShared && (
+            <p>
+              {getFullAge(birthdaySh)}
+              {` ${t('years')}`}
+            </p>
+          )}
+          {!isShared && (
+            <p>
+              {getFullAge(birthday)}
+              {` ${t('years')}`}
+            </p>
+          )}
           <p className={styles.confirm}>
             {!isActivated &&
               location.pathname === '/' &&

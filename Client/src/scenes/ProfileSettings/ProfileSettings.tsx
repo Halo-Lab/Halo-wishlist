@@ -14,6 +14,7 @@ import Image from '../../components/common/ImageComponent/Image';
 import { AppRootStateType } from '../../store/store';
 import { updateUser, updateUserPic } from '../../store/user-reducer';
 import { s3Config } from '../../utils/s3Config';
+import * as notify from './../../utils/notifications';
 import { IInitialValues } from './common-types';
 
 import wishliLogo from '../../assets/svg/wishly-logo.svg';
@@ -69,10 +70,27 @@ export const ProfileSettings = () => {
 
   const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
     e.preventDefault();
-    if (e.target.files == null) {
+
+    if (e.target.files === null || undefined) {
       throw new Error('Error finding e.target.files');
     }
-    handleUpload(e.target.files[0]);
+
+    const file: FileList = e.target.files;
+
+    if (
+      file[0]?.type !== 'image/png' &&
+      file[0]?.type !== 'image/jpeg' &&
+      file[0]?.type !== 'image/jpg'
+    ) {
+      notify.warn('Please, upload only png or jpeg files');
+      return;
+    }
+    if (file[0]?.size > 10000000) {
+      notify.warn('The file exceeds 10 MB');
+      return;
+    }
+
+    handleUpload(file[0]);
   };
 
   const {
@@ -132,6 +150,7 @@ export const ProfileSettings = () => {
                   <label htmlFor="upload">{t('settings.upload')}</label>
                   <input
                     type="file"
+                    accept="image/png, image/jpeg"
                     id="upload"
                     className={styles.uploadInput}
                     onChange={handleFileInput}
@@ -143,17 +162,23 @@ export const ProfileSettings = () => {
                   <p>{t('settings.PublicProfile')}</p>
                 </div>
                 <div className={styles.section}>
-                  <label>{t('settings.name')}*</label>
+                  <label className={styles.requiredStars}>
+                    {t('settings.name')}
+                  </label>
                   <FormikTextInput
                     name="name"
                     type="text"
                     placeholder="Darrell Steward"
                   />
-                  <label> {t('settings.birthdayDate')}*</label>
+                  <label className={styles.requiredStars}>
+                    {' '}
+                    {t('settings.birthdayDate')}
+                  </label>
                   <DatePicker
                     selected={new Date(values.date)}
                     dateFormat="dd.MM.yyyy"
                     name="date"
+                    maxDate={new Date()}
                     peekNextMonth={false}
                     className={styles.datePicker}
                     onChange={(date) => setFieldValue('date', date)}
@@ -233,7 +258,7 @@ export const ProfileSettings = () => {
                     <FormikTextInput
                       type="password"
                       name="password"
-                      autoComplete="false"
+                      autoComplete="new-password"
                     />
                   </div>
                   <div>
