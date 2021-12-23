@@ -1,10 +1,11 @@
 import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 import LoginForm from './components/LoginForm/LoginForm';
 import RegistrationForm from './components/RegistrationForm/RegistrationForm';
+import { NotFound } from './scenes/404';
 import { AdminPage } from './scenes/AdminPage/AdminPage';
 import { ListPage } from './scenes/ListPage';
 import { ProfileSettings } from './scenes/ProfileSettings/ProfileSettings';
@@ -15,8 +16,6 @@ import { checkUserLogin, UserStateType } from './store/user-reducer';
 const App: FC = () => {
   const dispatch = useDispatch();
   const user = useSelector<AppRootStateType, UserStateType>((state) => state.users);
-
-  const history = useHistory();
 
   const { i18n } = useTranslation();
 
@@ -48,14 +47,7 @@ const App: FC = () => {
             path={`/shared/:userNickname/:listID`}
             render={() => <SharePage />}
           />
-          <Route
-            render={() => (
-              <div>
-                <p>Error 404</p>
-                Please <button onClick={() => history.push('/')}>Login</button>
-              </div>
-            )}
-          />
+          <Route render={() => <NotFound />} />
         </Switch>
       </div>
     );
