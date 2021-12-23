@@ -18,7 +18,7 @@ const Modal: React.FC<IProps> = ({ children, isOpen, setIsOpen }) => {
     <div
       className={cn(styles.modal, { [styles.active]: isOpen })}
       ref={modalRef}
-      onClick={closeModal}
+      onMouseDown={closeModal}
     >
       <div className={styles.modal_content}>
         <img

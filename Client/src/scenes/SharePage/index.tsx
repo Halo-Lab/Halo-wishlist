@@ -38,6 +38,7 @@ export const SharePage = () => {
       userPicSh={lists?.userPic}
       birthdaySh={lists?.date}
       hideMenu={!user.isLoggedIn}
+      changeLang={!user.isLoggedIn && true}
     >
       <div className={styles.itemsWrapper}>
         {lists?.items.map((item) => {

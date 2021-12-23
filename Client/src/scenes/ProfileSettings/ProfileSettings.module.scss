@@ -130,6 +130,7 @@
 .selectors {
   display: flex;
   justify-content: space-between;
+
   div {
     display: flex;
     flex-direction: column;
@@ -143,9 +144,12 @@
     -moz-appearance: none;
     display: block;
     appearance: none;
+    z-index: 2;
+    background: transparent;
   }
   .selectorCuret {
     position: relative;
+
     :after {
       content: '';
       position: absolute;
