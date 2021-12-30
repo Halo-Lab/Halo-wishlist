@@ -77,7 +77,6 @@ const UserMenu: React.FC<IProps> = ({ userPic, setLists, wishlistId }) => {
         <AddEditWishModal
           isModal={isAddWishModal}
           setIsModal={setAddWishIsModal}
-          setLists={setLists}
           wishlistId={wishlistId}
         />
       )}

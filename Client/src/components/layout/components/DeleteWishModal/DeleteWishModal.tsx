@@ -1,38 +1,21 @@
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
-import WishlistRequest from '../../../../api/request/WishlistRequest';
 import { IProduct } from '../../../../models/IProduct';
-import * as notify from '../../../../utils/notifications';
+import { deleteWish } from '../../../../store/wishlist-reducer';
 import { ButtonService } from '../../../common/ButtonSendForm/ButtonSendForm';
 import { Modal } from '../../../common/Modal/Modal';
 
 import styles from '../../../common/Modal/Modal.module.scss';
 
-const DeleteWishModal: React.FC<IProps> = ({
-  isModal,
-  setIsModal,
-  data,
-  setLists,
-}) => {
+const DeleteWishModal: React.FC<IProps> = ({ isModal, setIsModal, data }) => {
   const { t } = useTranslation();
 
-  const deleteWish = (data) => {
-    WishlistRequest.deleteWish(data._id)
-      .then(() => {
-        setLists((prev) => {
-          const newState = {
-            ...prev,
-            items: [...prev.items].filter((wish) => wish._id !== data._id),
-          };
-          return {
-            ...newState,
-          };
-        });
-      })
-      .then(() => notify.successes(t('modal.deleted')))
-      .catch((e) => {
-        notify.error(e);
-      });
+  const dispatch = useDispatch();
+  const { listId } = useParams<{ listId: string }>();
+  const onDeleteWish = (wishId: string) => {
+    dispatch(deleteWish(listId, wishId));
     setIsModal(false);
   };
 
@@ -49,7 +32,7 @@ const DeleteWishModal: React.FC<IProps> = ({
           <ButtonService
             btnName={t('modal.yes')}
             className={styles.btn_save}
-            handleClickButton={() => deleteWish(data)}
+            handleClickButton={() => onDeleteWish(data._id)}
           />
         </div>
       </div>
@@ -61,7 +44,6 @@ interface IProps {
   isModal: boolean;
   setIsModal: (value: boolean) => void;
   data: IProduct;
-  setLists: (value: any) => void;
 }
 
 export { DeleteWishModal };
