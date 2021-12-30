@@ -17,7 +17,7 @@ import { s3Config } from '../../utils/s3Config';
 import * as notify from './../../utils/notifications';
 import { IInitialValues } from './common-types';
 
-import wishliLogo from '../../assets/svg/wishly-logo.svg';
+import logo from '../../assets/svg/wishyou-logo.svg';
 
 import styles from './ProfileSettings.module.scss';
 
@@ -109,7 +109,7 @@ export const ProfileSettings = () => {
 
   const initialValues: IInitialValues = {
     name,
-    date,
+    date: date || new Date('12.12.1998'),
     email,
     bio,
     nickName,
@@ -127,14 +127,14 @@ export const ProfileSettings = () => {
   return (
     <div className={styles.pageWrapper}>
       <Link to="/">
-        <img className={styles.logo} src={wishliLogo} alt="Wishli logo"></img>
+        <img className={styles.logo} src={logo} alt="wishyou logo" />
       </Link>
       <Formik
         initialValues={initialValues}
         validationSchema={SettingsSchema}
         onSubmit={(values) => handleSubmitForm(values)}
       >
-        {({ errors, values, setFieldValue }) => (
+        {({ errors, values, setFieldValue, dirty }) => (
           <Form>
             <div className={styles.settings}>
               <section className={styles.iconBlock}>
@@ -305,7 +305,7 @@ export const ProfileSettings = () => {
                 <ButtonService
                   className={styles.sendFormBtn}
                   btnName={t('settings.save')}
-                  disabled={Object.keys(errors).length > 0}
+                  disabled={!dirty}
                 />
                 {/* <ButtonService
                   btnName="Delete Account"

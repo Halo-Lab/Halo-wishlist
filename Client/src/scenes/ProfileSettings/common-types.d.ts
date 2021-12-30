@@ -1,6 +1,6 @@
 export type IInitialValues = {
   name: string;
-  date: string;
+  date: string | Date;
   email?: string;
   bio: string;
   nickName: string;

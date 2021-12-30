@@ -10,7 +10,7 @@ import Image from '../common/ImageComponent/Image';
 import { UserMenu } from './components/UserMenu/UserMenu';
 
 import squaresSvg from '../../assets/svg/squares.svg';
-import wishlyLogo from '../../assets/svg/wishly-logo.svg';
+import logo from '../../assets/svg/wishyou-logo.svg';
 
 import styles from './MainLayout.module.scss';
 
@@ -47,7 +47,7 @@ const MainLayout: React.FC<IProps> = ({
     <main className={styles.container}>
       <div className={styles.header}>
         <Link to="/">
-          <Image alt="wishlyLogo" src={wishlyLogo} width={125} height={37} />
+          <Image alt="wishyou logo" src={logo} width={150} height={37} />
         </Link>
         {!hideMenu && (
           <UserMenu userPic={userPic} setLists={setLists} wishlistId={wishlistId} />
