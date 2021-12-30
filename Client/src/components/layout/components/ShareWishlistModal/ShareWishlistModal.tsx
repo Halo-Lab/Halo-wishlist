@@ -41,7 +41,6 @@ const ShareWishlistModal: React.FC<IProps> = ({
 
     setIsModal(false);
   };
-  console.log(wishlistId);
 
   const url = `${process.env.REACT_APP_CLIENT_URL}shared/${
     (nickName || id) + '/' + wishlistId
