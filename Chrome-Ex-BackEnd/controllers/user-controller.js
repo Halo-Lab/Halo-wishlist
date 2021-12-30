@@ -62,9 +62,8 @@ class UserController {
   async refresh(req, res, next) {
     try {
       const { refreshToken } = req.cookies;
-      const { remember } = await TokenModal.findOne({ refreshToken });
       const userData = await userService.refresh(refreshToken);
-      setCookie(res, userData, remember);
+      await setCookie(res, userData, await TokenModal.findOne({ refreshToken }));
       return res.json(userData);
     } catch (e) {
       next(e);
@@ -100,11 +99,30 @@ class UserController {
       if (!errors.isEmpty()) {
         return next(ApiError.BadRequest('Validation Error', errors.array()));
       }
-      const { name, bio, date, nickName, password, newPassword, facebook, instagram,twitter } = req.body;
-      if(newPassword?.length > 0) {
-        await userService.changePassword(id, password, newPassword)
+      const {
+        name,
+        bio,
+        date,
+        nickName,
+        password,
+        newPassword,
+        facebook,
+        instagram,
+        twitter,
+      } = req.body;
+      if (newPassword?.length > 0) {
+        await userService.changePassword(id, password, newPassword);
       }
-      const userData = await userService.updateUser(id, name, bio, date, nickName, facebook, instagram,twitter);
+      const userData = await userService.updateUser(
+        id,
+        name,
+        bio,
+        date,
+        nickName,
+        facebook,
+        instagram,
+        twitter,
+      );
       return res.json(userData);
     } catch (e) {
       next(e);

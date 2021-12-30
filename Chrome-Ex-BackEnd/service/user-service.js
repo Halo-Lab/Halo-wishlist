@@ -73,18 +73,21 @@ class UserService {
   async refresh(refreshToken) {
     if (!refreshToken) {
       throw ApiError.UnauthorizedError();
-      
     }
     const userData = tokenService.validateRefreshToken(refreshToken);
     const tokenFromDb = await tokenService.findToken(refreshToken);
-   
+
     if (!userData || !tokenFromDb) {
       throw ApiError.UnauthorizedError();
     }
     const user = await UserModel.findById(userData.id);
     const userDto = new UserDto(user);
     const tokens = tokenService.generateTokens({ ...userDto });
-    await tokenService.saveTokens(userDto.id, tokens.refreshToken, tokenFromDb.remember);
+    await tokenService.saveTokens(
+      userDto.id,
+      tokens.refreshToken,
+      tokenFromDb.remember,
+    );
     return {
       ...tokens,
       user: userDto,
@@ -129,7 +132,7 @@ class UserService {
     user.userPic = userPic;
 
     await user.save();
-    
+
     const userDto = new UserDto(user);
     return { user: userDto };
   }
@@ -140,10 +143,10 @@ class UserService {
     if (!isPassEquals) {
       throw ApiError.BadRequest(`Incorrect Password`);
     }
-    
+
     const hashNewPassword = await bcrypt.hash(newPassword, 3);
-    user.password = hashNewPassword
-    
+    user.password = hashNewPassword;
+
     await user.save();
     const userDto = new UserDto(user);
     return { user: userDto };
