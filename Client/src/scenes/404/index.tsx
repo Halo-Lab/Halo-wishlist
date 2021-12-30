@@ -4,7 +4,7 @@ import { ButtonService } from '../../components/common/ButtonSendForm/ButtonSend
 import Image from '../../components/common/ImageComponent/Image';
 import * as notify from '../../utils/notifications';
 
-import wishlyLogo from '../../assets/svg/wishly-logo.svg';
+import logo from '../../assets/svg/wishyou-logo.svg';
 
 import styles from './NoteFound.module.scss';
 
@@ -14,7 +14,7 @@ export const NotFound = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
-        <Image src={wishlyLogo} alt="wishlyLogo" width={125} height={37} />
+        <Image src={logo} alt="wishyou logo" width={150} height={37} />
         <ButtonService
           btnName="Contact us"
           className={styles.contactBtn}

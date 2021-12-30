@@ -17,7 +17,7 @@ import { s3Config } from '../../utils/s3Config';
 import * as notify from './../../utils/notifications';
 import { IInitialValues } from './common-types';
 
-import wishliLogo from '../../assets/svg/wishly-logo.svg';
+import logo from '../../assets/svg/wishyou-logo.svg';
 
 import styles from './ProfileSettings.module.scss';
 
@@ -127,7 +127,7 @@ export const ProfileSettings = () => {
   return (
     <div className={styles.pageWrapper}>
       <Link to="/">
-        <img className={styles.logo} src={wishliLogo} alt="Wishli logo"></img>
+        <img className={styles.logo} src={logo} alt="wishyou logo" />
       </Link>
       <Formik
         initialValues={initialValues}

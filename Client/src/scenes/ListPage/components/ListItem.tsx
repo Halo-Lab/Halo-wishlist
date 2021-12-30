@@ -12,7 +12,7 @@ import { AddEditWishModal } from '../../../components/layout/components/AddEditW
 import { DeleteWishModal } from '../../../components/layout/components/DeleteWishModal/DeleteWishModal';
 import { IProduct } from '../../../models/IProduct';
 
-import logo from '../../../assets/svg/wishly-logo.svg';
+import logo from '../../../assets/svg/wishyou-logo.svg';
 
 import styles from './ListItem.module.scss';
 
