@@ -24,7 +24,7 @@ type ICreateMenu = {
   toggleModal: MouseEventHandler<HTMLParagraphElement>;
 };
 
-const UserMenu: React.FC<IProps> = ({ userPic, setLists, wishlistId }) => {
+const UserMenu: React.FC<IProps> = ({ userPic, wishlistId }) => {
   const [isNav, setIsNav] = useState<boolean>(false);
   const [isAddWishlistModal, setAddWishlistIsModal] = useState<boolean>(false);
   const [isAddWishModal, setAddWishIsModal] = useState<boolean>(false);

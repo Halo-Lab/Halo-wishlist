@@ -28,7 +28,7 @@ type IProps = {
   sharedPage?: string | boolean;
 };
 
-export const ListItem: FC<IProps> = ({ data, setLists, sharedPage = false }) => {
+export const ListItem: FC<IProps> = ({ data, sharedPage = false }) => {
   const [visible, setVisible] = useState(false);
   const [isEditModal, setIsEditModal] = useState<boolean>(false);
   const [isDeleteModal, setIsDeleteModal] = useState<boolean>(false);
