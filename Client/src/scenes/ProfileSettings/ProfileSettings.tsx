@@ -109,7 +109,7 @@ export const ProfileSettings = () => {
 
   const initialValues: IInitialValues = {
     name,
-    date,
+    date: date || new Date('12.12.1998'),
     email,
     bio,
     nickName,
@@ -134,7 +134,7 @@ export const ProfileSettings = () => {
         validationSchema={SettingsSchema}
         onSubmit={(values) => handleSubmitForm(values)}
       >
-        {({ errors, values, setFieldValue }) => (
+        {({ errors, values, setFieldValue, dirty }) => (
           <Form>
             <div className={styles.settings}>
               <section className={styles.iconBlock}>
@@ -305,7 +305,7 @@ export const ProfileSettings = () => {
                 <ButtonService
                   className={styles.sendFormBtn}
                   btnName={t('settings.save')}
-                  disabled={Object.keys(errors).length > 0}
+                  disabled={!dirty}
                 />
                 {/* <ButtonService
                   btnName="Delete Account"

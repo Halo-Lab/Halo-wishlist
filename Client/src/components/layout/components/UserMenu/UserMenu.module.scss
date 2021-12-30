@@ -5,8 +5,18 @@
 
 .addButton {
   height: 32px;
-  padding-left: 32px !important;
-  font-size: 14px !important;
+}
+
+.addButton input {
+  height: 32px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 150%;
+  padding: 0 18px 0 30px;
+
+  @media (max-width: 576px) {
+    padding: 0 18px;
+  }
 }
 
 .menu_toggle {
@@ -22,10 +32,10 @@
 
 .icon {
   position: absolute;
-  padding-left: 4px;
+  margin-left: 9px;
   pointer-events: none;
 
-  @media (max-width: 768px) {
+  @media (max-width: 576px) {
     display: none;
   }
 }
