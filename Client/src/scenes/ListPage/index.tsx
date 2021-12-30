@@ -1,49 +1,49 @@
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import AuthRequest from '../../api/request/AuthRequest';
 import { MainLayout } from '../../components/layout/MainLayout';
+import { IUser } from '../../models/IUser';
 import { IWishlist } from '../../models/IWishlist';
 import { AppRootStateType } from '../../store/store';
-import * as notify from '../../utils/notifications';
+import { setWishlists } from '../../store/wishlist-reducer';
 import { CustomTab } from './components/CustomTab';
 import { ListItem } from './components/ListItem';
 
 import styles from './ListPage.module.scss';
 
 export const ListPage = () => {
-  const [lists, setLists] = useState<IWishlist | null | undefined>(null);
+  const user = useSelector<AppRootStateType, IUser>((state) => state.users.user);
   const wishlists = useSelector<AppRootStateType, IWishlist[]>(
     (state) => state.wishlist.wishlists,
   );
-
+  const dispatch = useDispatch();
   // const [serverError, setServerError] = useState<string>('');
 
   const { listId } = useParams<{ listId: string }>();
 
   useEffect(() => {
     if (!wishlists.find((items) => items._id === listId)) {
-      AuthRequest.getWishlist(listId)
-        .then((res) => setLists(res.data))
-        .catch((error) => notify.warn(error.response.data.message));
-    } else {
-      setLists(wishlists.find((items) => items._id === listId));
+      dispatch(setWishlists(user.id));
     }
   }, []);
+  const wishlistIndex = wishlists.findIndex((w) => w._id === listId);
 
   return (
     <MainLayout
       customTab={
-        <CustomTab itemsCount={lists?.items.length} tabName={lists?.name} />
+        <CustomTab
+          itemsCount={wishlists[wishlistIndex]?.items.length}
+          tabName={wishlists[wishlistIndex]?.name}
+        />
       }
-      setLists={setLists}
-      wishlistId={lists?._id}
+      wishlistId={wishlists[wishlistIndex]?._id}
     >
       <div className={styles.itemsWrapper}>
-        {lists?.items.map((item) => {
-          return <ListItem key={item._id} data={item} setLists={setLists} />;
-        })}
+        {wishlistIndex > -1 &&
+          wishlists[wishlistIndex]?.items.map((item) => {
+            return <ListItem key={item._id} data={item} />;
+          })}
       </div>
     </MainLayout>
   );

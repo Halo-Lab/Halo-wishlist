@@ -22,13 +22,9 @@ export default class WishlistRequest {
   }
 
   static async updateWish(
-    wishId,
-    url,
-    nameURL,
-    image,
-    price,
-  ): Promise<AxiosResponse<{ wish: IProduct }>> {
-    return api.put(`wish/${wishId}`, { url, nameURL, image, price });
+    wish: IProduct,
+  ): Promise<AxiosResponse<{ status: string }>> {
+    return api.put(`wish/${wish._id}`, { ...wish });
   }
 
   static async deleteWish(wishId): Promise<AxiosResponse<{ wish: IProduct }>> {
@@ -41,7 +37,7 @@ export default class WishlistRequest {
     nameURL,
     image,
     price,
-  ): Promise<AxiosResponse<{ wish: IProduct }>> {
+  ): Promise<AxiosResponse<IProduct[]>> {
     return api.post(`addUrl`, { _id, url, nameURL, image, price });
   }
 }

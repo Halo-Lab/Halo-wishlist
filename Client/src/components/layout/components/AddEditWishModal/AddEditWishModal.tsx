@@ -2,14 +2,13 @@ import { Form, Formik } from 'formik';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import * as Yup from 'yup';
 
-import WishlistRequest from '../../../../api/request/WishlistRequest';
 import { IProduct } from '../../../../models/IProduct';
 import { IWishlist } from '../../../../models/IWishlist';
 import { AppRootStateType } from '../../../../store/store';
-import { setWishlists } from '../../../../store/wishlist-reducer';
-import * as notify from '../../../../utils/notifications';
+import { addWish, updateWish } from '../../../../store/wishlist-reducer';
 import { ButtonService } from '../../../common/ButtonSendForm/ButtonSendForm';
 import { FormikTextInput } from '../../../common/FormikInput/FormikInput';
 import { Modal } from '../../../common/Modal/Modal';
@@ -21,7 +20,6 @@ const AddEditWishModal: React.FC<IProps> = ({
   isModal,
   setIsModal,
   data,
-  setLists,
   wishlistId,
 }) => {
   const { t } = useTranslation();
@@ -32,77 +30,36 @@ const AddEditWishModal: React.FC<IProps> = ({
     image: Yup.string().url(t('errors.url')),
   });
 
-  const userId = useSelector<AppRootStateType, string>(
-    (state) => state.users.user.id,
-  );
   const wishlists = useSelector<AppRootStateType, IWishlist[]>(
     (state) => state.wishlist.wishlists,
   );
 
+  const { listId } = useParams<{ listId: string }>();
+
   const [id, setId] = useState<string>(wishlists[0]._id || '');
   const dispatch = useDispatch();
 
-  const addWish = (values) => {
-    WishlistRequest.addWish(
-      wishlistId || id,
-      values.url,
-      values.nameURL,
-      values.image,
-      values.price,
-    )
-      .then(() => {
-        if (setLists) {
-          setLists((prev) => {
-            const newState = {
-              ...prev,
-              items: [...prev.items, { ...values }],
-            };
-            return {
-              ...newState,
-            };
-          });
-        }
-        dispatch(setWishlists(userId));
-      })
-      .then(() => {
-        notify.successes(t('modal.created'));
-      })
-      .catch((e) => {
-        notify.error(e.response.data.message);
-      });
-  };
-
-  const updateWish = (values) => {
-    if (setLists) {
-      WishlistRequest.updateWish(
-        values._id,
+  const onAddWish = (values) => {
+    dispatch(
+      addWish(
+        wishlistId || id,
         values.url,
         values.nameURL,
         values.image,
         values.price,
-      )
-        .then(() => {
-          setLists((prev) => {
-            const index = prev.items.findIndex((wish) => wish._id === values._id);
-            const newState = { ...prev, items: [...prev.items] };
-            newState.items[index] = values;
-            return {
-              ...newState,
-            };
-          });
-        })
-        .then(() => notify.successes(t('modal.edited')))
-        .catch((e) => {
-          notify.error(e);
-        });
-    }
+      ),
+    );
+  };
+
+  const onUpdateWish = (values) => {
+    dispatch(updateWish(listId, values));
   };
 
   const handleSubmitForm = (values) => {
     if (data) {
-      updateWish(values);
+      onUpdateWish(values);
     } else {
-      addWish(values);
+      onAddWish(values);
     }
     setIsModal(false);
   };
@@ -202,7 +159,6 @@ interface IProps {
   isModal: boolean;
   setIsModal: (value: boolean) => void;
   data?: IProduct;
-  setLists?: (value: any) => void | undefined;
   wishlistId?: string;
 }
 

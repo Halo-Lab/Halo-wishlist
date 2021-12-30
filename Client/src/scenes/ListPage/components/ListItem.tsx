@@ -28,7 +28,7 @@ type IProps = {
   sharedPage?: string | boolean;
 };
 
-export const ListItem: FC<IProps> = ({ data, setLists, sharedPage = false }) => {
+export const ListItem: FC<IProps> = ({ data, sharedPage = false }) => {
   const [visible, setVisible] = useState(false);
   const [isEditModal, setIsEditModal] = useState<boolean>(false);
   const [isDeleteModal, setIsDeleteModal] = useState<boolean>(false);
@@ -63,20 +63,18 @@ export const ListItem: FC<IProps> = ({ data, setLists, sharedPage = false }) => 
 
   return (
     <div className={styles.square}>
-      {isEditModal && setLists && (
+      {isEditModal && (
         <AddEditWishModal
           isModal={isEditModal}
           setIsModal={setIsEditModal}
           data={data}
-          setLists={setLists}
         />
       )}
-      {isDeleteModal && setLists && (
+      {isDeleteModal && (
         <DeleteWishModal
           isModal={isDeleteModal}
           setIsModal={setIsDeleteModal}
           data={data}
-          setLists={setLists}
         />
       )}
       <div className={styles.content}>
