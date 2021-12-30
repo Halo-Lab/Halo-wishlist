@@ -39,36 +39,6 @@ const AddEditWishModal: React.FC<IProps> = ({
   const [id, setId] = useState<string>(wishlists[0]._id || '');
   const dispatch = useDispatch();
 
-  const addWish = (values) => {
-    WishlistRequest.addWish(
-      wishlistId || id,
-      values.url,
-      values.nameURL,
-      values.image,
-      values.price,
-    )
-      .then(() => {
-        if (setLists) {
-          setLists((prev) => {
-            const newState = {
-              ...prev,
-              items: [...prev.items, { ...values }],
-            };
-            return {
-              ...newState,
-            };
-          });
-        }
-        dispatch(setWishlists(userId));
-      })
-      .then(() => {
-        notify.successes(t('modal.created'));
-      })
-      .catch((e) => {
-        notify.error(e.response.data.message);
-      });
-  };
-
   const onAddWish = (values) => {
     dispatch(
       addWish(
