@@ -19,7 +19,7 @@ export const FormikTextInput: FC<Props> = (props) => {
   const [field, meta] = useField(props);
 
   return (
-    <>
+    <div className={styles.inputWrapper}>
       <Field
         {...field}
         {...props}
@@ -30,6 +30,6 @@ export const FormikTextInput: FC<Props> = (props) => {
       {meta.error && meta.touched ? (
         <div className={styles.error}>{meta.error}</div>
       ) : null}
-    </>
+    </div>
   );
 };
