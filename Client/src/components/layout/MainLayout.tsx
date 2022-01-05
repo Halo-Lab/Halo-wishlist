@@ -46,7 +46,7 @@ const MainLayout: React.FC<IProps> = ({
   return (
     <main className={styles.container}>
       <div className={styles.header}>
-        <Link to="/">
+        <Link to="/" className={styles.headerLogoLink}>
           <Image alt="wishyou logo" src={logo} width={150} height={37} />
         </Link>
         {!hideMenu && (

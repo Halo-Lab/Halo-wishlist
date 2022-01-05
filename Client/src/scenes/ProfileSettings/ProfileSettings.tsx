@@ -127,7 +127,7 @@ export const ProfileSettings = () => {
   return (
     <div className={styles.pageWrapper}>
       <Link to="/">
-        <img className={styles.logo} src={logo} alt="wishyou logo" />
+        <Image alt="wishyou logo" src={logo} width={150} height={37} />
       </Link>
       <Formik
         initialValues={initialValues}

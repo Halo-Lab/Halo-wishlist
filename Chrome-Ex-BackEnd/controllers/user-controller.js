@@ -62,8 +62,10 @@ class UserController {
   async refresh(req, res, next) {
     try {
       const { refreshToken } = req.cookies;
+      const { remember } = await TokenModal.findOne({ refreshToken });
       const userData = await userService.refresh(refreshToken);
-      await setCookie(res, userData, await TokenModal.findOne({ refreshToken }));
+      
+      setCookie(res, userData, remember);
       return res.json(userData);
     } catch (e) {
       next(e);

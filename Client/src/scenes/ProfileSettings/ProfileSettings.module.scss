@@ -2,13 +2,6 @@
 
 .pageWrapper {
   background: #ffffff;
-  padding: 20px 25px;
-}
-
-.logo {
-  width: 125px;
-  height: 37px;
-  margin-bottom: 70px;
 }
 
 .settings {
@@ -16,6 +9,7 @@
   margin: 0 auto;
   background: #ffffff;
   border-radius: 10px;
+  padding-top: 70px;
 
   @media (max-width: $tablet) {
     width: 100%;
@@ -85,6 +79,7 @@
   input,
   textarea,
   select {
+    width: 100%;
     border: 1px solid #dedede;
     box-sizing: border-box;
     border-radius: 4px;
