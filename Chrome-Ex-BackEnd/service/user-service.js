@@ -151,6 +151,36 @@ class UserService {
     const userDto = new UserDto(user);
     return { user: userDto };
   }
+
+  async sendPasswordMail(email) {
+    const user = await UserModel.findOne({ email });
+
+    if (!user) {
+      throw ApiError.BadRequest(`User not found`);
+    }
+    const changePasswordId = uuid.v4();
+    user.changePasswordId = changePasswordId;
+
+    await mailService.senResetPasswordMail(
+      email,
+      `${process.env.API_URL}/api/send-reset-mail-password/${user.changePasswordId}`,
+    );
+    await user.save();
+  }
+
+  async sendPassword(email) {
+    const user = await UserModel.findOne({ email });
+    const isPassEquals = await bcrypt.compare(password, user.password);
+    if (!user) {
+      throw ApiError.BadRequest(`User not found`);
+    }
+    const hashNewPassword = await bcrypt.hash(newPassword, 3);
+    user.password = hashNewPassword;
+
+    await user.save();
+    const userDto = new UserDto(user);
+    return { user: userDto };
+  }
 }
 
 module.exports = new UserService();
