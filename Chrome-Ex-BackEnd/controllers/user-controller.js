@@ -64,7 +64,7 @@ class UserController {
       const { refreshToken } = req.cookies;
       const { remember } = await TokenModal.findOne({ refreshToken });
       const userData = await userService.refresh(refreshToken);
-      console.log(remember);
+      
       setCookie(res, userData, remember);
       return res.json(userData);
     } catch (e) {

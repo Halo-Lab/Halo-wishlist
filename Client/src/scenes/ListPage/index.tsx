@@ -29,7 +29,6 @@ export const ListPage = () => {
     }
   }, []);
   const wishlistIndex = wishlists.findIndex((w) => w._id === listId);
-  console.log(wishlists.length);
 
   return (
     <MainLayout

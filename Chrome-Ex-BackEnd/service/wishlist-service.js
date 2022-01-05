@@ -48,9 +48,9 @@ class WishlistService {
       throw ApiError.BadRequest(`Wishlist not found ${wishlistId}`);
     }
     const user = await UserModel.findOne({ _id: wishlist.userId });
-    
-    const wishlistDto = new WishlistDto(wishlist, user)
-    
+
+    const wishlistDto = new WishlistDto(wishlist, user);
+
     return wishlistDto;
   }
 
@@ -76,7 +76,6 @@ class WishlistService {
   }
 
   async updateWish(wishId, url, nameURL, image, price) {
-    console.log(wishId, url, nameURL, image, price);
     const wish = await WishlistModel.updateMany(
       //find wish
       {
