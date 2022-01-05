@@ -155,6 +155,8 @@ class UserController {
   }
   async redirectPassword(req, res, next) {
     try {
+      const activationLink = req.params.link;
+      await userService.sendPasswordMail(false, activationLink);
       return res.redirect(process.env.CLIENT_URL + '/');
     } catch (e) {
       next(e);
