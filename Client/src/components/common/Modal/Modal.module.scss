@@ -39,14 +39,11 @@
 }
 
 .btn_close {
-  position: relative;
+  position: absolute;
   top: 0;
-  right: -194px;
+  right: 0;
+  transform: translate(-100%, 50%);
   cursor: pointer;
-
-  @media (max-width: 576px) {
-    right: -145px;
-  }
 }
 
 @keyframes showModal {

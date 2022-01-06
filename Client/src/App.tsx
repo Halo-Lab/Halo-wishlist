@@ -12,7 +12,7 @@ import { ListPage } from './scenes/ListPage';
 import { ProfileSettings } from './scenes/ProfileSettings/ProfileSettings';
 import { SharePage } from './scenes/SharePage';
 import { AppRootStateType } from './store/store';
-import { checkUserLogin, UserStateType } from './store/user-reducer';
+import { checkUserLogin, setLoadingAc, UserStateType } from './store/user-reducer';
 
 import logo from './assets/svg/wishyou-logo.svg';
 
@@ -24,6 +24,8 @@ const App: FC = () => {
     const handler = setTimeout(() => {
       if (localStorage.getItem('token')) {
         dispatch(checkUserLogin());
+      } else {
+        dispatch(setLoadingAc(false));
       }
     }, 300);
 

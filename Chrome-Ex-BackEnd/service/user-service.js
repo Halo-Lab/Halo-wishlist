@@ -151,6 +151,18 @@ class UserService {
     const userDto = new UserDto(user);
     return { user: userDto };
   }
+
+  async sendPasswordMail(email) {
+    const user = await UserModel.findOne({ email });
+    if (!user) {
+      throw ApiError.BadRequest(`User not found`);
+    }
+    const newPassword = uuid.v4().slice(0, 11).replace('-', '');
+    const hasNewPassword = await bcrypt.hash(newPassword, 3);
+    user.password = hasNewPassword;
+    await mailService.senResetPasswordMail(email, newPassword);
+    await user.save();
+  }
 }
 
 module.exports = new UserService();

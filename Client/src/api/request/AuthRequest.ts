@@ -1,8 +1,8 @@
 import api from '..';
 import { AxiosResponse } from 'axios';
 
-import { AuthResponse } from '../../models/response/AuthResponse';
 import { IWishlist } from '../../models/IWishlist';
+import { AuthResponse } from '../../models/response/AuthResponse';
 
 export default class AuthRequest {
   static async login(
@@ -20,6 +20,11 @@ export default class AuthRequest {
   }
   static async logout(): Promise<void> {
     return api.post('/logout');
+  }
+  static async resetPassword(
+    email: string,
+  ): Promise<AxiosResponse<{ message: string }>> {
+    return api.post('/sendResetMailPassword', { email });
   }
   static async getWishlist(listID: string) {
     return api.get<IWishlist>(`/wishlist/${listID}`);

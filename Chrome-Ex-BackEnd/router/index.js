@@ -29,6 +29,7 @@ router.put(
   authMiddleware,
   userController.updateUserPic,
 );
+router.post('/sendResetMailPassword', userController.forgotPasswordMail);
 
 router.post(
   '/login/extension',

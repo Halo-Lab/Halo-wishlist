@@ -9,8 +9,10 @@ import * as Yup from 'yup';
 import { ILogin } from '../../models/IUser';
 import { loginUser } from '../../store/user-reducer';
 import '../../utils/i18next';
+import { ForgotPassword } from '../ForgotPassword';
 import { ButtonService } from '../common/ButtonSendForm/ButtonSendForm';
 import { ChangeLanguage } from '../common/ChangeLanguage';
+import { Modal } from '../common/Modal/Modal';
 import { EyePass } from '../common/SvgComponents/EyePass';
 
 import styles from './LoginForm.module.scss';
@@ -18,6 +20,7 @@ import styles from './LoginForm.module.scss';
 const LoginForm: FC = () => {
   const [passwordVisibility, setPasswordVisibility] = useState<boolean>(false);
   const [isRemember, setIsRemember] = useState<boolean>(true);
+  const [isForgot, setIsForgot] = useState<boolean>(false);
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -47,74 +50,83 @@ const LoginForm: FC = () => {
   };
 
   return (
-    <div className={styles.overlay}>
-      <ChangeLanguage className={styles.language} />
-      <div className={styles.modal}>
-        <div className={styles.form}>
-          <h1 className={styles.title}>{t('auth.login')}</h1>
-          <Formik
-            initialValues={{
-              email: '',
-              password: '',
-            }}
-            onSubmit={handleSubmitForm}
-            validationSchema={LoginSchema}
-          >
-            {({ errors, touched }) => (
-              <Form>
-                <div className={styles.inputWrapper}>
-                  {errors.email && touched.email ? (
-                    <div className={styles.error}>{errors.email}</div>
-                  ) : null}
-                  <Field
-                    name="email"
-                    placeholder="user@gmail.com"
-                    className={styles.input}
-                  />
-                </div>
-                <div className={styles.inputWrapper}>
-                  {errors.password && touched.password ? (
-                    <div className={styles.error}>{errors.password}</div>
-                  ) : null}
-                  <Field
-                    name={'password'}
-                    placeholder={t('auth.password')}
-                    type={passwordVisibility ? null : 'password'}
-                    className={styles.input}
-                  />
-                  <span className={styles.showPass}>
-                    <EyePass
-                      changeColor={handleChangePasswordVisibility}
-                      visible={passwordVisibility ? 1 : 0.4}
+    <>
+      {isForgot && (
+        <Modal isOpen={false} setIsOpen={setIsForgot}>
+          <ForgotPassword />
+        </Modal>
+      )}
+      <div className={styles.overlay}>
+        <ChangeLanguage className={styles.language} />
+        <div className={styles.modal}>
+          <div className={styles.form}>
+            <h1 className={styles.title}>{t('auth.login')}</h1>
+            <Formik
+              initialValues={{
+                email: '',
+                password: '',
+              }}
+              onSubmit={handleSubmitForm}
+              validationSchema={LoginSchema}
+            >
+              {({ errors, touched }) => (
+                <Form>
+                  <div className={styles.inputWrapper}>
+                    {errors.email && touched.email ? (
+                      <div className={styles.error}>{errors.email}</div>
+                    ) : null}
+                    <Field
+                      name="email"
+                      placeholder="user@gmail.com"
+                      className={styles.input}
                     />
-                  </span>
-                </div>
-                <div className={styles.helpersBlock}>
-                  <span
-                    className={cn(styles.checkbox, {
-                      [styles.activeCheckbox]: isRemember,
-                    })}
-                    onClick={handelChangeRemember}
+                  </div>
+                  <div className={styles.inputWrapper}>
+                    {errors.password && touched.password ? (
+                      <div className={styles.error}>{errors.password}</div>
+                    ) : null}
+                    <Field
+                      name={'password'}
+                      placeholder={t('auth.password')}
+                      type={passwordVisibility ? null : 'password'}
+                      className={styles.input}
+                    />
+                    <span className={styles.showPass}>
+                      <EyePass
+                        changeColor={handleChangePasswordVisibility}
+                        visible={passwordVisibility ? 1 : 0.4}
+                      />
+                    </span>
+                  </div>
+                  <div className={styles.helpersBlock}>
+                    <span
+                      className={cn(styles.checkbox, {
+                        [styles.activeCheckbox]: isRemember,
+                      })}
+                      onClick={handelChangeRemember}
+                    />
+                    <p className={styles.remember}>{t('auth.rememberMe')}</p>
+                    <p className={styles.forgot} onClick={() => setIsForgot(true)}>
+                      {t('auth.forgot')}
+                    </p>
+                  </div>
+                  <ButtonService
+                    btnName={t('auth.login')}
+                    disabled={errors.email || errors.password ? true : false}
                   />
-                  <p className={styles.remember}>{t('auth.rememberMe')}</p>
-                  <p className={styles.forgot}>{t('auth.forgot')}</p>
-                </div>
-                <ButtonService
-                  btnName={t('auth.login')}
-                  disabled={errors.email || errors.password ? true : false}
-                />
-              </Form>
-            )}
-          </Formik>
+                </Form>
+              )}
+            </Formik>
+          </div>
+          <p className={styles.loginLink}>
+            {t("auth.haven'tAccount")}{' '}
+            <NavLink className={styles.navLink} to="/registration">
+              {t('auth.signUp')}
+            </NavLink>
+          </p>
         </div>
-        <p className={styles.loginLink}>
-          {t("auth.haven'tAccount")}{' '}
-          <NavLink className={styles.navLink} to="/registration">
-            {t('auth.signUp')}
-          </NavLink>
-        </p>
       </div>
-    </div>
+    </>
   );
 };
 

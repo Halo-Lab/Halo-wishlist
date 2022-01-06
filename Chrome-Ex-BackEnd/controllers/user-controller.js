@@ -64,7 +64,7 @@ class UserController {
       const { refreshToken } = req.cookies;
       const { remember } = await TokenModal.findOne({ refreshToken });
       const userData = await userService.refresh(refreshToken);
-      
+
       setCookie(res, userData, remember);
       return res.json(userData);
     } catch (e) {
@@ -141,6 +141,15 @@ class UserController {
       const { userPic } = req.body;
       const userData = await userService.updateUserPic(id, userPic);
       return res.json(userData);
+    } catch (e) {
+      next(e);
+    }
+  }
+  async forgotPasswordMail(req, res, next) {
+    try {
+      const { email } = req.body;
+      await userService.sendPasswordMail(email);
+      return res.json({ message: 'Password has been send' });
     } catch (e) {
       next(e);
     }
