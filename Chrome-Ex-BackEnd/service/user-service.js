@@ -152,42 +152,16 @@ class UserService {
     return { user: userDto };
   }
 
-  async sendPasswordMail(email, activationLink) {
-    if (email) {
-      const user = await UserModel.findOne({ email });
-      if (!user) {
-        throw ApiError.BadRequest(`User not found`);
-      }
-      const changePasswordId = uuid.v4();
-      user.changePasswordId = changePasswordId;
-      await mailService.senResetPasswordMail(
-        email,
-        `${process.env.API_URL}/api/send-reset-mail-password/${user.changePasswordId}`,
-      );
-      await user.save();
-    } else {
-      const user = await UserModel.findOne({ changePasswordId: activationLink });
-      console.log(activationLink);
-      if (!user) {
-        throw ApiError.BadRequest('Incorrect activation link');
-      }
-      user.changePasswordId = new Date().toLocaleTimeString().slice(0, -3);
-      await user.save();
-    }
-  }
-
-  async sendPassword(email) {
+  async sendPasswordMail(email) {
     const user = await UserModel.findOne({ email });
-    const isPassEquals = await bcrypt.compare(password, user.password);
     if (!user) {
       throw ApiError.BadRequest(`User not found`);
     }
-    const hashNewPassword = await bcrypt.hash(newPassword, 3);
-    user.password = hashNewPassword;
-
+    const newPassword = uuid.v4().slice(0, 11).replace('-', '');
+    const hasNewPassword = await bcrypt.hash(newPassword, 3);
+    user.password = hasNewPassword;
+    await mailService.senResetPasswordMail(email, newPassword);
     await user.save();
-    const userDto = new UserDto(user);
-    return { user: userDto };
   }
 }
 

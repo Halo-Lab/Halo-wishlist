@@ -1,7 +1,6 @@
 import { Form, Formik } from 'formik';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 
 import '../../utils/i18next';
@@ -11,7 +10,6 @@ import { FormikTextInput } from '../common/FormikInput/FormikInput';
 import styles from './ForgotPassword.module.scss';
 
 export const ForgotPassword: FC = () => {
-  const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const LoginSchema = Yup.object().shape({

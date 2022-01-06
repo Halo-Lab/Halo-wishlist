@@ -8,7 +8,6 @@ const UserSchema = new Schema({
   email: { type: String, unique: true, required: true },
   password: { type: String, required: true },
   isActivated: { type: Boolean, default: false },
-  changePasswordId: { type: String },
   activationLink: { type: String },
   wishlist: [WishListSchema],
   name: { type: String, default: '' },

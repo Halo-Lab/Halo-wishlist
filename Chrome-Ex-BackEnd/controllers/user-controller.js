@@ -153,25 +153,6 @@ class UserController {
       next(e);
     }
   }
-  async redirectPassword(req, res, next) {
-    try {
-      const activationLink = req.params.link;
-      await userService.sendPasswordMail(false, activationLink);
-      return res.redirect(process.env.CLIENT_URL + '/');
-    } catch (e) {
-      next(e);
-    }
-  }
-  async forgotPassword(req, res, next) {
-    try {
-      const { email } = req.body;
-      const userData = await userService.sendPassword(email, password, remember);
-
-      return res.json(userData);
-    } catch (e) {
-      next(e);
-    }
-  }
 }
 
 module.exports = new UserController();

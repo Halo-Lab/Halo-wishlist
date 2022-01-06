@@ -30,7 +30,6 @@ router.put(
   userController.updateUserPic,
 );
 router.post('/sendResetMailPassword', userController.forgotPasswordMail);
-router.get('/send-reset-mail-password/:link', userController.redirectPassword);
 
 router.post(
   '/login/extension',

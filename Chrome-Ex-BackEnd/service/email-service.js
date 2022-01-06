@@ -27,7 +27,7 @@ class EmailService {
       `,
     });
   }
-  async senResetPasswordMail(to, link) {
+  async senResetPasswordMail(to, password) {
     await this.transporter.sendMail({
       from: 'harlamovforadds@gmail.com',
       to,
@@ -35,8 +35,8 @@ class EmailService {
       text: '',
       html: `
         <div>
-        <h1>Follow this link to reset your password</h1>
-        <a href="${link}">${link}</a>
+        <h1>New password</h1>
+        <p>${password}</p>
         </div>
       `,
     });
