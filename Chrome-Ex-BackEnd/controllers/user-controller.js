@@ -149,6 +149,7 @@ class UserController {
     try {
       const { email } = req.body;
       await userService.sendPasswordMail(email);
+      return res.json({ message: 'Password has been send' });
     } catch (e) {
       next(e);
     }

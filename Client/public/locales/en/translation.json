@@ -10,7 +10,8 @@
     "warning": "By using this service you are agreeing to the terms of service and privacy policy",
     "haveAccount": "Already have an account?",
     "register": "Register",
-    "sendPassword": "Send password"
+    "sendPassword": "Send password",
+    "enterYourMail": "Enter your email"
   },
   "errors": {
     "notValidEmail": "Must be a valid email!",

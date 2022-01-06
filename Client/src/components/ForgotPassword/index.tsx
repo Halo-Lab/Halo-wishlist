@@ -3,7 +3,9 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 
+import AuthRequest from '../../api/request/AuthRequest';
 import '../../utils/i18next';
+import * as notify from '../../utils/notifications';
 import { ButtonService } from '../common/ButtonSendForm/ButtonSendForm';
 import { FormikTextInput } from '../common/FormikInput/FormikInput';
 
@@ -19,8 +21,10 @@ export const ForgotPassword: FC = () => {
       .required(t('errors.required')),
   });
 
-  const handleSubmitForm = () => {
-    alert(1);
+  const handleSubmitForm = (value) => {
+    AuthRequest.resetPassword(value.email)
+      .then((response) => notify.successes(response.data.message))
+      .catch((error) => notify.error(error.response.data.message));
   };
 
   return (
@@ -31,18 +35,20 @@ export const ForgotPassword: FC = () => {
       onSubmit={handleSubmitForm}
       validationSchema={LoginSchema}
     >
-      {({ errors }) => (
+      {({ errors, isSubmitting, setSubmitting }) => (
         <Form>
+          <label>{t('auth.enterYourMail')}</label>
           <FormikTextInput
             className={styles.input}
             type="email"
             name="email"
             placeholder="user@gmail.com"
+            onFocus={() => setSubmitting(false)}
           />
 
           <ButtonService
             btnName={t('auth.sendPassword')}
-            disabled={errors.email ? true : false}
+            disabled={errors.email || isSubmitting ? true : false}
           />
         </Form>
       )}
