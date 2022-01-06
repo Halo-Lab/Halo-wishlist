@@ -125,7 +125,11 @@ const LoginForm: FC = () => {
             </NavLink>
           </p>
         </div>
-        <NavLink to="/privacy" className={cn(styles.privacyLink, styles.loginLink)}>
+        <NavLink
+          to="/privacy"
+          target="_blank"
+          className={cn(styles.privacyLink, styles.loginLink)}
+        >
           Privacy policy
         </NavLink>
       </div>

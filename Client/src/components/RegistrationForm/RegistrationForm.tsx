@@ -85,7 +85,9 @@ const RegistrationForm: FC = () => {
                   </span>
                 </div>
 
-                <p className={styles.policy}>{t('auth.warning')}</p>
+                <NavLink to="/privacy" target="_blank">
+                  <p className={styles.policy}>{t('auth.warning')}</p>
+                </NavLink>
                 <ButtonService
                   btnName={t('auth.register')}
                   disabled={errors.email || errors.password ? true : false}
@@ -101,7 +103,11 @@ const RegistrationForm: FC = () => {
           </NavLink>
         </p>
       </div>
-      <NavLink to="/privacy" className={cn(styles.privacyLink, styles.loginLink)}>
+      <NavLink
+        to="/privacy"
+        target="_blank"
+        className={cn(styles.privacyLink, styles.loginLink)}
+      >
         Privacy policy
       </NavLink>
     </div>
