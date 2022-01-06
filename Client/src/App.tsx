@@ -9,6 +9,7 @@ import { Loader } from './components/common/Loader';
 import { NotFound } from './scenes/404';
 import { AdminPage } from './scenes/AdminPage/AdminPage';
 import { ListPage } from './scenes/ListPage';
+import { PrivacyPolicy } from './scenes/PrivacyPolicy';
 import { ProfileSettings } from './scenes/ProfileSettings/ProfileSettings';
 import { SharePage } from './scenes/SharePage';
 import { AppRootStateType } from './store/store';
@@ -53,6 +54,7 @@ const App: FC = () => {
             path={`/shared/:userNickname/:listID`}
             render={() => <SharePage />}
           />
+          <Route path={`/privacy`} render={() => <PrivacyPolicy />} />
           <Route render={() => <NotFound />} />
         </Switch>
       </div>

@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import { Field, Form, Formik } from 'formik';
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -100,6 +101,9 @@ const RegistrationForm: FC = () => {
           </NavLink>
         </p>
       </div>
+      <NavLink to="/privacy" className={cn(styles.privacyLink, styles.loginLink)}>
+        Privacy policy
+      </NavLink>
     </div>
   );
 };
