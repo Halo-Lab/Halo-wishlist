@@ -38,9 +38,16 @@ const MainLayout: React.FC<IProps> = ({
   const { t } = useTranslation();
 
   const getFullAge = (date) => {
-    return date
-      ? new Date().getFullYear() - new Date(date).getFullYear()
-      : t('foreverYang');
+    if (date) {
+      const today = new Date();
+      const birthDate = new Date(date);
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+      return age;
+    }
   };
 
   return (
@@ -69,13 +76,13 @@ const MainLayout: React.FC<IProps> = ({
           {isShared && (
             <p>
               {getFullAge(birthdaySh)}
-              {` ${t('years')}`}
+              {birthdaySh ? ` ${t('years')}` : t('foreverYang')}
             </p>
           )}
           {!isShared && (
             <p>
               {getFullAge(birthday)}
-              {` ${t('years')}`}
+              {birthday ? ` ${t('years')}` : t('foreverYang')}
             </p>
           )}
           <p className={styles.confirm}>

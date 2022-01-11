@@ -17,7 +17,7 @@ import add_wishlist_icon from '../../../../assets/svg/folder-plus.svg';
 
 import styles from './UserMenu.module.scss';
 
-type ICreateMenu = {
+type CreateMenuType = {
   name: string;
   id: number;
   image: string;
@@ -40,7 +40,7 @@ const UserMenu: React.FC<IProps> = ({ userPic, wishlistId }) => {
     setIsNav(false);
   };
 
-  const createMenu: Array<ICreateMenu> = [
+  const createMenu: Array<CreateMenuType> = [
     {
       name: t('wishlist'),
       id: 0,
@@ -64,6 +64,7 @@ const UserMenu: React.FC<IProps> = ({ userPic, wishlistId }) => {
   };
 
   const ref = useDetectClickOutside({ onTriggered: handleVisible });
+  const navRef = useDetectClickOutside({ onTriggered: closeMenu });
 
   return (
     <div className={styles.menu_container}>
@@ -101,7 +102,7 @@ const UserMenu: React.FC<IProps> = ({ userPic, wishlistId }) => {
           </SettingsMenu>
         </div>
       )}
-      <div className={styles.menu_toggle} onClick={toggleNav}>
+      <div className={styles.menu_toggle} onClick={toggleNav} ref={navRef}>
         <Image
           alt="user"
           userPlaceholder="true"
@@ -113,7 +114,7 @@ const UserMenu: React.FC<IProps> = ({ userPic, wishlistId }) => {
         />
         <img src={arrow_icon} alt="menu-arrow" />
       </div>
-      {isNav && <Nav closeToggle={closeMenu} />}
+      <Nav isShow={isNav} />
     </div>
   );
 };

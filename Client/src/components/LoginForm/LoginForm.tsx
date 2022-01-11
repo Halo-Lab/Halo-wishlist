@@ -69,7 +69,7 @@ const LoginForm: FC = () => {
               onSubmit={handleSubmitForm}
               validationSchema={LoginSchema}
             >
-              {({ errors, touched }) => (
+              {({ errors, touched, isSubmitting }) => (
                 <Form>
                   <div className={styles.inputWrapper}>
                     {errors.email && touched.email ? (
@@ -112,7 +112,7 @@ const LoginForm: FC = () => {
                   </div>
                   <ButtonService
                     btnName={t('auth.login')}
-                    disabled={errors.email || errors.password ? true : false}
+                    disabled={!!(isSubmitting || errors.email || errors.password)}
                   />
                 </Form>
               )}

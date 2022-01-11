@@ -55,7 +55,7 @@ const RegistrationForm: FC = () => {
             onSubmit={handleSubmitForm}
             validationSchema={SignupSchema}
           >
-            {({ errors, touched }) => (
+            {({ errors, touched, isSubmitting }) => (
               <Form>
                 <div className={styles.inputWrapper}>
                   {errors.email && touched.email ? (
@@ -90,7 +90,7 @@ const RegistrationForm: FC = () => {
                 </NavLink>
                 <ButtonService
                   btnName={t('auth.register')}
-                  disabled={errors.email || errors.password ? true : false}
+                  disabled={!!(isSubmitting || errors.email || errors.password)}
                 />
               </Form>
             )}

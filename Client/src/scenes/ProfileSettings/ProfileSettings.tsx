@@ -53,6 +53,21 @@ export const ProfileSettings = () => {
       /(?:(?:http|https):\/\/)?(?:www\.)?(?:instagram\.com|instagr\.am)\/([A-Za-z0-9-_\.]+)/im,
       'Incorrect URL',
     ),
+    password: Yup.string().min(4, t('errors.passwordMinLength')).notRequired(),
+    newPassword: Yup.string()
+      .min(4, t('errors.passwordMinLength'))
+      .when('password', {
+        is: (val) => {
+          if (val) return true;
+        },
+        then: Yup.string().required(''),
+      })
+      .when('password', {
+        is: (val) => {
+          if (val) return true;
+        },
+        then: Yup.string().not([Yup.ref('password')], t('errors.matchPassword')),
+      }),
   });
 
   const handleUpload = async (file) => {
@@ -132,9 +147,18 @@ export const ProfileSettings = () => {
       <Formik
         initialValues={initialValues}
         validationSchema={SettingsSchema}
-        onSubmit={(values) => handleSubmitForm(values)}
+        onSubmit={(values, actions) => {
+          handleSubmitForm(values);
+          actions.resetForm({
+            values: {
+              ...values,
+              password: '',
+              newPassword: '',
+            },
+          });
+        }}
       >
-        {({ errors, values, setFieldValue, dirty }) => (
+        {({ errors, values, setFieldValue, isSubmitting, touched }) => (
           <Form>
             <div className={styles.settings}>
               <section className={styles.iconBlock}>
@@ -268,6 +292,11 @@ export const ProfileSettings = () => {
                       name="newPassword"
                       autoComplete="false"
                     />
+                    {touched.password && values.password && !values.newPassword && (
+                      <div className={styles.error}>
+                        {t('errors.newPasswordReq')}
+                      </div>
+                    )}
                   </div>
                 </div>
               </section>
@@ -305,7 +334,11 @@ export const ProfileSettings = () => {
                 <ButtonService
                   className={styles.sendFormBtn}
                   btnName={t('settings.save')}
-                  disabled={!dirty}
+                  disabled={
+                    Object.keys(errors).length > 0 ||
+                    values === initialValues ||
+                    isSubmitting
+                  }
                 />
                 {/* <ButtonService
                   btnName="Delete Account"
