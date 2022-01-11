@@ -20,7 +20,9 @@
     "required": "Required!",
     "passwordMinLength": "min 4 characters!",
     "passwordMaxLength": "max: 50 characters!",
-    "url": "Url is not valid!"
+    "url": "Url is not valid!",
+    "matchPassword": "Passwords match!",
+    "newPasswordReq": "New password is required"
   },
   "settings": {
     "upload": "Upload new picture",

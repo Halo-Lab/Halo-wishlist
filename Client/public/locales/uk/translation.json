@@ -20,7 +20,9 @@
     "required": "Обов'язково!",
     "passwordMinLength": "мінімум: 4 символи!",
     "passwordMaxLength": "максимум: 20 символів!",
-    "url": "Невірна URL адреса!"
+    "url": "Невірна URL адреса!",
+    "matchPassword": "Паролі збігаються!",
+    "newPasswordReq": "Новий пароль є обовязковим!"
   },
   "settings": {
     "upload": "Змінити аватар",
