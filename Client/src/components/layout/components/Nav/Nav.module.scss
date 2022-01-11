@@ -7,6 +7,9 @@
   position: absolute;
   top: 75px;
   right: 55px;
+  opacity: 0;
+  visibility: hidden;
+  transition: visibility 0s linear 0.5s, opacity 0.5s linear;
 
   @media (max-width: 576px) {
     right: 0;
@@ -14,6 +17,13 @@
     margin: 0 auto;
   }
 }
+
+.show_nav {
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0.3s;
+}
+
 
 .link {
   border-bottom: 1px solid #e8f0fe;
