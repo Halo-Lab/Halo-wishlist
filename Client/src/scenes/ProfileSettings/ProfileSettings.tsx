@@ -257,8 +257,8 @@ export const ProfileSettings = () => {
                         defaultValue={localStorage.getItem('i18nextLng') || 'en'}
                         onChange={(e) => changeLanguage(e.target.value)}
                       >
-                        <option value="en">English</option>
-                        <option value="uk">Ukrainian</option>
+                        <option value="en">{t('English')}</option>
+                        <option value="uk">{t('Ukrainian')}</option>
                       </select>
                     </div>
                     <div className={styles.selectorCuret}>

@@ -1,3 +1,8 @@
+
+
+
+
+
 {
   "auth": {
     "login": "Log in",
@@ -56,6 +61,8 @@
   "delete": "Delete",
   "share": "Share",
   "edit": "Edit",
+  "English": "English",
+  "Ukrainian": "Ukrainian",
   "nav": {
     "profile": "Profile",
     "settings": "Settings",
