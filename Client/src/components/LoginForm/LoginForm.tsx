@@ -45,7 +45,7 @@ const LoginForm: FC = () => {
     dispatch(loginUser(email.toLocaleLowerCase(), password, isRemember));
   };
 
-  const handelChangeRemember = () => {
+  const handleChangeRemember = () => {
     setIsRemember(!isRemember);
   };
 
@@ -103,9 +103,11 @@ const LoginForm: FC = () => {
                       className={cn(styles.checkbox, {
                         [styles.activeCheckbox]: isRemember,
                       })}
-                      onClick={handelChangeRemember}
+                      onClick={handleChangeRemember}
                     />
-                    <p className={styles.remember}>{t('auth.rememberMe')}</p>
+                    <p className={styles.remember} onClick={handleChangeRemember}>
+                      {t('auth.rememberMe')}
+                    </p>
                     <p className={styles.forgot} onClick={() => setIsForgot(true)}>
                       {t('auth.forgot')}
                     </p>
