@@ -5,7 +5,6 @@ import { useDetectClickOutside } from 'react-detect-click-outside';
 import { useTranslation } from 'react-i18next';
 import { useParams } from 'react-router-dom';
 
-// import { useTranslation } from 'react-i18next';
 import Icon from '../../../components/common/IconComponent/Icon';
 import { SettingsMenu } from '../../../components/common/SettingsMenu';
 import { AddEditWishModal } from '../../../components/layout/components/AddEditWishModal/AddEditWishModal';
@@ -36,19 +35,18 @@ export const ListItem: FC<IProps> = ({ data, sharedPage = false }) => {
 
   const { image, nameURL, price, url } = data;
   const { t } = useTranslation();
-  // const { t } = useTranslation();
 
   const settingsList: Array<ISettings> = [
     {
-      name: 'Edit',
+      name: t('edit'),
       id: 1,
       toggleModal() {
         setIsEditModal((prev) => !prev);
       },
     },
     {
-      name: 'Delete',
-      id: 3,
+      name: t('delete'),
+      id: 2,
       toggleModal() {
         setIsDeleteModal((prev) => !prev);
       },

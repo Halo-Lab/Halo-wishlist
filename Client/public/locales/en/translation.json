@@ -53,6 +53,9 @@
   "emptyArchive": "Archive is empty",
   "present": "Presents",
   "foreverYang": "always 18",
+  "delete": "Delete",
+  "share": "Share",
+  "edit": "Edit",
   "nav": {
     "profile": "Profile",
     "settings": "Settings",
