@@ -35,8 +35,7 @@ const UserMenu: React.FC<IProps> = ({ userPic, wishlistId }) => {
 
   const toggleNav = () => setIsNav((prev) => !prev);
 
-  const closeMenu = (event: Event) => {
-    event.preventDefault();
+  const closeMenu = () => {
     setIsNav(false);
   };
 

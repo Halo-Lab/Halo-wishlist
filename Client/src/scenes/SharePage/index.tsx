@@ -30,23 +30,27 @@ export const SharePage = () => {
   }, []);
 
   return (
-    <MainLayout
-      customTab={
-        <CustomTab itemsCount={lists?.items.length} tabName={lists?.name} />
-      }
-      nameSh={lists?.userName}
-      userPicSh={lists?.userPic}
-      birthdaySh={lists?.date}
-      hideMenu={!user.isLoggedIn}
-      changeLang={!user.isLoggedIn && true}
-    >
-      <div className={styles.itemsWrapper}>
-        {lists?.items.map((item) => {
-          return (
-            <ListItem key={item._id} data={item} sharedPage={!user.isLoggedIn} />
-          );
-        })}
-      </div>
-    </MainLayout>
+    <>
+      {lists && (
+        <MainLayout
+          customTab={
+            <CustomTab itemsCount={lists?.items.length} tabName={lists?.name} />
+          }
+          nameSh={lists?.userName}
+          userPicSh={lists?.userPic}
+          birthdaySh={lists?.date}
+          hideMenu={!user.isLoggedIn}
+          changeLang={!user.isLoggedIn && true}
+        >
+          <div className={styles.itemsWrapper}>
+            {lists?.items.map((item) => {
+              return (
+                <ListItem key={item._id} data={item} sharedPage={!user.isLoggedIn} />
+              );
+            })}
+          </div>
+        </MainLayout>
+      )}
+    </>
   );
 };

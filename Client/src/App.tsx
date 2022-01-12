@@ -68,6 +68,7 @@ const App: FC = () => {
         <Route path="/settings" render={() => <ProfileSettings />} exact />
         <Route path={`/wishlists/:listId`} render={() => <ListPage />} exact />
         <Route path={`/shared/:userNickname/:listID`} render={() => <SharePage />} />
+        <Route path={`/privacy`} render={() => <PrivacyPolicy />} />
         <Redirect to="/" />
       </Switch>
     </div>

@@ -32,14 +32,14 @@ const WishlistCard: React.FC<IProps> = ({ data }) => {
 
   const settingsList: Array<ISettings> = [
     {
-      name: 'Share',
+      name: t('share'),
       id: 0,
       toggleModal() {
         setIsShareModal((prev) => !prev);
       },
     },
     {
-      name: 'Delete',
+      name: t('delete'),
       id: 3,
       toggleModal() {
         setIsDeleteModal((prev) => !prev);

@@ -38,7 +38,7 @@ const Nav: React.FC<IProps> = ({ isShow }) => {
     },
     {
       name: t('nav.logout'),
-      path: 'logout',
+      path: '/login',
       id: 3,
       image: logout_icon,
       handleLogout: () => {
@@ -51,7 +51,7 @@ const Nav: React.FC<IProps> = ({ isShow }) => {
     <nav className={cn(styles.nav, { [styles.show_nav]: isShow })}>
       {navMenu.map((i) => {
         return (
-          <div className={styles.link}>
+          <div key={i.id} className={styles.link}>
             <NavLink
               to={i.path}
               activeClassName={styles.selected}

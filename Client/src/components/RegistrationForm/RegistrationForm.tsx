@@ -38,7 +38,7 @@ const RegistrationForm: FC = () => {
 
   const handleSubmitForm = (values: ILogin) => {
     const { email, password } = values;
-    dispatch(registrationUser(email, password));
+    dispatch(registrationUser(email.toLocaleLowerCase(), password));
   };
 
   return (
@@ -55,7 +55,7 @@ const RegistrationForm: FC = () => {
             onSubmit={handleSubmitForm}
             validationSchema={SignupSchema}
           >
-            {({ errors, touched, isSubmitting }) => (
+            {({ errors, touched }) => (
               <Form>
                 <div className={styles.inputWrapper}>
                   {errors.email && touched.email ? (
@@ -90,7 +90,7 @@ const RegistrationForm: FC = () => {
                 </NavLink>
                 <ButtonService
                   btnName={t('auth.register')}
-                  disabled={!!(isSubmitting || errors.email || errors.password)}
+                  disabled={!!(errors.email || errors.password)}
                 />
               </Form>
             )}
