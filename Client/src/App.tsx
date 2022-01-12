@@ -54,6 +54,7 @@ const App: FC = () => {
             path={`/shared/:userNickname/:listID`}
             render={() => <SharePage />}
           />
+          <Route path={`/privacy`} render={() => <PrivacyPolicy />} />
           <Route render={() => <NotFound />} />
         </Switch>
       </div>
