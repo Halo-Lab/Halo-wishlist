@@ -1,7 +1,29 @@
 const UserModel = require('../models/user-modal');
 const WishlistModel = require('../models/wishlist-modal');
+const ArchiveModel = require('../models/archive-modal');
 const ApiError = require('../exceptions/api-error');
 const WishlistDto = require('../dtos/wishlist-dto');
+
+const deleteWishHelper = async (id) => {
+  const wish = await WishlistModel.updateMany(
+    //find wish
+    {
+      items: {
+        $elemMatch: {
+          _id: id,
+        },
+      },
+    },
+    //delete wish
+    { $pull: { items: { _id: id } } },
+  );
+  if (wish.modifiedCount === 0) {
+    throw ApiError.BadRequest(`Wish not found ${id}`);
+  }
+  if (wish.modifiedCount !== 0) {
+    return { status: 'ok' };
+  }
+};
 
 class WishlistService {
   async createWishlist(userId, name) {
@@ -55,24 +77,7 @@ class WishlistService {
   }
 
   async deleteWish(wishId) {
-    const wish = await WishlistModel.updateMany(
-      //find wish
-      {
-        items: {
-          $elemMatch: {
-            _id: wishId,
-          },
-        },
-      },
-      //delete wish
-      { $pull: { items: { _id: wishId } } },
-    );
-    if (wish.modifiedCount === 0) {
-      throw ApiError.BadRequest(`Wish not found ${wishId}`);
-    }
-    if (wish.modifiedCount !== 0) {
-      return { status: 'ok' };
-    }
+    return deleteWishHelper(wishId);
   }
 
   async updateWish(wishId, url, nameURL, image, price) {
@@ -117,6 +122,18 @@ class WishlistService {
       throw ApiError.BadRequest(`User not found ${userId}`);
     }
     return categories;
+  }
+  async setToArchive(userId, wishId, url, nameURL, image, price) {
+    const archive = await ArchiveModel.findOne({ userId });
+    if (!archive) {
+      const archive = await ArchiveModel.create({ userId });
+      archive.items.push({ url, nameURL, image, price });
+      deleteWishHelper(wishId);
+    } else {
+      archive.items.push({ url, nameURL, image, price });
+      await archive.save();
+      deleteWishHelper(wishId);
+    }
   }
 }
 

@@ -116,6 +116,23 @@ class WishlistController {
       next(e);
     }
   }
+
+  async setItemToArchive(req, res, next) {
+    try {
+      const { userId, wishId, url, nameURL, image, price } = req.body;
+      const archiveData = await wishlistService.setToArchive(
+        userId,
+        wishId,
+        url,
+        nameURL,
+        image,
+        price,
+      );
+      return res.json({ message: 'Wish is added to archive' });
+    } catch (e) {
+      next(e);
+    }
+  }
 }
 
 module.exports = new WishlistController();
