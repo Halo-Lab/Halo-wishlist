@@ -181,6 +181,7 @@ export const ProfileSettings = () => {
                   />
                 </div>
               </section>
+
               <section>
                 <div className={styles.sectionName}>
                   <p>{t('settings.PublicProfile')}</p>
@@ -198,6 +199,7 @@ export const ProfileSettings = () => {
                     {' '}
                     {t('settings.birthdayDate')}
                   </label>
+
                   <DatePicker
                     selected={new Date(values.date)}
                     dateFormat="dd.MM.yyyy"
@@ -208,13 +210,16 @@ export const ProfileSettings = () => {
                     onChange={(date) => setFieldValue('date', date)}
                     placeholderText="12.12.1998"
                   />
+
                   <label>{t('settings.email')}</label>
                   <FormikTextInput
                     name="email"
                     type="email"
                     disabled={true}
                     placeholder="darrell@steward.com"
+                    autoComplete="username"
                   />
+
                   <label>{t('settings.bio')}</label>
                   <FormikTextInput
                     name="bio"
@@ -272,6 +277,7 @@ export const ProfileSettings = () => {
                   </div>
                 </div>
               </section>
+
               <section className={styles.section}>
                 <div className={styles.sectionName}>
                   <p>{t('settings.Password')}</p>
@@ -279,18 +285,15 @@ export const ProfileSettings = () => {
                 <div className={styles.selectors}>
                   <div>
                     <label> {t('settings.oldPassword')}</label>
-                    <FormikTextInput
-                      type="password"
-                      name="password"
-                      autoComplete="new-password"
-                    />
+                    <FormikTextInput type="password" name="password" />
                   </div>
+
                   <div>
                     <label> {t('settings.newPassword')}</label>
                     <FormikTextInput
                       type="password"
                       name="newPassword"
-                      autoComplete="false"
+                      autoComplete="new-password"
                     />
                     {touched.password && values.password && !values.newPassword && (
                       <div className={styles.error}>
@@ -300,6 +303,7 @@ export const ProfileSettings = () => {
                   </div>
                 </div>
               </section>
+
               <section>
                 <div className={styles.sectionName}>
                   <p>{t('settings.socialProfiles')}</p>
@@ -311,12 +315,14 @@ export const ProfileSettings = () => {
                     name="facebook"
                     placeholder="https://facebook.com"
                   />
+
                   <label>Twitter</label>
                   <FormikTextInput
                     type="text"
                     name="twitter"
                     placeholder="https://twitter.com"
                   />
+
                   <label>Instagram</label>
                   <FormikTextInput
                     type="text"
@@ -330,6 +336,7 @@ export const ProfileSettings = () => {
                   </div>
                 )}
               </section>
+
               <div className={styles.buttonsBlock}>
                 <ButtonService
                   className={styles.sendFormBtn}
