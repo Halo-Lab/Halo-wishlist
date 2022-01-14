@@ -83,6 +83,18 @@ const slice = createSlice({
       );
       state.wishlists[index].items.splice(indexTask, 1);
     },
+    archiveWishAC(
+      state,
+      action: PayloadAction<{ wishlistId: string; wishId: string }>,
+    ) {
+      const index = state.wishlists.findIndex((w) => {
+        return w._id === action.payload.wishlistId;
+      });
+      const indexTask = state.wishlists[index]?.items.findIndex(
+        (w) => w._id === action.payload.wishId,
+      );
+      state.wishlists[index].items.splice(indexTask, 1);
+    },
   },
 });
 
@@ -170,6 +182,20 @@ export const deleteWish =
       });
   };
 
+export const archiveWish =
+  (wish: IProduct, wishlistId: string) => (dispatch: Dispatch) => {
+    WishlistRequest.archiveWish(wishlistId, wish)
+      .then(() => {
+        dispatch(archiveWishAC({ wishlistId, wishId: wish._id }));
+      })
+      .then(() => {
+        notify.successes(i18n.t('modal.deleted'));
+      })
+      .catch((e) => {
+        notify.error(e.response?.data?.message);
+      });
+  };
+
 export const wishlistReducer = slice.reducer;
 export const {
   setWishlistAC,
@@ -178,4 +204,5 @@ export const {
   addWishAC,
   updateWishAC,
   deleteWishAC,
+  archiveWishAC,
 } = slice.actions;

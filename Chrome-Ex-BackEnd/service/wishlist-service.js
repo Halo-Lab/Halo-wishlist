@@ -124,16 +124,19 @@ class WishlistService {
     }
     return categories;
   }
-  async setToArchive(userId, wishId, url, nameURL, image, price) {
+  async setToArchive(wishId, wishItemId, url, nameURL, image, price) {
+    const { userId } = await WishlistModel.findOne({ _id: wishId });
     const archive = await ArchiveModel.findOne({ userId });
+
     if (!archive) {
       const archive = await ArchiveModel.create({ userId });
       archive.items.push({ url, nameURL, image, price });
-      return deleteWishHelper(wishId);
+      await archive.save();
+      return deleteWishHelper(wishItemId);
     } else {
       archive.items.push({ url, nameURL, image, price });
       await archive.save();
-      return deleteWishHelper(wishId);
+      return deleteWishHelper(wishItemId);
     }
   }
   async deleteFromArchive(wishId) {

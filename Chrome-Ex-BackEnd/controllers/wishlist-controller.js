@@ -119,10 +119,13 @@ class WishlistController {
 
   async setItemToArchive(req, res, next) {
     try {
-      const { userId, wishId, url, nameURL, image, price } = req.body;
-      const archiveData = await wishlistService.setToArchive(
-        userId,
+      const {
         wishId,
+        wish: { url, nameURL, image, price, _id: wishItemId },
+      } = req.body;
+      const archiveData = await wishlistService.setToArchive(
+        wishId,
+        wishItemId,
         url,
         nameURL,
         image,

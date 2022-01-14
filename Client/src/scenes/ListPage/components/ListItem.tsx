@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom';
 import Icon from '../../../components/common/IconComponent/Icon';
 import { SettingsMenu } from '../../../components/common/SettingsMenu';
 import { AddEditWishModal } from '../../../components/layout/components/AddEditWishModal/AddEditWishModal';
+import { ArchiveWishModal } from '../../../components/layout/components/ArchiveWishModal/ArchiveWishModal';
 import { DeleteWishModal } from '../../../components/layout/components/DeleteWishModal/DeleteWishModal';
 import { IProduct } from '../../../models/IProduct';
 
@@ -31,6 +32,7 @@ export const ListItem: FC<IProps> = ({ data, sharedPage = false }) => {
   const [visible, setVisible] = useState(false);
   const [isEditModal, setIsEditModal] = useState<boolean>(false);
   const [isDeleteModal, setIsDeleteModal] = useState<boolean>(false);
+  const [isArchiveModal, setArchiveModal] = useState<boolean>(false);
   const { userNickname } = useParams<{ userNickname: string }>();
 
   const { image, nameURL, price, url } = data;
@@ -49,6 +51,13 @@ export const ListItem: FC<IProps> = ({ data, sharedPage = false }) => {
       id: 2,
       toggleModal() {
         setIsDeleteModal((prev) => !prev);
+      },
+    },
+    {
+      name: t('archive'),
+      id: 2,
+      toggleModal() {
+        setArchiveModal((prev) => !prev);
       },
     },
   ];
@@ -72,6 +81,13 @@ export const ListItem: FC<IProps> = ({ data, sharedPage = false }) => {
         <DeleteWishModal
           isModal={isDeleteModal}
           setIsModal={setIsDeleteModal}
+          data={data}
+        />
+      )}
+      {isArchiveModal && (
+        <ArchiveWishModal
+          isModal={isArchiveModal}
+          setIsModal={setArchiveModal}
           data={data}
         />
       )}

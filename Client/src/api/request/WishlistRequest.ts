@@ -27,6 +27,13 @@ export default class WishlistRequest {
     return api.put(`wish/${wish._id}`, { ...wish });
   }
 
+  static async archiveWish(
+    wishId: string,
+    wish: IProduct,
+  ): Promise<AxiosResponse<{ status: string }>> {
+    return api.post(`archive/`, { wishId, wish });
+  }
+
   static async deleteWish(wishId): Promise<AxiosResponse<{ wish: IProduct }>> {
     return api.delete(`wish/${wishId}`);
   }
