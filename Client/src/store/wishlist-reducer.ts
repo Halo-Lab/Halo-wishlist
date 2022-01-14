@@ -189,7 +189,7 @@ export const archiveWish =
         dispatch(archiveWishAC({ wishlistId, wishId: wish._id }));
       })
       .then(() => {
-        notify.successes(i18n.t('modal.deleted'));
+        notify.successes(i18n.t('modal.addedToArchive'));
       })
       .catch((e) => {
         notify.error(e.response?.data?.message);
