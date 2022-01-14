@@ -1,5 +1,6 @@
 const wishlistService = require('../service/wishlist-service');
 const { validationResult } = require('express-validator');
+const TokenModal = require('../models/token-modal');
 const ApiError = require('../exceptions/api-error');
 
 class WishlistController {
@@ -141,6 +142,19 @@ class WishlistController {
       const { wishId } = req.body;
       const archiveData = await wishlistService.deleteFromArchive(wishId);
       return res.json({ message: 'Wish is deleted from archive' });
+    } catch (e) {
+      next(e);
+    }
+  }
+  async getItemsFromArchive(req, res, next) {
+    try {
+      const { refreshToken } = req.cookies;
+      const userData = await TokenModal.findOne({ refreshToken });
+
+      const archiveItems = await wishlistService.getFromArchive(
+        userData.user.toString(),
+      );
+      return res.json(archiveItems);
     } catch (e) {
       next(e);
     }

@@ -1,8 +1,8 @@
 import api from '..';
 import { AxiosResponse } from 'axios';
 
-import { IProduct } from '../../models/IProduct';
 import { IWishlist } from '../../models/IWishlist';
+import { IProduct } from './../../models/IProduct';
 
 export default class WishlistRequest {
   static async getWishlists(userId: string): Promise<AxiosResponse<IWishlist[]>> {
@@ -32,6 +32,9 @@ export default class WishlistRequest {
     wish: IProduct,
   ): Promise<AxiosResponse<{ status: string }>> {
     return api.post(`archive/`, { wishId, wish });
+  }
+  static async getArchiveWishes(): Promise<AxiosResponse<IProduct[]>> {
+    return api.get(`archive/`);
   }
 
   static async deleteWish(wishId): Promise<AxiosResponse<{ wish: IProduct }>> {

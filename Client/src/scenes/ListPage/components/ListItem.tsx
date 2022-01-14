@@ -55,7 +55,7 @@ export const ListItem: FC<IProps> = ({ data, sharedPage = false }) => {
     },
     {
       name: t('archive'),
-      id: 2,
+      id: 3,
       toggleModal() {
         setArchiveModal((prev) => !prev);
       },

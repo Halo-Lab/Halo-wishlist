@@ -142,6 +142,14 @@ class WishlistService {
   async deleteFromArchive(wishId) {
     return deleteWishHelper(wishId, 'archive');
   }
+  async getFromArchive(userId) {
+    const archive = await ArchiveModel.findOne({ userId });
+    if (!archive) {
+      throw ApiError.BadRequest(`Archive not found!`);
+    }
+
+    return archive.items;
+  }
 }
 
 module.exports = new WishlistService();
