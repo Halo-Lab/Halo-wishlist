@@ -4,8 +4,9 @@ const ArchiveModel = require('../models/archive-modal');
 const ApiError = require('../exceptions/api-error');
 const WishlistDto = require('../dtos/wishlist-dto');
 
-const deleteWishHelper = async (id) => {
-  const wish = await WishlistModel.updateMany(
+const deleteWishHelper = async (id, from = 'wishlist') => {
+  const model = from === 'archive' ? ArchiveModel : WishlistModel;
+  const wish = await model.updateMany(
     //find wish
     {
       items: {
@@ -18,7 +19,7 @@ const deleteWishHelper = async (id) => {
     { $pull: { items: { _id: id } } },
   );
   if (wish.modifiedCount === 0) {
-    throw ApiError.BadRequest(`Wish not found ${id}`);
+    throw ApiError.BadRequest(`Wish not found`);
   }
   if (wish.modifiedCount !== 0) {
     return { status: 'ok' };
@@ -128,12 +129,15 @@ class WishlistService {
     if (!archive) {
       const archive = await ArchiveModel.create({ userId });
       archive.items.push({ url, nameURL, image, price });
-      deleteWishHelper(wishId);
+      return deleteWishHelper(wishId);
     } else {
       archive.items.push({ url, nameURL, image, price });
       await archive.save();
-      deleteWishHelper(wishId);
+      return deleteWishHelper(wishId);
     }
+  }
+  async deleteFromArchive(wishId) {
+    return deleteWishHelper(wishId, 'archive');
   }
 }
 

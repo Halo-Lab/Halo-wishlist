@@ -133,6 +133,15 @@ class WishlistController {
       next(e);
     }
   }
+  async deleteItemFromArchive(req, res, next) {
+    try {
+      const { wishId } = req.body;
+      const archiveData = await wishlistService.deleteFromArchive(wishId);
+      return res.json({ message: 'Wish is deleted from archive' });
+    } catch (e) {
+      next(e);
+    }
+  }
 }
 
 module.exports = new WishlistController();
