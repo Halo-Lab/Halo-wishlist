@@ -44,12 +44,7 @@ export const ListPage = () => {
         <div className={styles.itemsWrapper}>
           {wishlistIndex > -1 &&
             wishlists[wishlistIndex]?.items.map((item) => {
-              return (
-                <ListItem
-                  key={item._id}
-                  data={item}
-                />
-              );
+              return <ListItem key={item._id} data={item} />;
             })}
         </div>
       ) : (
