@@ -19,20 +19,24 @@ import styles from './ListItem.module.scss';
 type ISettings = {
   name: string;
   id: number;
+  list?: string;
   toggleModal: MouseEventHandler<HTMLParagraphElement>;
 };
 
 type IProps = {
   data: IProduct;
+  mode?: 'archive';
   setLists?: (value: any) => void;
   sharedPage?: string | boolean;
 };
 
-export const ListItem: FC<IProps> = ({ data, sharedPage = false }) => {
+export const ListItem: FC<IProps> = ({ data, sharedPage = false, mode }) => {
   const [visible, setVisible] = useState(false);
   const [isEditModal, setIsEditModal] = useState<boolean>(false);
   const [isDeleteModal, setIsDeleteModal] = useState<boolean>(false);
   const [isArchiveModal, setArchiveModal] = useState<boolean>(false);
+  const [isDeleteArchiveModal, setDeleteArchiveModal] = useState<boolean>(false);
+  const [isRestoreArchiveModal, setRestoreArchiveModal] = useState<boolean>(false);
   const { userNickname } = useParams<{ userNickname: string }>();
 
   const { image, nameURL, price, url } = data;
@@ -60,7 +64,28 @@ export const ListItem: FC<IProps> = ({ data, sharedPage = false }) => {
         setArchiveModal((prev) => !prev);
       },
     },
+    {
+      name: t('restore'),
+      list: 'archive',
+      id: 4,
+      toggleModal() {
+        setRestoreArchiveModal((prev) => !prev);
+      },
+    },
+    {
+      name: t('delete'),
+      list: 'archive',
+      id: 5,
+      toggleModal() {
+        setDeleteArchiveModal((prev) => !prev);
+      },
+    },
   ];
+
+  const menu =
+    mode === 'archive'
+      ? settingsList.filter((item) => item.list === 'archive')
+      : settingsList.filter((item) => item.list !== 'archive');
 
   const handleVisible = () => {
     setVisible(false);
@@ -91,6 +116,14 @@ export const ListItem: FC<IProps> = ({ data, sharedPage = false }) => {
           data={data}
         />
       )}
+      {isDeleteArchiveModal && (
+        <ArchiveWishModal
+          isModal={isDeleteArchiveModal}
+          setIsModal={setDeleteArchiveModal}
+          modal="delete"
+          data={data}
+        />
+      )}
       <div className={styles.content}>
         {!sharedPage && !userNickname && (
           <div
@@ -105,7 +138,7 @@ export const ListItem: FC<IProps> = ({ data, sharedPage = false }) => {
             />
 
             <SettingsMenu open={visible} className={styles.menuPosition}>
-              {settingsList.map((item) => (
+              {menu.map((item) => (
                 <p
                   className={styles.menuItems}
                   key={item.id}

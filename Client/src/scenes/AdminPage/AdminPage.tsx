@@ -2,15 +2,15 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
-import WishlistRequest from '../../api/request/WishlistRequest';
 import { Loader } from '../../components/common/Loader';
 import { MainLayout } from '../../components/layout/MainLayout';
-import { IProduct } from '../../models/IProduct';
 import { IUser } from '../../models/IUser';
-import { IWishlist } from '../../models/IWishlist';
 import { AppRootStateType } from '../../store/store';
-import { setWishlists } from '../../store/wishlist-reducer';
-import * as notify from '../../utils/notifications';
+import {
+  loadArchiveWishes,
+  setWishlists,
+  WishlistStateType,
+} from '../../store/wishlist-reducer';
 import { ListItem } from '../ListPage/components/ListItem';
 import { WishlistCard } from './components/WishlistCard';
 
@@ -18,27 +18,22 @@ import styles from './AdminPage.module.scss';
 
 export const AdminPage: React.FC = () => {
   const user = useSelector<AppRootStateType, IUser>((state) => state.users.user);
-  const wishlists = useSelector<AppRootStateType, IWishlist[]>(
-    (state) => state.wishlist.wishlists,
-  );
+  const { archive, wishlists, isLoading } = useSelector<
+    AppRootStateType,
+    WishlistStateType
+  >((state) => state.wishlist);
   const [activeTab, setActiveTab] = useState<number>(0);
-  const [archiveWishes, setArchiveWishes] = useState<IProduct[]>([]);
+
   const { t } = useTranslation();
 
   const dispatch = useDispatch();
+
   useEffect(() => {
     if (user.id) {
       dispatch(setWishlists(user.id));
+      dispatch(loadArchiveWishes());
     }
   }, [user]);
-
-  useEffect(() => {
-    if (activeTab === 1) {
-      WishlistRequest.getArchiveWishes()
-        .then((res) => setArchiveWishes(res.data))
-        .catch((error) => notify.error(error.response.data.error));
-    }
-  }, [activeTab]);
 
   const changeTab = (tab: number) => setActiveTab(tab);
 
@@ -50,13 +45,14 @@ export const AdminPage: React.FC = () => {
         })}
       </div>
     ) : (
-      <Loader />
+      <h2>{t('emptyList')}</h2>
     );
+
   const archiveTab =
-    archiveWishes.length > 0 ? (
+    archive.length > 0 ? (
       <div className={styles.itemsWrapper}>
-        {archiveWishes.map((i) => {
-          return <ListItem key={i._id} data={i} />;
+        {archive.map((i) => {
+          return <ListItem key={i._id} data={i} mode="archive" />;
         })}
       </div>
     ) : (
@@ -67,8 +63,8 @@ export const AdminPage: React.FC = () => {
 
   return (
     <MainLayout tabs={tabs} changeTab={changeTab} activeTab={activeTab}>
-      {activeTab === 0 && wishlistsTab}
-      {activeTab === 1 && archiveTab}
+      {activeTab === 0 && (isLoading ? <Loader /> : wishlistsTab)}
+      {activeTab === 1 && (isLoading ? <Loader /> : archiveTab)}
     </MainLayout>
   );
 };

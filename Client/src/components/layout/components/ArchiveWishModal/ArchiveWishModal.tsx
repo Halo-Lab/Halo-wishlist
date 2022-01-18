@@ -3,19 +3,30 @@ import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import { IProduct } from '../../../../models/IProduct';
-import { archiveWish } from '../../../../store/wishlist-reducer';
+import { archiveWish, deleteArchiveWish } from '../../../../store/wishlist-reducer';
+
 import { ButtonService } from '../../../common/ButtonSendForm/ButtonSendForm';
 import { Modal } from '../../../common/Modal/Modal';
 
 import styles from '../../../common/Modal/Modal.module.scss';
 
-const ArchiveWishModal: React.FC<IProps> = ({ isModal, setIsModal, data }) => {
+const ArchiveWishModal: React.FC<IProps> = ({
+  isModal,
+  setIsModal,
+  data,
+  modal,
+}) => {
   const { t } = useTranslation();
 
   const dispatch = useDispatch();
   const { listId } = useParams<{ listId: string }>();
+
   const onArchiveWish = () => {
-    dispatch(archiveWish(data, listId));
+    if (modal === 'delete') {
+      dispatch(deleteArchiveWish(data._id));
+    } else {
+      dispatch(archiveWish(data, listId));
+    }
     setIsModal(false);
   };
 
@@ -44,6 +55,7 @@ interface IProps {
   isModal: boolean;
   setIsModal: (value: boolean) => void;
   data: IProduct;
+  modal?: string;
 }
 
 export { ArchiveWishModal };

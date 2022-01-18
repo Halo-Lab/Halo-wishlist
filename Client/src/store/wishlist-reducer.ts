@@ -9,16 +9,24 @@ import * as notify from '../utils/notifications';
 
 export type WishlistStateType = {
   wishlists: IWishlist[];
+  archive: IProduct[];
+  isLoading: boolean;
 };
 
 const initialState: WishlistStateType = {
   wishlists: [],
+  archive: [],
+  isLoading: false,
 };
 
 const slice = createSlice({
   name: 'wishlist',
   initialState: initialState,
   reducers: {
+    isLoadingAC(state, action: PayloadAction<void>) {
+      state.isLoading = !state.isLoading;
+    },
+
     setWishlistAC(state, action: PayloadAction<IWishlist[]>) {
       state.wishlists = action.payload;
     },
@@ -83,6 +91,15 @@ const slice = createSlice({
       );
       state.wishlists[index].items.splice(indexTask, 1);
     },
+
+    setArchiveWishesAC(state, action: PayloadAction<IProduct[]>) {
+      state.archive = action.payload;
+    },
+
+    deleteArchiveWishAC(state, action: PayloadAction<string | number>) {
+      state.archive = state.archive.filter((item) => item._id !== action.payload);
+    },
+
     archiveWishAC(
       state,
       action: PayloadAction<{ wishlistId: string; wishId: string }>,
@@ -93,6 +110,7 @@ const slice = createSlice({
       const indexTask = state.wishlists[index]?.items.findIndex(
         (w) => w._id === action.payload.wishId,
       );
+      state.archive.push(state.wishlists[index].items[indexTask]);
       state.wishlists[index].items.splice(indexTask, 1);
     },
   },
@@ -196,8 +214,28 @@ export const archiveWish =
       });
   };
 
+export const loadArchiveWishes = () => (dispatch: Dispatch) => {
+  dispatch(isLoadingAC());
+  WishlistRequest.getArchiveWishes()
+    .then((res) => dispatch(setArchiveWishesAC(res.data)))
+    .catch((e) => notify.error(e.response?.data?.message))
+    .finally(() => dispatch(isLoadingAC()));
+};
+
+export const deleteArchiveWish = (id) => (dispatch: Dispatch) => {
+  WishlistRequest.deleteArchiveWishes(id)
+    .then((res) => {
+      if (res.status === 200) {
+        dispatch(deleteArchiveWishAC(id));
+        notify.successes(res.data.message);
+      }
+    })
+    .catch((e) => notify.error(e.response.data.message));
+};
+
 export const wishlistReducer = slice.reducer;
 export const {
+  isLoadingAC,
   setWishlistAC,
   addWishlistAC,
   deleteWishlistAC,
@@ -205,4 +243,6 @@ export const {
   updateWishAC,
   deleteWishAC,
   archiveWishAC,
+  setArchiveWishesAC,
+  deleteArchiveWishAC,
 } = slice.actions;
