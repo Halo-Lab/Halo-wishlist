@@ -36,7 +36,7 @@ const AddEditWishModal: React.FC<IProps> = ({
 
   const { listId } = useParams<{ listId: string }>();
 
-  const [id, setId] = useState<string>(wishlists[0]._id || '');
+  const [id, setId] = useState<string>(wishlists[0]?._id || '');
   const dispatch = useDispatch();
 
   const onAddWish = (values) => {

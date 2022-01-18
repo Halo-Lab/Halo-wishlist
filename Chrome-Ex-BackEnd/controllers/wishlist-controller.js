@@ -73,7 +73,7 @@ class WishlistController {
   }
 
   async updateWish(req, res, next) {
-    const { url, nameURL, image, price } = req.body;
+    const { url, nameURL, image, price, isReserved, gotIt } = req.body;
     try {
       const { wishId } = req.params;
       const wish = await wishlistService.updateWish(
@@ -82,6 +82,8 @@ class WishlistController {
         nameURL,
         image,
         price,
+        isReserved,
+        gotIt,
       );
       return res.json(wish);
     } catch (e) {

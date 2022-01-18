@@ -4,4 +4,6 @@ export interface IProduct {
   image: string;
   price: string;
   _id: string;
+  isReserved: string;
+  gotIt: boolean;
 }
