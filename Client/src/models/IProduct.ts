@@ -5,4 +5,5 @@ export interface IProduct {
   price: string;
   _id: string;
   isReserved: string;
+  gotIt: boolean;
 }

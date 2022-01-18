@@ -3,7 +3,7 @@ import cn from 'classnames';
 import { FC, MouseEventHandler, useState } from 'react';
 import { useDetectClickOutside } from 'react-detect-click-outside';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import WishlistRequest from '../../../api/request/WishlistRequest';
@@ -15,6 +15,7 @@ import { DeleteWishModal } from '../../../components/layout/components/DeleteWis
 import { IProduct } from '../../../models/IProduct';
 import { IWishlist } from '../../../models/IWishlist';
 import { AppRootStateType } from '../../../store/store';
+import { updateWish } from '../../../store/wishlist-reducer';
 import * as notify from '../../../utils/notifications/index';
 
 import logo from '../../../assets/svg/wishyou-logo.svg';
@@ -41,6 +42,8 @@ export const ListItem: FC<IProps> = ({ data, sharedPage = false, setLists }) => 
   const userId = useSelector<AppRootStateType, string>(
     (state) => state.users.user.id,
   );
+  const dispatch = useDispatch();
+  const { listId } = useParams<{ listId: string }>();
 
   const { image, nameURL, price, url } = data;
   const { t } = useTranslation();
@@ -63,6 +66,11 @@ export const ListItem: FC<IProps> = ({ data, sharedPage = false, setLists }) => 
     {
       name: t('gotIt'),
       id: 3,
+      toggleModal() {
+        dispatch(
+          updateWish(listId, { ...data, gotIt: !data.gotIt, isReserved: '' }, true),
+        );
+      },
     },
   ];
 
@@ -102,20 +110,16 @@ export const ListItem: FC<IProps> = ({ data, sharedPage = false, setLists }) => 
 
   return (
     <div className={styles.square}>
-      {isEditModal && (
-        <AddEditWishModal
-          isModal={isEditModal}
-          setIsModal={setIsEditModal}
-          data={data}
-        />
-      )}
-      {isDeleteModal && (
-        <DeleteWishModal
-          isModal={isDeleteModal}
-          setIsModal={setIsDeleteModal}
-          data={data}
-        />
-      )}
+      <AddEditWishModal
+        isModal={isEditModal}
+        setIsModal={setIsEditModal}
+        data={data}
+      />
+      <DeleteWishModal
+        isModal={isDeleteModal}
+        setIsModal={setIsDeleteModal}
+        data={data}
+      />
       <div className={styles.content}>
         {!sharedPage && !userNickname && (
           <div
@@ -147,8 +151,13 @@ export const ListItem: FC<IProps> = ({ data, sharedPage = false, setLists }) => 
           src={image?.length <= 0 ? logo : image}
           alt="card background"
         />
-        <div className={styles.status}>
+        <div
+          className={cn(styles.status, {
+            [styles.visible]: data.gotIt || isReserved,
+          })}
+        >
           {isReserved && <div className={styles.reserved}>{t('reserved')}</div>}
+          {data.gotIt && <div className={styles.gotIt}>{t('gotIt')}</div>}
         </div>
         {sharedPage ? (
           <div className={styles.sharedPage}>
@@ -168,7 +177,9 @@ export const ListItem: FC<IProps> = ({ data, sharedPage = false, setLists }) => 
                   (price.trim().length > 8 ? '...' : '')}
               </p>
             </a>
-            {myReserved ? (
+            {data.gotIt ? (
+              ''
+            ) : myReserved ? (
               <ButtonService
                 className={styles.btn_reserved}
                 handleClickButton={onReservedWish}

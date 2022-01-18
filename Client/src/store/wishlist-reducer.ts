@@ -55,7 +55,7 @@ const slice = createSlice({
       state,
       action: PayloadAction<{
         wishlistId: string;
-        newWish: IProduct;
+        newWish;
       }>,
     ) {
       const index = state.wishlists.findIndex((w) => {
@@ -136,7 +136,20 @@ export const addWish =
   };
 
 export const updateWish =
-  (wishlistId: string, wish: IProduct) => (dispatch: Dispatch) => {
+  (
+    wishlistId: string,
+    wish: {
+      url?: string;
+      nameURL?: string;
+      image?: string;
+      price?: string;
+      _id: string;
+      isReserved?: string;
+      gotIt?: boolean;
+    },
+    hideNotify?: boolean,
+  ) =>
+  (dispatch: Dispatch) => {
     WishlistRequest.updateWish(wish)
       .then((res) => {
         if (res.data.status === 'ok') {
@@ -149,7 +162,7 @@ export const updateWish =
         }
       })
       .then(() => {
-        notify.successes(i18n.t('modal.edited'));
+        if (!hideNotify) notify.successes(i18n.t('modal.edited'));
       })
       .catch((e) => {
         notify.error(e.response.data.message);

@@ -67,19 +67,15 @@ const UserMenu: React.FC<IProps> = ({ userPic, wishlistId }) => {
 
   return (
     <div className={styles.menu_container}>
-      {isAddWishlistModal && (
-        <AddWishlistModal
-          isModal={isAddWishlistModal}
-          setIsModal={setAddWishlistIsModal}
-        />
-      )}
-      {isAddWishModal && (
-        <AddEditWishModal
-          isModal={isAddWishModal}
-          setIsModal={setAddWishIsModal}
-          wishlistId={wishlistId}
-        />
-      )}
+      <AddWishlistModal
+        isModal={isAddWishlistModal}
+        setIsModal={setAddWishlistIsModal}
+      />
+      <AddEditWishModal
+        isModal={isAddWishModal}
+        setIsModal={setAddWishIsModal}
+        wishlistId={wishlistId}
+      />
 
       {!userNickname && (
         <div className={styles.iconWrapper} ref={ref}>

@@ -28,6 +28,7 @@ export default class WishlistRequest {
     price?: string;
     _id?: string;
     isReserved?: string;
+    gotIt?: boolean;
   }): Promise<AxiosResponse<{ status: string }>> {
     return api.put(`wish/${wish._id}`, { ...wish });
   }
