@@ -88,7 +88,7 @@ export const ListItem: FC<IProps> = ({ data, sharedPage = false, setLists }) => 
         _id: data._id,
         isReserved,
       })
-        .then((res) => {
+        .then(() => {
           setLists((prev: IWishlist) => {
             const wishIndex = prev.items.findIndex((i) => {
               return i._id === data._id;
