@@ -197,7 +197,6 @@ export const ListItem: FC<IProps> = ({ data, sharedPage = false, setLists }) => 
           </div>
         ) : (
           <div className={styles.info}>
-            <p>{nameURL.slice(0, 33) + (nameURL.length > 33 ? '...' : '')}</p>
             <a
               href={url}
               target="_blank"
@@ -207,11 +206,14 @@ export const ListItem: FC<IProps> = ({ data, sharedPage = false, setLists }) => 
                   : 'none'
               }
             >
-              {price
-                .trim()
-                .slice(0, 8)
-                .replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ') +
-                (price.trim().length > 8 ? '...' : '')}
+              <p>{nameURL.slice(0, 33) + (nameURL.length > 33 ? '...' : '')}</p>
+              <p>
+                {price
+                  .trim()
+                  .slice(0, 8)
+                  .replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ') +
+                  (price.trim().length > 8 ? '...' : '')}
+              </p>
             </a>
           </div>
         )}

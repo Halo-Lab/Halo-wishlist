@@ -110,15 +110,19 @@
 .info {
   @extend %shared;
 
-  :first-child {
-    flex-basis: 150%;
-  }
-
-  :last-child {
-    color: #00993d;
-    font-weight: bold;
+  a:first-child {
     font-size: 14px;
-    text-align: end;
+    text-align: start;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+
+    :last-child {
+      color: #00993d;
+      font-weight: bold;
+      text-align: end;
+      margin-left: 10px;
+    }
   }
 
   @media (max-width: $tablet) {
@@ -221,6 +225,7 @@
 
 .iconStyle {
   color: #ffffff;
+  cursor: pointer;
 }
 
 .rotate {
