@@ -32,14 +32,14 @@ const WishlistCard: React.FC<IProps> = ({ data }) => {
 
   const settingsList: Array<ISettings> = [
     {
-      name: 'Share',
+      name: t('share'),
       id: 0,
       toggleModal() {
         setIsShareModal((prev) => !prev);
       },
     },
     {
-      name: 'Delete',
+      name: t('delete'),
       id: 3,
       toggleModal() {
         setIsDeleteModal((prev) => !prev);
@@ -55,20 +55,16 @@ const WishlistCard: React.FC<IProps> = ({ data }) => {
 
   return (
     <>
-      {isShareModal && (
-        <ShareWishlistModal
-          isModal={isShareModal}
-          setIsModal={setIsShareModal}
-          wishlistId={data._id}
-        />
-      )}
-      {isDeleteModal && (
-        <DeleteWishlistModal
-          isModal={isDeleteModal}
-          setIsModal={setIsDeleteModal}
-          wishlistId={data._id}
-        />
-      )}
+      <ShareWishlistModal
+        isModal={isShareModal}
+        setIsModal={setIsShareModal}
+        wishlistId={data._id}
+      />
+      <DeleteWishlistModal
+        isModal={isDeleteModal}
+        setIsModal={setIsDeleteModal}
+        wishlistId={data._id}
+      />
       <div className={styles.square}>
         <div className={styles.content}>
           <div

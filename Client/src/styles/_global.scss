@@ -9,6 +9,11 @@
   font-family: 'Inter', sans-serif;
 }
 
+html {
+  margin-left: calc(100vw - 100%);
+  margin-right: 0;
+}
+
 body {
   padding: 0;
   margin: 0;
@@ -20,43 +25,15 @@ body {
 .main-wrapper {
   margin: 0 auto;
   max-width: 1280px;
+  padding: 16px 24px;
 }
 
 a {
   text-decoration: none;
   width: 100%;
+  color: $color__font;
 }
 
 a:visited {
   color: $color__font;
-}
-
-.change__lang {
-  display: flex;
-  justify-content: flex-end;
-  margin: 20px;
-  z-index: 2;
-  position: relative;
-
-  button {
-    padding: 5px;
-    border: 1px solid black;
-    font: inherit;
-    color: inherit;
-    background-color: rgb(255, 255, 255);
-    cursor: pointer;
-    width: 30px;
-    height: 20px;
-    margin: 0.5px;
-    box-shadow: 1px 2px 5px rgb(59, 49, 49);
-
-    &:first-child {
-      background-image: url('../assets/png/Ukrainian.png');
-      background-size: cover;
-    }
-    &:last-child {
-      background-image: url('../assets/png/usa.png');
-      background-size: cover;
-    }
-  }
 }

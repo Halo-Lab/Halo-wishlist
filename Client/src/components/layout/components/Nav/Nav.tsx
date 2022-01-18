@@ -1,4 +1,4 @@
-import { useDetectClickOutside } from 'react-detect-click-outside';
+import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -11,58 +11,64 @@ import user_icon from '../../../../assets/svg/user.svg';
 
 import styles from './Nav.module.scss';
 
-const Nav: React.FC<IProps> = ({ closeToggle }) => {
+type NavMenuType = {
+  name: string;
+  path: string;
+  id: number;
+  image: string;
+  handleLogout?: () => void;
+};
+
+const Nav: React.FC<IProps> = ({ isShow }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const ref = useDetectClickOutside({ onTriggered: closeToggle });
-
-  const handleLogout = () => {
-    dispatch(logoutUser());
-  };
+  const navMenu: Array<NavMenuType> = [
+    {
+      name: t('nav.profile'),
+      path: '/',
+      id: 0,
+      image: user_icon,
+    },
+    {
+      name: t('nav.settings'),
+      path: '/settings',
+      id: 1,
+      image: settings_icon,
+    },
+    {
+      name: t('nav.logout'),
+      path: '/login',
+      id: 3,
+      image: logout_icon,
+      handleLogout: () => {
+        dispatch(logoutUser());
+      },
+    },
+  ];
 
   return (
-    <nav className={styles.nav} ref={ref}>
-      <div className={styles.link}>
-        <NavLink
-          to={{
-            pathname: '/',
-          }}
-          activeClassName={styles.selected}
-        >
-          <img src={user_icon} alt="user" />
-          {t('nav.profile')}
-        </NavLink>
-      </div>
-      <div className={styles.link}>
-        <NavLink
-          to={{
-            pathname: '/settings',
-          }}
-          activeClassName="selected"
-        >
-          <img src={settings_icon} alt="settings" />
-          {t('nav.settings')}
-        </NavLink>
-      </div>
-      <div className={styles.link}>
-        <NavLink
-          to={{
-            pathname: '/',
-          }}
-          activeClassName="selected"
-          onClick={handleLogout}
-        >
-          <img src={logout_icon} alt="logOut" />
-          {t('nav.logout')}
-        </NavLink>
-      </div>
+    <nav className={cn(styles.nav, { [styles.show_nav]: isShow })}>
+      {navMenu.map((i) => {
+        return (
+          <div key={i.id} className={styles.link}>
+            <NavLink
+              to={i.path}
+              activeClassName={styles.selected}
+              onClick={i.handleLogout}
+            >
+              <img src={i.image} alt={i.name} />
+              {i.name}
+            </NavLink>
+          </div>
+        );
+      })}
     </nav>
   );
 };
 
 interface IProps {
-  closeToggle: (event: Event) => void;
+  isShow: boolean;
 }
 
 export { Nav };

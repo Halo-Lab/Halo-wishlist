@@ -1,61 +1,61 @@
 import { FC, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, Route, Switch, useHistory } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 import LoginForm from './components/LoginForm/LoginForm';
 import RegistrationForm from './components/RegistrationForm/RegistrationForm';
+import Image from './components/common/ImageComponent/Image';
+import { Loader } from './components/common/Loader';
+import { NotFound } from './scenes/404';
 import { AdminPage } from './scenes/AdminPage/AdminPage';
 import { ListPage } from './scenes/ListPage';
+import { PrivacyPolicy } from './scenes/PrivacyPolicy';
 import { ProfileSettings } from './scenes/ProfileSettings/ProfileSettings';
 import { SharePage } from './scenes/SharePage';
 import { AppRootStateType } from './store/store';
-import { checkUserLogin, UserStateType } from './store/user-reducer';
+import { checkUserLogin, setLoadingAc, UserStateType } from './store/user-reducer';
+
+import logo from './assets/svg/wishyou-logo.svg';
 
 const App: FC = () => {
   const dispatch = useDispatch();
   const user = useSelector<AppRootStateType, UserStateType>((state) => state.users);
 
-  const history = useHistory();
-
-  const { i18n } = useTranslation();
-
   useEffect(() => {
-    if (localStorage.getItem('token')) {
-      dispatch(checkUserLogin());
-    }
+    const handler = setTimeout(() => {
+      if (localStorage.getItem('token')) {
+        dispatch(checkUserLogin());
+      } else {
+        dispatch(setLoadingAc(false));
+      }
+    }, 300);
+
+    return () => {
+      clearTimeout(handler);
+    };
   }, []);
 
   if (user.isLoading) {
-    return <div></div>;
+    return (
+      <div className="main-wrapper">
+        <Image alt="wishyou logo" src={logo} width={150} height={37} />
+        <Loader />
+      </div>
+    );
   }
-
-  const changeLanguage = (lang: string) => {
-    i18n.changeLanguage(lang);
-  };
 
   if (!user.isLoggedIn) {
     return (
       <div className="main-wrapper">
-        <div className="change__lang">
-          <button onClick={() => changeLanguage('uk')} />
-          <button onClick={() => changeLanguage('en')} />
-        </div>
         <Switch>
-          <Route path="/" render={() => <LoginForm />} exact />
+          <Route path="/" exact render={() => <LoginForm />} />
           <Route path="/registration" render={() => <RegistrationForm />} />
           <Route
             path={`/shared/:userNickname/:listID`}
             render={() => <SharePage />}
           />
-          <Route
-            render={() => (
-              <div>
-                <p>Error 404</p>
-                Please <button onClick={() => history.push('/')}>Login</button>
-              </div>
-            )}
-          />
+          <Route path={`/privacy`} render={() => <PrivacyPolicy />} />
+          <Route render={() => <NotFound />} />
         </Switch>
       </div>
     );
@@ -68,6 +68,7 @@ const App: FC = () => {
         <Route path="/settings" render={() => <ProfileSettings />} exact />
         <Route path={`/wishlists/:listId`} render={() => <ListPage />} exact />
         <Route path={`/shared/:userNickname/:listID`} render={() => <SharePage />} />
+        <Route path={`/privacy`} render={() => <PrivacyPolicy />} />
         <Redirect to="/" />
       </Switch>
     </div>

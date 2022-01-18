@@ -1,3 +1,5 @@
+@import '../common/helpers.scss';
+
 .overlay {
   position: fixed;
   top: 0;
@@ -15,6 +17,7 @@
   background: #fff;
   border-radius: 16px;
 }
+
 .modal {
   position: relative;
   top: 50%;
@@ -67,18 +70,20 @@
   color: #f3f4f4;
   border: 2px solid #f3f4f4;
   border-radius: 4px;
+  cursor: pointer;
 }
 
 .activeCheckbox {
-  background: no-repeat url('../../assets//svg/check.svg') center;
+  background: no-repeat url('../../assets/svg/check.svg') center;
 }
 
 .remember {
-  margin-left: 12px;
   color: #1c1d21;
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
+  margin: 0 12px;
+  cursor: pointer;
 }
 
 .title {
@@ -122,4 +127,14 @@
   color: #d41f1f;
   font-size: 14px;
   transform: translateY(-110%);
+}
+
+.language {
+  position: absolute;
+  right: 1%;
+  top: 2%;
+}
+
+.privacyLink {
+  @include privacyLink;
 }

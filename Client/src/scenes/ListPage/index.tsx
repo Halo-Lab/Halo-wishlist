@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
+import { Loader } from '../../components/common/Loader';
 import { MainLayout } from '../../components/layout/MainLayout';
 import { IUser } from '../../models/IUser';
 import { IWishlist } from '../../models/IWishlist';
@@ -39,12 +40,16 @@ export const ListPage = () => {
       }
       wishlistId={wishlists[wishlistIndex]?._id}
     >
-      <div className={styles.itemsWrapper}>
-        {wishlistIndex > -1 &&
-          wishlists[wishlistIndex]?.items.map((item) => {
-            return <ListItem key={item._id} data={item} />;
-          })}
-      </div>
+      {wishlists.length > 0 ? (
+        <div className={styles.itemsWrapper}>
+          {wishlistIndex > -1 &&
+            wishlists[wishlistIndex]?.items.map((item) => {
+              return <ListItem key={item._id} data={item} />;
+            })}
+        </div>
+      ) : (
+        <Loader />
+      )}
     </MainLayout>
   );
 };

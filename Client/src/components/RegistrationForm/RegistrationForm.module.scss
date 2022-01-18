@@ -1,3 +1,5 @@
+@import '../common/helpers.scss';
+
 .overlay {
   position: fixed;
   top: 0;
@@ -91,4 +93,14 @@
   color: #d41f1f;
   font-size: 14px;
   transform: translateY(-110%);
+}
+
+.language {
+  position: absolute;
+  right: 1%;
+  top: 2%;
+}
+
+.privacyLink {
+  @include privacyLink;
 }

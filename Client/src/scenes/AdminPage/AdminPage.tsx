@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { Loader } from '../../components/common/Loader';
 import { MainLayout } from '../../components/layout/MainLayout';
 import { IUser } from '../../models/IUser';
 import { IWishlist } from '../../models/IWishlist';
@@ -28,13 +29,16 @@ export const AdminPage: React.FC = () => {
 
   const changeTab = (tab: number) => setActiveTab(tab);
 
-  const wishlistsTab = (
-    <div className={styles.itemsWrapper}>
-      {wishlists.map((i) => {
-        return <WishlistCard key={i._id} data={i} />;
-      })}
-    </div>
-  );
+  const wishlistsTab =
+    wishlists.length > 0 ? (
+      <div className={styles.itemsWrapper}>
+        {wishlists.map((i) => {
+          return <WishlistCard key={i._id} data={i} />;
+        })}
+      </div>
+    ) : (
+      <Loader />
+    );
 
   const archiveTab = <h2>{t('emptyArchive')}</h2>;
   const tabs = [t('wishlists'), t('archive')];

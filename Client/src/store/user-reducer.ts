@@ -18,7 +18,7 @@ export type UserStateType = {
 
 const initialState: UserStateType = {
   isLoggedIn: false,
-  isLoading: false,
+  isLoading: true,
   user: {
     email: '',
     isActivated: false,

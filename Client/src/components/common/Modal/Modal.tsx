@@ -15,20 +15,24 @@ const Modal: React.FC<IProps> = ({ children, isOpen, setIsOpen }) => {
   };
 
   return (
-    <div
-      className={cn(styles.modal, { [styles.active]: isOpen })}
-      ref={modalRef}
-      onClick={closeModal}
-    >
-      <div className={styles.modal_content}>
-        <img
-          src={close_icon}
-          className={styles.btn_close}
-          onClick={() => setIsOpen(false)}
-        />
-        {children}
-      </div>
-    </div>
+    <>
+      {isOpen && (
+        <div
+          className={cn(styles.modal, { [styles.active]: isOpen })}
+          ref={modalRef}
+          onMouseDown={closeModal}
+        >
+          <div className={styles.modal_content}>
+            <img
+              src={close_icon}
+              className={styles.btn_close}
+              onClick={() => setIsOpen(false)}
+            />
+            {children}
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 import { logoutUser } from '../../../store/user-reducer';
 
-import wishliLogo from '../../../assets/svg/wishly-logo.svg';
+import logo from '../../../assets/svg/wishyou-logo.svg';
 
 import styles from './SideBar.module.scss';
 
@@ -19,7 +19,7 @@ export const SideBar: FC = () => {
 
   return (
     <div className={styles.sidebar}>
-      <img className={styles.logo} src={wishliLogo} alt="Wishli logo"></img>
+      <img className={styles.logo} src={logo} alt="wishyou logo" />
       <div className={styles.menu}>
         <h3>Main</h3>
         <ul className={styles.menuItems}>

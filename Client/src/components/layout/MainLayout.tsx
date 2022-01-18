@@ -5,11 +5,12 @@ import { Link, useLocation } from 'react-router-dom';
 
 import { IUser } from '../../models/IUser';
 import { AppRootStateType } from '../../store/store';
+import { ChangeLanguage } from '../common/ChangeLanguage';
 import Image from '../common/ImageComponent/Image';
 import { UserMenu } from './components/UserMenu/UserMenu';
 
 import squaresSvg from '../../assets/svg/squares.svg';
-import wishlyLogo from '../../assets/svg/wishly-logo.svg';
+import logo from '../../assets/svg/wishyou-logo.svg';
 
 import styles from './MainLayout.module.scss';
 
@@ -26,47 +27,64 @@ const MainLayout: React.FC<IProps> = ({
   activeTab,
   setLists,
   wishlistId,
+  changeLang = false,
 }) => {
   const user = useSelector<AppRootStateType, IUser>((state) => state.users.user);
 
   const { name, userPic, date: birthday, isActivated } = user;
   const location = useLocation();
+  const isShared = location.pathname.startsWith('/shared');
 
   const { t } = useTranslation();
+
+  const getFullAge = (date) => {
+    if (date) {
+      const today = new Date();
+      const birthDate = new Date(date);
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+      return age;
+    }
+  };
 
   return (
     <main className={styles.container}>
       <div className={styles.header}>
-        <Link to="/">
-          <Image alt="wishlyLogo" src={wishlyLogo} width={125} height={37} />
+        <Link to="/" className={styles.headerLogoLink}>
+          <Image alt="wishyou logo" src={logo} width={150} height={37} />
         </Link>
         {!hideMenu && (
-          <UserMenu
-            userPic={userPicSh || userPic}
-            setLists={setLists}
-            wishlistId={wishlistId}
-          />
+          <UserMenu userPic={userPic} setLists={setLists} wishlistId={wishlistId} />
         )}
+        {changeLang && <ChangeLanguage />}
       </div>
       <div className={styles.container__top}>
         <div className={styles.user}>
           <Image
             alt="user"
-            src={userPicSh || userPic}
+            src={isShared ? userPicSh : userPic}
             userPlaceholder="true"
             width={80}
             height={80}
             circle
             className={styles.user__pic}
           />
-          <p className={styles.user__name}>{name || nameSh}</p>
-          <p>
-            {birthday || birthday
-              ? new Date().getFullYear() -
-                new Date(birthdaySh || birthday).getFullYear()
-              : 'always 18'}
-            {` ${t('years')}`}
-          </p>
+          <p className={styles.user__name}>{isShared ? nameSh : name}</p>
+          {isShared && (
+            <p>
+              {getFullAge(birthdaySh)}
+              {birthdaySh ? ` ${t('years')}` : t('foreverYang')}
+            </p>
+          )}
+          {!isShared && (
+            <p>
+              {getFullAge(birthday)}
+              {birthday ? ` ${t('years')}` : t('foreverYang')}
+            </p>
+          )}
           <p className={styles.confirm}>
             {!isActivated &&
               location.pathname === '/' &&
@@ -110,6 +128,7 @@ interface IProps {
   userPicSh?: string;
   birthdaySh?: string;
   hideMenu?: boolean | string;
+  changeLang?: boolean | string;
   customTab?: React.ReactNode;
   setLists?: (value: any) => void;
   wishlistId?: string;

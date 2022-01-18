@@ -1,3 +1,4 @@
+import cn from 'classnames';
 import { Field, Form, Formik } from 'formik';
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +9,7 @@ import * as Yup from 'yup';
 import { ILogin } from '../../models/IUser';
 import { registrationUser } from '../../store/user-reducer';
 import { ButtonService } from '../common/ButtonSendForm/ButtonSendForm';
+import { ChangeLanguage } from '../common/ChangeLanguage';
 import { EyePass } from '../common/SvgComponents/EyePass';
 
 import styles from './RegistrationForm.module.scss';
@@ -36,11 +38,12 @@ const RegistrationForm: FC = () => {
 
   const handleSubmitForm = (values: ILogin) => {
     const { email, password } = values;
-    dispatch(registrationUser(email, password));
+    dispatch(registrationUser(email.toLocaleLowerCase(), password));
   };
 
   return (
     <div className={styles.overlay}>
+      <ChangeLanguage className={styles.language} />
       <div className={styles.modal}>
         <div className={styles.form}>
           <h1 className={styles.title}>{t('auth.signUp')}</h1>
@@ -82,10 +85,12 @@ const RegistrationForm: FC = () => {
                   </span>
                 </div>
 
-                <p className={styles.policy}>{t('auth.warning')}</p>
+                <NavLink to="/privacy" target="_blank">
+                  <p className={styles.policy}>{t('auth.warning')}</p>
+                </NavLink>
                 <ButtonService
                   btnName={t('auth.register')}
-                  disabled={errors.email || errors.password ? true : false}
+                  disabled={!!(errors.email || errors.password)}
                 />
               </Form>
             )}
@@ -98,6 +103,13 @@ const RegistrationForm: FC = () => {
           </NavLink>
         </p>
       </div>
+      <NavLink
+        to="/privacy"
+        target="_blank"
+        className={cn(styles.privacyLink, styles.loginLink)}
+      >
+        Privacy policy
+      </NavLink>
     </div>
   );
 };

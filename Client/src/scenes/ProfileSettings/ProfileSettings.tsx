@@ -14,9 +14,10 @@ import Image from '../../components/common/ImageComponent/Image';
 import { AppRootStateType } from '../../store/store';
 import { updateUser, updateUserPic } from '../../store/user-reducer';
 import { s3Config } from '../../utils/s3Config';
+import * as notify from './../../utils/notifications';
 import { IInitialValues } from './common-types';
 
-import wishliLogo from '../../assets/svg/wishly-logo.svg';
+import logo from '../../assets/svg/wishyou-logo.svg';
 
 import styles from './ProfileSettings.module.scss';
 
@@ -52,6 +53,21 @@ export const ProfileSettings = () => {
       /(?:(?:http|https):\/\/)?(?:www\.)?(?:instagram\.com|instagr\.am)\/([A-Za-z0-9-_\.]+)/im,
       'Incorrect URL',
     ),
+    password: Yup.string().min(4, t('errors.passwordMinLength')).notRequired(),
+    newPassword: Yup.string()
+      .min(4, t('errors.passwordMinLength'))
+      .when('password', {
+        is: (val) => {
+          if (val) return true;
+        },
+        then: Yup.string().required(''),
+      })
+      .when('password', {
+        is: (val) => {
+          if (val) return true;
+        },
+        then: Yup.string().not([Yup.ref('password')], t('errors.matchPassword')),
+      }),
   });
 
   const handleUpload = async (file) => {
@@ -69,10 +85,27 @@ export const ProfileSettings = () => {
 
   const handleFileInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
     e.preventDefault();
-    if (e.target.files == null) {
+
+    if (e.target.files === null || undefined) {
       throw new Error('Error finding e.target.files');
     }
-    handleUpload(e.target.files[0]);
+
+    const file: FileList = e.target.files;
+
+    if (
+      file[0]?.type !== 'image/png' &&
+      file[0]?.type !== 'image/jpeg' &&
+      file[0]?.type !== 'image/jpg'
+    ) {
+      notify.warn('Please, upload only png or jpeg files');
+      return;
+    }
+    if (file[0]?.size > 10000000) {
+      notify.warn('The file exceeds 10 MB');
+      return;
+    }
+
+    handleUpload(file[0]);
   };
 
   const {
@@ -91,7 +124,7 @@ export const ProfileSettings = () => {
 
   const initialValues: IInitialValues = {
     name,
-    date,
+    date: date || new Date('12.12.1998'),
     email,
     bio,
     nickName,
@@ -109,14 +142,23 @@ export const ProfileSettings = () => {
   return (
     <div className={styles.pageWrapper}>
       <Link to="/">
-        <img className={styles.logo} src={wishliLogo} alt="Wishli logo"></img>
+        <Image alt="wishyou logo" src={logo} width={150} height={37} />
       </Link>
       <Formik
         initialValues={initialValues}
         validationSchema={SettingsSchema}
-        onSubmit={(values) => handleSubmitForm(values)}
+        onSubmit={(values, actions) => {
+          handleSubmitForm(values);
+          actions.resetForm({
+            values: {
+              ...values,
+              password: '',
+              newPassword: '',
+            },
+          });
+        }}
       >
-        {({ errors, values, setFieldValue }) => (
+        {({ errors, values, setFieldValue, isSubmitting, touched }) => (
           <Form>
             <div className={styles.settings}>
               <section className={styles.iconBlock}>
@@ -132,40 +174,52 @@ export const ProfileSettings = () => {
                   <label htmlFor="upload">{t('settings.upload')}</label>
                   <input
                     type="file"
+                    accept="image/png, image/jpeg"
                     id="upload"
                     className={styles.uploadInput}
                     onChange={handleFileInput}
                   />
                 </div>
               </section>
+
               <section>
                 <div className={styles.sectionName}>
                   <p>{t('settings.PublicProfile')}</p>
                 </div>
                 <div className={styles.section}>
-                  <label>{t('settings.name')}*</label>
+                  <label className={styles.requiredStars}>
+                    {t('settings.name')}
+                  </label>
                   <FormikTextInput
                     name="name"
                     type="text"
                     placeholder="Darrell Steward"
                   />
-                  <label> {t('settings.birthdayDate')}*</label>
+                  <label className={styles.requiredStars}>
+                    {' '}
+                    {t('settings.birthdayDate')}
+                  </label>
+
                   <DatePicker
                     selected={new Date(values.date)}
                     dateFormat="dd.MM.yyyy"
                     name="date"
+                    maxDate={new Date()}
                     peekNextMonth={false}
                     className={styles.datePicker}
                     onChange={(date) => setFieldValue('date', date)}
                     placeholderText="12.12.1998"
                   />
+
                   <label>{t('settings.email')}</label>
                   <FormikTextInput
                     name="email"
                     type="email"
                     disabled={true}
                     placeholder="darrell@steward.com"
+                    autoComplete="username"
                   />
+
                   <label>{t('settings.bio')}</label>
                   <FormikTextInput
                     name="bio"
@@ -208,8 +262,8 @@ export const ProfileSettings = () => {
                         defaultValue={localStorage.getItem('i18nextLng') || 'en'}
                         onChange={(e) => changeLanguage(e.target.value)}
                       >
-                        <option value="en">English</option>
-                        <option value="uk">Ukrainian</option>
+                        <option value="en">{t('English')}</option>
+                        <option value="uk">{t('Ukrainian')}</option>
                       </select>
                     </div>
                     <div className={styles.selectorCuret}>
@@ -223,6 +277,7 @@ export const ProfileSettings = () => {
                   </div>
                 </div>
               </section>
+
               <section className={styles.section}>
                 <div className={styles.sectionName}>
                   <p>{t('settings.Password')}</p>
@@ -230,22 +285,25 @@ export const ProfileSettings = () => {
                 <div className={styles.selectors}>
                   <div>
                     <label> {t('settings.oldPassword')}</label>
-                    <FormikTextInput
-                      type="password"
-                      name="password"
-                      autoComplete="false"
-                    />
+                    <FormikTextInput type="password" name="password" />
                   </div>
+
                   <div>
                     <label> {t('settings.newPassword')}</label>
                     <FormikTextInput
                       type="password"
                       name="newPassword"
-                      autoComplete="false"
+                      autoComplete="new-password"
                     />
+                    {touched.password && values.password && !values.newPassword && (
+                      <div className={styles.error}>
+                        {t('errors.newPasswordReq')}
+                      </div>
+                    )}
                   </div>
                 </div>
               </section>
+
               <section>
                 <div className={styles.sectionName}>
                   <p>{t('settings.socialProfiles')}</p>
@@ -257,12 +315,14 @@ export const ProfileSettings = () => {
                     name="facebook"
                     placeholder="https://facebook.com"
                   />
+
                   <label>Twitter</label>
                   <FormikTextInput
                     type="text"
                     name="twitter"
                     placeholder="https://twitter.com"
                   />
+
                   <label>Instagram</label>
                   <FormikTextInput
                     type="text"
@@ -276,11 +336,16 @@ export const ProfileSettings = () => {
                   </div>
                 )}
               </section>
+
               <div className={styles.buttonsBlock}>
                 <ButtonService
                   className={styles.sendFormBtn}
                   btnName={t('settings.save')}
-                  disabled={Object.keys(errors).length > 0}
+                  disabled={
+                    Object.keys(errors).length > 0 ||
+                    values === initialValues ||
+                    isSubmitting
+                  }
                 />
                 {/* <ButtonService
                   btnName="Delete Account"
