@@ -6,6 +6,7 @@ import { Loader } from '../../components/common/Loader';
 import { MainLayout } from '../../components/layout/MainLayout';
 import { IUser } from '../../models/IUser';
 import { AppRootStateType } from '../../store/store';
+import { UserStateType } from '../../store/user-reducer';
 import {
   loadArchiveWishes,
   setWishlists,
@@ -17,7 +18,9 @@ import { WishlistCard } from './components/WishlistCard';
 import styles from './AdminPage.module.scss';
 
 export const AdminPage: React.FC = () => {
-  const user = useSelector<AppRootStateType, IUser>((state) => state.users.user);
+  const { isLoggedIn, user } = useSelector<AppRootStateType, UserStateType>(
+    (state) => state.users,
+  );
   const { archive, wishlists, isLoading } = useSelector<
     AppRootStateType,
     WishlistStateType
@@ -29,11 +32,11 @@ export const AdminPage: React.FC = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (user.id) {
+    if (isLoggedIn && user.id) {
       dispatch(setWishlists(user.id));
       dispatch(loadArchiveWishes());
     }
-  }, [user]);
+  }, [isLoggedIn, user.id]);
 
   const changeTab = (tab: number) => setActiveTab(tab);
 
