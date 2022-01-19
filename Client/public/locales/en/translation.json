@@ -92,6 +92,8 @@
     "yes": "Yes",
     "no": "No",
     "deleted": "Deleted!",
-    "created": "Created!"
+    "created": "Created!",
+    "createAccount": "Create Account",
+    "createAccountTitle": "To reserve an item you need to be authorized. Follow the link to create an account"
   }
 }

@@ -12,6 +12,7 @@ import Icon from '../../../components/common/IconComponent/Icon';
 import { SettingsMenu } from '../../../components/common/SettingsMenu';
 import { AddEditWishModal } from '../../../components/layout/components/AddEditWishModal/AddEditWishModal';
 import { DeleteWishModal } from '../../../components/layout/components/DeleteWishModal/DeleteWishModal';
+import { ToRegisterModal } from '../../../components/layout/components/ToRegisterModal/ToRegisterModal';
 import { IProduct } from '../../../models/IProduct';
 import { IWishlist } from '../../../models/IWishlist';
 import { AppRootStateType } from '../../../store/store';
@@ -38,9 +39,13 @@ export const ListItem: FC<IProps> = ({ data, sharedPage = false, setLists }) => 
   const [visible, setVisible] = useState(false);
   const [isEditModal, setIsEditModal] = useState<boolean>(false);
   const [isDeleteModal, setIsDeleteModal] = useState<boolean>(false);
+  const [isNotifyModal, setIsNotifyModal] = useState<boolean>(false);
   const { userNickname } = useParams<{ userNickname: string }>();
   const userId = useSelector<AppRootStateType, string>(
     (state) => state.users.user.id,
+  );
+  const isLoggedIn = useSelector<AppRootStateType, boolean>(
+    (state) => state.users.isLoggedIn,
   );
   const dispatch = useDispatch();
   const { listId } = useParams<{ listId: string }>();
@@ -82,13 +87,17 @@ export const ListItem: FC<IProps> = ({ data, sharedPage = false, setLists }) => 
   const myReserved = data.isReserved === userId;
 
   const onReservedWish = () => {
+    if (!isLoggedIn) {
+      return setIsNotifyModal(true);
+    }
+
     const isReserved = data.isReserved ? '' : userId;
     if (setLists) {
       WishlistRequest.updateWish({
         _id: data._id,
         isReserved,
       })
-        .then((res) => {
+        .then(() => {
           setLists((prev: IWishlist) => {
             const wishIndex = prev.items.findIndex((i) => {
               return i._id === data._id;
@@ -110,6 +119,7 @@ export const ListItem: FC<IProps> = ({ data, sharedPage = false, setLists }) => 
 
   return (
     <div className={styles.square}>
+      <ToRegisterModal isModal={isNotifyModal} setIsModal={setIsNotifyModal} />
       <AddEditWishModal
         isModal={isEditModal}
         setIsModal={setIsEditModal}

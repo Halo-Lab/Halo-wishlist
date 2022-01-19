@@ -115,13 +115,14 @@
     text-align: start;
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    align-items: center;
 
     :last-child {
       color: #00993d;
       font-weight: bold;
       text-align: end;
       margin-left: 10px;
+      white-space: nowrap;
     }
   }
 

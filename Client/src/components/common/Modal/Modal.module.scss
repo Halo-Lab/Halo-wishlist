@@ -207,3 +207,27 @@ label {
   height: 50px;
   border-radius: 0 5px 5px 0;
 }
+
+.btn_link {
+  width: auto;
+  padding: 8px 20px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 21px;
+  background: #3a414e;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  outline: none;
+  transition: 1s;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+a.btn_link:visited {
+  color: #fff;
+}
+.btn_link:hover {
+  background: #4084ff;
+  transition: 0.5s;
+}
