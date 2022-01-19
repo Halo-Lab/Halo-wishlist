@@ -1,8 +1,9 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
+import WishlistRequest from '../../../../api/request/WishlistRequest';
 import { IProduct } from '../../../../models/IProduct';
 import { AppRootStateType } from '../../../../store/store';
 import { deleteWish, WishlistStateType } from '../../../../store/wishlist-reducer';
@@ -23,10 +24,11 @@ const RestoreWishModal: React.FC<IProps> = ({ isModal, setIsModal, data }) => {
   const { wishlists } = useSelector<AppRootStateType, WishlistStateType>(
     (state) => state.wishlist,
   );
-  const dispatch = useDispatch();
-  const { listId } = useParams<{ listId: string }>();
-  const onDeleteWish = (wishId: string) => {
-    dispatch(deleteWish(listId, wishId));
+  const ref = useRef<string>(wishlists?.[0]._id);
+  console.log(ref);
+
+  const onDeleteWish = (wishId: string, wishlistId: string) => {
+    WishlistRequest.restoreArchiveWishes(wishId, wishlistId);
     setIsModal(false);
   };
 
@@ -40,7 +42,7 @@ const RestoreWishModal: React.FC<IProps> = ({ isModal, setIsModal, data }) => {
             name="select"
             defaultValue="value1"
             onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-              console.log(e.target.value)
+              (ref.current = e.target.value)
             }
           >
             {wishlists.map((item) => {
@@ -61,7 +63,7 @@ const RestoreWishModal: React.FC<IProps> = ({ isModal, setIsModal, data }) => {
           <ButtonService
             btnName={t('modal.yes')}
             className={styles.btn_save}
-            handleClickButton={() => onDeleteWish(data._id)}
+            handleClickButton={() => onDeleteWish(data._id, ref.current)}
           />
         </div>
       </div>

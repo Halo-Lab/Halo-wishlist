@@ -159,6 +159,21 @@ class WishlistController {
       next(e);
     }
   }
+  async restoreItemsFromArchive(req, res, next) {
+    try {
+      const { refreshToken } = req.cookies;
+      const userData = await TokenModal.findOne({ refreshToken });
+      const { wishlistId, wishId } = req.body;
+      const archiveItems = await wishlistService.restoreFromArchive(
+        userData.user.toString(),
+        wishlistId,
+        wishId,
+      );
+      return res.json({ message: 'Wish added successfully!' });
+    } catch (e) {
+      next(e);
+    }
+  }
 }
 
 module.exports = new WishlistController();

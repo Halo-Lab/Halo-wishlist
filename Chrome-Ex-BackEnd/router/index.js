@@ -70,6 +70,7 @@ router.put(
 router.post('/archive', wishlistController.setItemToArchive);
 router.put('/archive', wishlistController.deleteItemFromArchive);
 router.get('/archive', wishlistController.getItemsFromArchive);
+router.put('/restore', wishlistController.restoreItemsFromArchive);
 
 router.get('/user/:userId', wishlistController.getWishlists);
 router.get('/categories/:userId', wishlistController.getCategories);

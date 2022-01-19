@@ -154,15 +154,18 @@ class WishlistService {
     return archive.items;
   }
 
-  async restoreFromArchive(userId, wishId, wishlistId) {
+  async restoreFromArchive(userId, wishlistId, wishId) {
     const archive = await ArchiveModel.findOne({ userId });
-    console.log(archive);
-    // deleteWishHelper(wishId, 'archive');
-    if (!archive) {
-      throw ApiError.BadRequest(`Archive not found!`);
+    const wishlist = await WishlistModel.findOne({ _id: wishlistId });
+    if (!archive || !wishlist) {
+      throw ApiError.BadRequest(`Wish restore error!`);
     }
-
-    // return archive.items;
+    const { url, nameURL, image, price, _id } = archive.items.find(
+      (item) => item._id.toString() === wishId,
+    );
+    wishlist.items.push({ url, nameURL, image, price });
+    await wishlist.save();
+    deleteWishHelper(wishId, 'archive');
   }
 }
 
