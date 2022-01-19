@@ -208,6 +208,17 @@ label {
   border-radius: 0 5px 5px 0;
 }
 
+
+select {
+  background: #ffffff;
+  color: #000000;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  display: block;
+  appearance: none;
+  z-index: 2;
+  background: transparent;
+
 .btn_link {
   width: auto;
   padding: 8px 20px;
@@ -230,4 +241,5 @@ a.btn_link:visited {
 .btn_link:hover {
   background: #4084ff;
   transition: 0.5s;
+
 }

@@ -1,7 +1,30 @@
 const UserModel = require('../models/user-modal');
 const WishlistModel = require('../models/wishlist-modal');
+const ArchiveModel = require('../models/archive-modal');
 const ApiError = require('../exceptions/api-error');
 const WishlistDto = require('../dtos/wishlist-dto');
+
+const deleteWishHelper = async (id, from = 'wishlist') => {
+  const model = from === 'archive' ? ArchiveModel : WishlistModel;
+  const wish = await model.updateMany(
+    //find wish
+    {
+      items: {
+        $elemMatch: {
+          _id: id,
+        },
+      },
+    },
+    //delete wish
+    { $pull: { items: { _id: id } } },
+  );
+  if (wish.modifiedCount === 0) {
+    throw ApiError.BadRequest(`Wish not found`);
+  }
+  if (wish.modifiedCount !== 0) {
+    return { status: 'ok' };
+  }
+};
 
 class WishlistService {
   async createWishlist(userId, name) {
@@ -62,24 +85,7 @@ class WishlistService {
   }
 
   async deleteWish(wishId) {
-    const wish = await WishlistModel.updateMany(
-      //find wish
-      {
-        items: {
-          $elemMatch: {
-            _id: wishId,
-          },
-        },
-      },
-      //delete wish
-      { $pull: { items: { _id: wishId } } },
-    );
-    if (wish.modifiedCount === 0) {
-      throw ApiError.BadRequest(`Wish not found ${wishId}`);
-    }
-    if (wish.modifiedCount !== 0) {
-      return { status: 'ok' };
-    }
+    return deleteWishHelper(wishId);
   }
 
   async updateWish(wishId, url, nameURL, image, price, isReserved, gotIt) {
@@ -126,6 +132,49 @@ class WishlistService {
       throw ApiError.BadRequest(`User not found ${userId}`);
     }
     return categories;
+  }
+
+  async setToArchive(wishId, wishItemId, url, nameURL, image, price) {
+    const { userId } = await WishlistModel.findOne({ _id: wishId });
+    const archive = await ArchiveModel.findOne({ userId });
+
+    if (!archive) {
+      const archive = await ArchiveModel.create({ userId });
+      archive.items.push({ url, nameURL, image, price });
+      await archive.save();
+      return deleteWishHelper(wishItemId);
+    } else {
+      archive.items.push({ url, nameURL, image, price });
+      await archive.save();
+      return deleteWishHelper(wishItemId);
+    }
+  }
+
+  async deleteFromArchive(wishId) {
+    return deleteWishHelper(wishId, 'archive');
+  }
+
+  async getFromArchive(userId) {
+    const archive = await ArchiveModel.findOne({ userId });
+    if (!archive) {
+      throw ApiError.BadRequest(`Archive not found!`);
+    }
+
+    return archive.items;
+  }
+
+  async restoreFromArchive(userId, wishlistId, wishId) {
+    const archive = await ArchiveModel.findOne({ userId });
+    const wishlist = await WishlistModel.findOne({ _id: wishlistId });
+    if (!archive || !wishlist) {
+      throw ApiError.BadRequest(`Wish restore error!`);
+    }
+    const { url, nameURL, image, price, _id } = archive.items.find(
+      (item) => item._id.toString() === wishId,
+    );
+    wishlist.items.push({ url, nameURL, image, price });
+    await wishlist.save();
+    deleteWishHelper(wishId, 'archive');
   }
 }
 

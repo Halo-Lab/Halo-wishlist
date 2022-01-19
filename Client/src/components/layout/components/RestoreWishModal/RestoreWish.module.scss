@@ -1,0 +1,53 @@
+label {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: #1c1d21;
+  margin-bottom: 8px;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  border: 1px solid #dedede;
+  box-sizing: border-box;
+  border-radius: 4px;
+  font-size: 14px;
+  line-height: 20px;
+  color: #0e0c0c;
+  padding: 14px 16px;
+  margin-bottom: 30px;
+
+  &::placeholder {
+    color: #8f8f8f;
+  }
+}
+
+select {
+  background: #ffffff;
+  color: #000000;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  display: block;
+  appearance: none;
+  z-index: 2;
+  background: transparent;
+}
+.selectorCuret {
+  position: relative;
+  margin-bottom: 15px;
+
+  :after {
+    content: '';
+    position: absolute;
+    background-image: url('../../../../assets/svg/arrow_down.svg');
+    background-repeat: no-repeat;
+    display: block;
+    width: 15px;
+    height: 10px;
+    top: 50%;
+    transform: translateY(100%);
+    right: 15px;
+  }
+}

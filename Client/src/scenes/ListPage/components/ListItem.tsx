@@ -11,8 +11,11 @@ import { ButtonService } from '../../../components/common/ButtonSendForm/ButtonS
 import Icon from '../../../components/common/IconComponent/Icon';
 import { SettingsMenu } from '../../../components/common/SettingsMenu';
 import { AddEditWishModal } from '../../../components/layout/components/AddEditWishModal/AddEditWishModal';
+import { ArchiveWishModal } from '../../../components/layout/components/ArchiveWishModal/ArchiveWishModal';
 import { DeleteWishModal } from '../../../components/layout/components/DeleteWishModal/DeleteWishModal';
+import { RestoreWishModal } from '../../../components/layout/components/RestoreWishModal';
 import { ToRegisterModal } from '../../../components/layout/components/ToRegisterModal/ToRegisterModal';
+
 import { IProduct } from '../../../models/IProduct';
 import { IWishlist } from '../../../models/IWishlist';
 import { AppRootStateType } from '../../../store/store';
@@ -26,20 +29,27 @@ import styles from './ListItem.module.scss';
 type ISettings = {
   name: string;
   id: number;
+  list?: string;
+  toggleModal: MouseEventHandler<HTMLParagraphElement>;
   toggleModal?: MouseEventHandler<HTMLParagraphElement>;
+
 };
 
 type IProps = {
   data: IProduct;
+  mode?: 'archive';
   setLists?: (value: any) => void;
   sharedPage?: string | boolean;
-};
+}; 
 
-export const ListItem: FC<IProps> = ({ data, sharedPage = false, setLists }) => {
+export const ListItem: FC<IProps> = ({ data, sharedPage = false, setLists, mode }) => {
   const [visible, setVisible] = useState(false);
   const [isEditModal, setIsEditModal] = useState<boolean>(false);
   const [isDeleteModal, setIsDeleteModal] = useState<boolean>(false);
   const [isNotifyModal, setIsNotifyModal] = useState<boolean>(false);
+  const [isArchiveModal, setArchiveModal] = useState<boolean>(false);
+  const [isDeleteArchiveModal, setDeleteArchiveModal] = useState<boolean>(false);
+  const [isRestoreArchiveModal, setRestoreArchiveModal] = useState<boolean>(false);
   const { userNickname } = useParams<{ userNickname: string }>();
   const userId = useSelector<AppRootStateType, string>(
     (state) => state.users.user.id,
@@ -69,8 +79,31 @@ export const ListItem: FC<IProps> = ({ data, sharedPage = false, setLists }) => 
       },
     },
     {
-      name: t('gotIt'),
+      name: t('archive'),
       id: 3,
+      toggleModal() {
+        setArchiveModal((prev) => !prev);
+      },
+    },
+    {
+      name: t('restore'),
+      list: 'archive',
+      id: 4,
+      toggleModal() {
+        setRestoreArchiveModal((prev) => !prev);
+      },
+    },
+    {
+      name: t('delete'),
+      list: 'archive',
+      id: 5,
+      toggleModal() {
+        setDeleteArchiveModal((prev) => !prev);
+      },
+     },
+     {
+      name: t('gotIt'),
+      id: 6,
       toggleModal() {
         dispatch(
           updateWish(listId, { ...data, gotIt: !data.gotIt, isReserved: '' }, true),
@@ -78,6 +111,11 @@ export const ListItem: FC<IProps> = ({ data, sharedPage = false, setLists }) => 
       },
     },
   ];
+
+  const menu =
+    mode === 'archive'
+      ? settingsList.filter((item) => item.list === 'archive')
+      : settingsList.filter((item) => item.list !== 'archive');
 
   const handleVisible = () => {
     setVisible(false);
@@ -119,17 +157,40 @@ export const ListItem: FC<IProps> = ({ data, sharedPage = false, setLists }) => 
 
   return (
     <div className={styles.square}>
-      <ToRegisterModal isModal={isNotifyModal} setIsModal={setIsNotifyModal} />
-      <AddEditWishModal
-        isModal={isEditModal}
-        setIsModal={setIsEditModal}
-        data={data}
-      />
-      <DeleteWishModal
-        isModal={isDeleteModal}
-        setIsModal={setIsDeleteModal}
-        data={data}
-      />
+
+        <AddEditWishModal
+          isModal={isEditModal}
+          setIsModal={setIsEditModal}
+          data={data}
+        />
+      
+        <DeleteWishModal
+          isModal={isDeleteModal}
+          setIsModal={setIsDeleteModal}
+          data={data}
+        />
+  
+        <ArchiveWishModal
+          isModal={isArchiveModal}
+          setIsModal={setArchiveModal}
+          data={data}
+        />
+          
+        <ArchiveWishModal
+          isModal={isDeleteArchiveModal}
+          setIsModal={setDeleteArchiveModal}
+          modal="delete"
+          data={data}
+        />
+     
+        <RestoreWishModal
+          isModal={isDeleteArchiveModal}
+          setIsModal={setRestoreArchiveModal}
+          data={data}
+        />
+    
+        <ToRegisterModal isModal={isNotifyModal} setIsModal={setIsNotifyModal} />
+
       <div className={styles.content}>
         {!sharedPage && !userNickname && (
           <div
@@ -144,7 +205,7 @@ export const ListItem: FC<IProps> = ({ data, sharedPage = false, setLists }) => 
             />
 
             <SettingsMenu open={visible} className={styles.menuPosition}>
-              {settingsList.map((item) => (
+              {menu.map((item) => (
                 <p
                   className={styles.menuItems}
                   key={item.id}
