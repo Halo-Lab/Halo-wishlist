@@ -67,8 +67,8 @@ const LoginForm: FC = () => {
               onSubmit={handleSubmitForm}
               validationSchema={LoginSchema}
             >
-              {({ errors, touched }) => (
-                <Form>
+              {({ errors, touched, isSubmitting, setSubmitting }) => (
+                <Form onFocus={() => setSubmitting(false)}>
                   <div className={styles.inputWrapper}>
                     {errors.email && touched.email ? (
                       <div className={styles.error}>{errors.email}</div>
@@ -112,7 +112,7 @@ const LoginForm: FC = () => {
                   </div>
                   <ButtonService
                     btnName={t('auth.login')}
-                    disabled={!!(errors.email || errors.password)}
+                    disabled={!!(errors.email || errors.password) || isSubmitting}
                   />
                 </Form>
               )}
