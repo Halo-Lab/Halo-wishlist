@@ -38,7 +38,7 @@ const Nav: React.FC<IProps> = ({ isShow }) => {
     },
     {
       name: t('nav.logout'),
-      path: '/login',
+      path: '/',
       id: 3,
       image: logout_icon,
       handleLogout: () => {

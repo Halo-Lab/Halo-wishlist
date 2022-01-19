@@ -22,7 +22,7 @@ export const SharePage = () => {
   useEffect(() => {
     let cleanupFunction = false;
     AuthRequest.getWishlist(listID)
-      .then((res) => !cleanupFunction && setLists(res.data))
+      .then((res) => !cleanupFunction && setLists(res?.data))
       .catch((error) => notify.warn(error.response.data.message));
     return () => {
       cleanupFunction = true;
@@ -45,7 +45,12 @@ export const SharePage = () => {
           <div className={styles.itemsWrapper}>
             {lists?.items.map((item) => {
               return (
-                <ListItem key={item._id} data={item} sharedPage={!user.isLoggedIn} />
+                <ListItem
+                  key={item._id}
+                  data={item}
+                  sharedPage={user.user.id !== lists?.userId}
+                  setLists={setLists}
+                />
               );
             })}
           </div>

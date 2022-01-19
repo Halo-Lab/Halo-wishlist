@@ -1,5 +1,6 @@
 const wishlistService = require('../service/wishlist-service');
 const { validationResult } = require('express-validator');
+const TokenModal = require('../models/token-modal');
 const ApiError = require('../exceptions/api-error');
 
 class WishlistController {
@@ -73,7 +74,7 @@ class WishlistController {
   }
 
   async updateWish(req, res, next) {
-    const { url, nameURL, image, price } = req.body;
+    const { url, nameURL, image, price, isReserved, gotIt } = req.body;
     try {
       const { wishId } = req.params;
       const wish = await wishlistService.updateWish(
@@ -82,6 +83,8 @@ class WishlistController {
         nameURL,
         image,
         price,
+        isReserved,
+        gotIt,
       );
       return res.json(wish);
     } catch (e) {
@@ -112,6 +115,63 @@ class WishlistController {
       const { userId } = req.params;
       const categories = await wishlistService.getCategories(userId);
       return res.json(categories);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async setItemToArchive(req, res, next) {
+    try {
+      const {
+        wishId,
+        wish: { url, nameURL, image, price, _id: wishItemId },
+      } = req.body;
+      const archiveData = await wishlistService.setToArchive(
+        wishId,
+        wishItemId,
+        url,
+        nameURL,
+        image,
+        price,
+      );
+      return res.json({ message: 'Wish is added to archive' });
+    } catch (e) {
+      next(e);
+    }
+  }
+  async deleteItemFromArchive(req, res, next) {
+    try {
+      const { wishId } = req.body;
+      const archiveData = await wishlistService.deleteFromArchive(wishId);
+      return res.json({ message: 'Wish is deleted from archive' });
+    } catch (e) {
+      next(e);
+    }
+  }
+  async getItemsFromArchive(req, res, next) {
+    try {
+      const { refreshToken } = req.cookies;
+      const userData = await TokenModal.findOne({ refreshToken });
+
+      const archiveItems = await wishlistService.getFromArchive(
+        userData.user.toString(),
+      );
+      return res.json(archiveItems);
+    } catch (e) {
+      next(e);
+    }
+  }
+  async restoreItemsFromArchive(req, res, next) {
+    try {
+      const { refreshToken } = req.cookies;
+      const userData = await TokenModal.findOne({ refreshToken });
+      const { wishlistId, wishId } = req.body;
+      const archiveItems = await wishlistService.restoreFromArchive(
+        userData.user.toString(),
+        wishlistId,
+        wishId,
+      );
+      return res.json({ message: 'Wish added successfully!' });
     } catch (e) {
       next(e);
     }

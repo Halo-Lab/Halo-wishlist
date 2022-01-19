@@ -55,20 +55,16 @@ const WishlistCard: React.FC<IProps> = ({ data }) => {
 
   return (
     <>
-      {isShareModal && (
-        <ShareWishlistModal
-          isModal={isShareModal}
-          setIsModal={setIsShareModal}
-          wishlistId={data._id}
-        />
-      )}
-      {isDeleteModal && (
-        <DeleteWishlistModal
-          isModal={isDeleteModal}
-          setIsModal={setIsDeleteModal}
-          wishlistId={data._id}
-        />
-      )}
+      <ShareWishlistModal
+        isModal={isShareModal}
+        setIsModal={setIsShareModal}
+        wishlistId={data._id}
+      />
+      <DeleteWishlistModal
+        isModal={isDeleteModal}
+        setIsModal={setIsDeleteModal}
+        wishlistId={data._id}
+      />
       <div className={styles.square}>
         <div className={styles.content}>
           <div
