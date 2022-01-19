@@ -60,7 +60,14 @@ class WishlistService {
     if (wishlistUrl[0]?.url) {
       throw ApiError.BadRequest(`Wish with url ${url} already exists`);
     }
-    wishlist.items.push({ url, nameURL, image, price });
+    wishlist.items.push({
+      url,
+      nameURL,
+      image,
+      price,
+      isReserved: '',
+      gotIt: false,
+    });
     await wishlist.save();
     return wishlist.items;
   }
@@ -81,7 +88,7 @@ class WishlistService {
     return deleteWishHelper(wishId);
   }
 
-  async updateWish(wishId, url, nameURL, image, price) {
+  async updateWish(wishId, url, nameURL, image, price, isReserved, gotIt) {
     const wish = await WishlistModel.updateMany(
       //find wish
       {
@@ -98,10 +105,12 @@ class WishlistService {
           'items.$.nameURL': nameURL,
           'items.$.image': image,
           'items.$.price': price,
+          'items.$.isReserved': isReserved,
+          'items.$.gotIt': gotIt,
         },
       },
     );
-    if (wish.modifiedCount === 0) {
+    if (wish.matchedCount === 0) {
       throw ApiError.BadRequest(`Wish not found ${wishId}`);
     }
     if (wish.modifiedCount !== 0) {

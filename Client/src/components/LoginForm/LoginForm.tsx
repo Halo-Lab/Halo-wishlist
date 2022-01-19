@@ -51,11 +51,9 @@ const LoginForm: FC = () => {
 
   return (
     <>
-      {isForgot && (
-        <Modal isOpen={false} setIsOpen={setIsForgot}>
-          <ForgotPassword />
-        </Modal>
-      )}
+      <Modal isOpen={isForgot} setIsOpen={setIsForgot}>
+        <ForgotPassword />
+      </Modal>
       <div className={styles.overlay}>
         <ChangeLanguage className={styles.language} />
         <div className={styles.modal}>
