@@ -6,7 +6,11 @@ import { useParams } from 'react-router-dom';
 import WishlistRequest from '../../../../api/request/WishlistRequest';
 import { IProduct } from '../../../../models/IProduct';
 import { AppRootStateType } from '../../../../store/store';
-import { deleteWish, WishlistStateType } from '../../../../store/wishlist-reducer';
+import {
+  deleteWish,
+  restoreArchiveWishes,
+  WishlistStateType,
+} from '../../../../store/wishlist-reducer';
 import { ButtonService } from '../../../common/ButtonSendForm/ButtonSendForm';
 import { Modal } from '../../../common/Modal/Modal';
 
@@ -25,10 +29,11 @@ const RestoreWishModal: React.FC<IProps> = ({ isModal, setIsModal, data }) => {
     (state) => state.wishlist,
   );
   const ref = useRef<string>(wishlists?.[0]._id);
-  console.log(ref);
+
+  const dispatch = useDispatch();
 
   const onDeleteWish = (wishId: string, wishlistId: string) => {
-    WishlistRequest.restoreArchiveWishes(wishId, wishlistId);
+    dispatch(restoreArchiveWishes(wishId, wishlistId, data));
     setIsModal(false);
   };
 

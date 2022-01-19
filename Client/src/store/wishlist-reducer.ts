@@ -3,9 +3,9 @@ import i18n from 'i18next';
 import { Dispatch } from 'redux';
 
 import WishlistRequest from '../api/request/WishlistRequest';
-import { IProduct } from '../models/IProduct';
 import { IWishlist } from '../models/IWishlist';
 import * as notify from '../utils/notifications';
+import { IProduct } from './../models/IProduct';
 
 export type WishlistStateType = {
   wishlists: IWishlist[];
@@ -232,6 +232,19 @@ export const deleteArchiveWish = (id) => (dispatch: Dispatch) => {
     })
     .catch((e) => notify.error(e.response.data.message));
 };
+
+export const restoreArchiveWishes =
+  (wishId: string, wishlistId: string, wish: IProduct) => (dispatch: Dispatch) => {
+    WishlistRequest.restoreArchiveWishes(wishId, wishlistId)
+      .then((res) => {
+        if (res.status === 200) {
+          dispatch(deleteArchiveWishAC(wishId));
+          dispatch(addWishAC({ wishlistId, newWish: wish }));
+          notify.successes(res.data.message);
+        }
+      })
+      .catch((e) => notify.error(e.response.data.message));
+  };
 
 export const wishlistReducer = slice.reducer;
 export const {
