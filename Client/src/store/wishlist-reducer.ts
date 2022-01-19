@@ -3,22 +3,30 @@ import i18n from 'i18next';
 import { Dispatch } from 'redux';
 
 import WishlistRequest from '../api/request/WishlistRequest';
-import { IProduct } from '../models/IProduct';
 import { IWishlist } from '../models/IWishlist';
 import * as notify from '../utils/notifications';
+import { IProduct } from './../models/IProduct';
 
 export type WishlistStateType = {
   wishlists: IWishlist[];
+  archive: IProduct[];
+  isLoading: boolean;
 };
 
 const initialState: WishlistStateType = {
   wishlists: [],
+  archive: [],
+  isLoading: false,
 };
 
 const slice = createSlice({
   name: 'wishlist',
   initialState: initialState,
   reducers: {
+    isLoadingAC(state) {
+      state.isLoading = !state.isLoading;
+    },
+
     setWishlistAC(state, action: PayloadAction<IWishlist[]>) {
       state.wishlists = action.payload;
     },
@@ -81,6 +89,28 @@ const slice = createSlice({
       const indexTask = state.wishlists[index]?.items.findIndex(
         (w) => w._id === action.payload.wishId,
       );
+      state.wishlists[index].items.splice(indexTask, 1);
+    },
+
+    setArchiveWishesAC(state, action: PayloadAction<IProduct[]>) {
+      state.archive = action.payload;
+    },
+
+    deleteArchiveWishAC(state, action: PayloadAction<string | number>) {
+      state.archive = state.archive.filter((item) => item._id !== action.payload);
+    },
+
+    archiveWishAC(
+      state,
+      action: PayloadAction<{ wishlistId: string; wishId: string }>,
+    ) {
+      const index = state.wishlists.findIndex((w) => {
+        return w._id === action.payload.wishlistId;
+      });
+      const indexTask = state.wishlists[index]?.items.findIndex(
+        (w) => w._id === action.payload.wishId,
+      );
+      state.archive.push(state.wishlists[index].items[indexTask]);
       state.wishlists[index].items.splice(indexTask, 1);
     },
   },
@@ -183,12 +213,62 @@ export const deleteWish =
       });
   };
 
+export const archiveWish =
+  (wish: IProduct, wishlistId: string) => (dispatch: Dispatch) => {
+    WishlistRequest.archiveWish(wishlistId, wish)
+      .then(() => {
+        dispatch(archiveWishAC({ wishlistId, wishId: wish._id }));
+      })
+      .then(() => {
+        notify.successes(i18n.t('modal.addedToArchive'));
+      })
+      .catch((e) => {
+        notify.error(e.response?.data?.message);
+      });
+  };
+
+export const loadArchiveWishes = () => (dispatch: Dispatch) => {
+  dispatch(isLoadingAC());
+  WishlistRequest.getArchiveWishes()
+    .then((res) => dispatch(setArchiveWishesAC(res.data)))
+    .catch((e) => notify.error(e.response?.data?.message))
+    .finally(() => dispatch(isLoadingAC()));
+};
+
+export const deleteArchiveWish = (id) => (dispatch: Dispatch) => {
+  WishlistRequest.deleteArchiveWishes(id)
+    .then((res) => {
+      if (res.status === 200) {
+        dispatch(deleteArchiveWishAC(id));
+        notify.successes(res.data.message);
+      }
+    })
+    .catch((e) => notify.error(e.response.data.message));
+};
+
+export const restoreArchiveWishes =
+  (wishId: string, wishlistId: string, wish: IProduct) => (dispatch: Dispatch) => {
+    WishlistRequest.restoreArchiveWishes(wishId, wishlistId)
+      .then((res) => {
+        if (res.status === 200) {
+          dispatch(deleteArchiveWishAC(wishId));
+          dispatch(addWishAC({ wishlistId, newWish: wish }));
+          notify.successes(res.data.message);
+        }
+      })
+      .catch((e) => notify.error(e.response.data.message));
+  };
+
 export const wishlistReducer = slice.reducer;
 export const {
+  isLoadingAC,
   setWishlistAC,
   addWishlistAC,
   deleteWishlistAC,
   addWishAC,
   updateWishAC,
   deleteWishAC,
+  archiveWishAC,
+  setArchiveWishesAC,
+  deleteArchiveWishAC,
 } = slice.actions;
