@@ -23,7 +23,7 @@ const slice = createSlice({
   name: 'wishlist',
   initialState: initialState,
   reducers: {
-    isLoadingAC(state, action: PayloadAction<void>) {
+    isLoadingAC(state) {
       state.isLoading = !state.isLoading;
     },
 

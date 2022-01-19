@@ -10,6 +10,7 @@ import { SettingsMenu } from '../../../components/common/SettingsMenu';
 import { AddEditWishModal } from '../../../components/layout/components/AddEditWishModal/AddEditWishModal';
 import { ArchiveWishModal } from '../../../components/layout/components/ArchiveWishModal/ArchiveWishModal';
 import { DeleteWishModal } from '../../../components/layout/components/DeleteWishModal/DeleteWishModal';
+import { RestoreWishModal } from '../../../components/layout/components/RestoreWishModal';
 import { IProduct } from '../../../models/IProduct';
 
 import logo from '../../../assets/svg/wishyou-logo.svg';
@@ -121,6 +122,13 @@ export const ListItem: FC<IProps> = ({ data, sharedPage = false, mode }) => {
           isModal={isDeleteArchiveModal}
           setIsModal={setDeleteArchiveModal}
           modal="delete"
+          data={data}
+        />
+      )}
+      {isRestoreArchiveModal && (
+        <RestoreWishModal
+          isModal={isDeleteArchiveModal}
+          setIsModal={setRestoreArchiveModal}
           data={data}
         />
       )}

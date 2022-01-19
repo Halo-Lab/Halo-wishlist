@@ -124,6 +124,7 @@ class WishlistService {
     }
     return categories;
   }
+
   async setToArchive(wishId, wishItemId, url, nameURL, image, price) {
     const { userId } = await WishlistModel.findOne({ _id: wishId });
     const archive = await ArchiveModel.findOne({ userId });
@@ -139,9 +140,11 @@ class WishlistService {
       return deleteWishHelper(wishItemId);
     }
   }
+
   async deleteFromArchive(wishId) {
     return deleteWishHelper(wishId, 'archive');
   }
+
   async getFromArchive(userId) {
     const archive = await ArchiveModel.findOne({ userId });
     if (!archive) {
@@ -149,6 +152,17 @@ class WishlistService {
     }
 
     return archive.items;
+  }
+
+  async restoreFromArchive(userId, wishId, wishlistId) {
+    const archive = await ArchiveModel.findOne({ userId });
+    console.log(archive);
+    // deleteWishHelper(wishId, 'archive');
+    if (!archive) {
+      throw ApiError.BadRequest(`Archive not found!`);
+    }
+
+    // return archive.items;
   }
 }
 
