@@ -15,7 +15,6 @@ import { ArchiveWishModal } from '../../../components/layout/components/ArchiveW
 import { DeleteWishModal } from '../../../components/layout/components/DeleteWishModal/DeleteWishModal';
 import { RestoreWishModal } from '../../../components/layout/components/RestoreWishModal';
 import { ToRegisterModal } from '../../../components/layout/components/ToRegisterModal/ToRegisterModal';
-
 import { IProduct } from '../../../models/IProduct';
 import { IWishlist } from '../../../models/IWishlist';
 import { AppRootStateType } from '../../../store/store';
@@ -30,9 +29,7 @@ type ISettings = {
   name: string;
   id: number;
   list?: string;
-  toggleModal: MouseEventHandler<HTMLParagraphElement>;
   toggleModal?: MouseEventHandler<HTMLParagraphElement>;
-
 };
 
 type IProps = {
@@ -40,9 +37,14 @@ type IProps = {
   mode?: 'archive';
   setLists?: (value: any) => void;
   sharedPage?: string | boolean;
-}; 
+};
 
-export const ListItem: FC<IProps> = ({ data, sharedPage = false, setLists, mode }) => {
+export const ListItem: FC<IProps> = ({
+  data,
+  sharedPage = false,
+  setLists,
+  mode,
+}) => {
   const [visible, setVisible] = useState(false);
   const [isEditModal, setIsEditModal] = useState<boolean>(false);
   const [isDeleteModal, setIsDeleteModal] = useState<boolean>(false);
@@ -100,8 +102,8 @@ export const ListItem: FC<IProps> = ({ data, sharedPage = false, setLists, mode 
       toggleModal() {
         setDeleteArchiveModal((prev) => !prev);
       },
-     },
-     {
+    },
+    {
       name: t('gotIt'),
       id: 6,
       toggleModal() {
@@ -157,39 +159,38 @@ export const ListItem: FC<IProps> = ({ data, sharedPage = false, setLists, mode 
 
   return (
     <div className={styles.square}>
+      <AddEditWishModal
+        isModal={isEditModal}
+        setIsModal={setIsEditModal}
+        data={data}
+      />
 
-        <AddEditWishModal
-          isModal={isEditModal}
-          setIsModal={setIsEditModal}
-          data={data}
-        />
-      
-        <DeleteWishModal
-          isModal={isDeleteModal}
-          setIsModal={setIsDeleteModal}
-          data={data}
-        />
-  
-        <ArchiveWishModal
-          isModal={isArchiveModal}
-          setIsModal={setArchiveModal}
-          data={data}
-        />
-          
-        <ArchiveWishModal
-          isModal={isDeleteArchiveModal}
-          setIsModal={setDeleteArchiveModal}
-          modal="delete"
-          data={data}
-        />
-     
-        <RestoreWishModal
-          isModal={isDeleteArchiveModal}
-          setIsModal={setRestoreArchiveModal}
-          data={data}
-        />
-    
-        <ToRegisterModal isModal={isNotifyModal} setIsModal={setIsNotifyModal} />
+      <DeleteWishModal
+        isModal={isDeleteModal}
+        setIsModal={setIsDeleteModal}
+        data={data}
+      />
+
+      <ArchiveWishModal
+        isModal={isArchiveModal}
+        setIsModal={setArchiveModal}
+        data={data}
+      />
+
+      <ArchiveWishModal
+        isModal={isDeleteArchiveModal}
+        setIsModal={setDeleteArchiveModal}
+        modal="delete"
+        data={data}
+      />
+
+      <RestoreWishModal
+        isModal={isRestoreArchiveModal}
+        setIsModal={setRestoreArchiveModal}
+        data={data}
+      />
+
+      <ToRegisterModal isModal={isNotifyModal} setIsModal={setIsNotifyModal} />
 
       <div className={styles.content}>
         {!sharedPage && !userNickname && (

@@ -25,7 +25,7 @@ const RestoreWishModal: React.FC<IProps> = ({ isModal, setIsModal, data }) => {
   const { wishlists } = useSelector<AppRootStateType, WishlistStateType>(
     (state) => state.wishlist,
   );
-  const ref = useRef<string>(wishlists?.[0]._id);
+  const ref = useRef<string>(wishlists?.[0]?._id);
 
   const dispatch = useDispatch();
 

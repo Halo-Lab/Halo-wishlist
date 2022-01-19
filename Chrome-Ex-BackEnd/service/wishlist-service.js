@@ -157,7 +157,7 @@ class WishlistService {
   async getFromArchive(userId) {
     const archive = await ArchiveModel.findOne({ userId });
     if (!archive) {
-      throw ApiError.BadRequest(`Archive not found!`);
+      return { message: 'Archive is empty' };
     }
 
     return archive.items;

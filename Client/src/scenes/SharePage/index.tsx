@@ -22,7 +22,7 @@ export const SharePage = () => {
   useEffect(() => {
     let cleanupFunction = false;
     AuthRequest.getWishlist(listID)
-      .then((res) => !cleanupFunction && setLists(res.data))
+      .then((res) => !cleanupFunction && setLists(res?.data))
       .catch((error) => notify.warn(error.response.data.message));
     return () => {
       cleanupFunction = true;
