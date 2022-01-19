@@ -1,6 +1,6 @@
 .nav {
   min-width: 160px;
-  padding: 6px 12px ;
+  padding: 6px 12px;
   border-radius: 6px;
   background-color: #ffffff;
   box-shadow: 0 20px 36px rgba(0, 0, 0, 0.15);
@@ -24,11 +24,18 @@
   transition-delay: 0.3s;
 }
 
-
 .link {
   border-bottom: 1px solid #e8f0fe;
   display: flex;
   padding: 12px 0;
+
+  .selected {
+    font-weight: bold;
+  }
+
+  a:hover {
+    font-weight: bold;
+  }
 }
 
 .link:last-child {
@@ -38,8 +45,4 @@
 .link img {
   padding-right: 18px;
   vertical-align: middle;
-}
-
-.selected {
-  font-weight: bold;
 }

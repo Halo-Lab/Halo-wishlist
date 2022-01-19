@@ -54,7 +54,7 @@ const Nav: React.FC<IProps> = ({ isShow }) => {
           <div key={i.id} className={styles.link}>
             <NavLink
               to={i.path}
-              activeClassName={styles.selected}
+              activeClassName={i.id !== 3 ? styles.selected : ''}
               onClick={i.handleLogout}
             >
               <img src={i.image} alt={i.name} />
