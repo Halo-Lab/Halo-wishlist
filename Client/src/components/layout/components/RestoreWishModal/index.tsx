@@ -1,13 +1,10 @@
 import { ChangeEvent, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
 
-import WishlistRequest from '../../../../api/request/WishlistRequest';
 import { IProduct } from '../../../../models/IProduct';
 import { AppRootStateType } from '../../../../store/store';
 import {
-  deleteWish,
   restoreArchiveWishes,
   WishlistStateType,
 } from '../../../../store/wishlist-reducer';
@@ -32,7 +29,7 @@ const RestoreWishModal: React.FC<IProps> = ({ isModal, setIsModal, data }) => {
 
   const dispatch = useDispatch();
 
-  const onDeleteWish = (wishId: string, wishlistId: string) => {
+  const onRestoreWish = (wishId: string, wishlistId: string) => {
     dispatch(restoreArchiveWishes(wishId, wishlistId, data));
     setIsModal(false);
   };
@@ -68,7 +65,7 @@ const RestoreWishModal: React.FC<IProps> = ({ isModal, setIsModal, data }) => {
           <ButtonService
             btnName={t('modal.yes')}
             className={styles.btn_save}
-            handleClickButton={() => onDeleteWish(data._id, ref.current)}
+            handleClickButton={() => onRestoreWish(data._id, ref.current)}
           />
         </div>
       </div>

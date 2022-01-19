@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { Loader } from '../../components/common/Loader';
 import { MainLayout } from '../../components/layout/MainLayout';
-import { IUser } from '../../models/IUser';
 import { AppRootStateType } from '../../store/store';
 import { UserStateType } from '../../store/user-reducer';
 import {
