@@ -22,7 +22,7 @@ export const ForgotPassword: FC = () => {
   });
 
   const handleSubmitForm = (value) => {
-    AuthRequest.resetPassword(value.email)
+    AuthRequest.resetPassword(value.email.toLocaleLowerCase())
       .then((response) => notify.successes(response.data.message))
       .catch((error) => notify.error(error.response.data.message));
   };
