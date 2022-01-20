@@ -97,15 +97,17 @@ const LoginForm: FC = () => {
                     </span>
                   </div>
                   <div className={styles.helpersBlock}>
-                    <span
-                      className={cn(styles.checkbox, {
-                        [styles.activeCheckbox]: isRemember,
-                      })}
-                      onClick={handleChangeRemember}
-                    />
-                    <p className={styles.remember} onClick={handleChangeRemember}>
-                      {t('auth.rememberMe')}
-                    </p>
+                    <div className={styles.rememberBlock}>
+                      <span
+                        className={cn(styles.checkbox, {
+                          [styles.activeCheckbox]: isRemember,
+                        })}
+                        onClick={handleChangeRemember}
+                      />
+                      <p className={styles.remember} onClick={handleChangeRemember}>
+                        {t('auth.rememberMe')}
+                      </p>
+                    </div>
                     <p className={styles.forgot} onClick={() => setIsForgot(true)}>
                       {t('auth.forgot')}
                     </p>
