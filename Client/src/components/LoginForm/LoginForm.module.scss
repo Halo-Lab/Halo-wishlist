@@ -51,6 +51,16 @@
   margin-bottom: 25px;
 }
 
+.rememberBlock {
+  display: flex;
+  align-items: center;
+  flex-grow: 6;
+
+  @media (max-width: 360px) {
+    justify-content: space-between;
+  }
+}
+
 .forgot {
   flex-grow: 1;
   margin-left: 5px;
@@ -61,6 +71,7 @@
   line-height: 24px;
   text-align: end;
   user-select: none;
+  cursor: pointer;
 }
 
 .checkbox {
@@ -82,7 +93,7 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
-  margin: 0 12px;
+  margin-left: 12px;
   cursor: pointer;
 }
 

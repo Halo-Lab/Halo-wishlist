@@ -35,13 +35,14 @@ export const AdminPage: React.FC = () => {
       dispatch(setWishlists(user.id));
       dispatch(loadArchiveWishes());
     }
-  }, [isLoggedIn, user.id]);
+  }, [isLoggedIn, user.id, activeTab]);
 
   const changeTab = (tab: number) => setActiveTab(tab);
 
   const wishlistsTab =
     wishlists.length > 0 ? (
       <div className={styles.itemsWrapper}>
+        {isLoading && <Loader above />}
         {wishlists.map((i) => {
           return <WishlistCard key={i._id} data={i} />;
         })}
@@ -53,6 +54,7 @@ export const AdminPage: React.FC = () => {
   const archiveTab =
     archive.length > 0 ? (
       <div className={styles.itemsWrapper}>
+        {isLoading && <Loader above />}
         {archive.map((i) => {
           return <ListItem key={i._id} data={i} mode="archive" />;
         })}
@@ -65,8 +67,8 @@ export const AdminPage: React.FC = () => {
 
   return (
     <MainLayout tabs={tabs} changeTab={changeTab} activeTab={activeTab}>
-      {activeTab === 0 && (isLoading ? <Loader /> : wishlistsTab)}
-      {activeTab === 1 && (isLoading ? <Loader /> : archiveTab)}
+      {activeTab === 0 && wishlistsTab}
+      {activeTab === 1 && archiveTab}
     </MainLayout>
   );
 };
