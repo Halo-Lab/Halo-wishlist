@@ -15,7 +15,7 @@ import styles from '../../../common/Modal/Modal.module.scss';
 import styled from './RestoreWish.module.scss';
 
 interface IProps {
-  isModal: boolean;
+  isModal: boolean | string;
   setIsModal: (value: boolean) => void;
   data: IProduct;
 }
@@ -35,7 +35,7 @@ const RestoreWishModal: React.FC<IProps> = ({ isModal, setIsModal, data }) => {
   };
 
   return (
-    <Modal isOpen={isModal} setIsOpen={setIsModal}>
+    <Modal isOpen={isModal === 'restore' ? true : false} setIsOpen={setIsModal}>
       <div className={styles.modal_container}>
         <h3 className={styles.title}>{t('modal.restoreWish')}:</h3>
         <div className={styled.selectorCuret}>

@@ -46,12 +46,9 @@ export const ListItem: FC<IProps> = ({
   mode,
 }) => {
   const [visible, setVisible] = useState(false);
-  const [isEditModal, setIsEditModal] = useState<boolean>(false);
-  const [isDeleteModal, setIsDeleteModal] = useState<boolean>(false);
+  const [isOpenModal, setIsOpenModal] = useState<boolean | string>('');
   const [isNotifyModal, setIsNotifyModal] = useState<boolean>(false);
-  const [isArchiveModal, setArchiveModal] = useState<boolean>(false);
-  const [isDeleteArchiveModal, setDeleteArchiveModal] = useState<boolean>(false);
-  const [isRestoreArchiveModal, setRestoreArchiveModal] = useState<boolean>(false);
+
   const { userNickname } = useParams<{ userNickname: string }>();
   const userId = useSelector<AppRootStateType, string>(
     (state) => state.users.user.id,
@@ -70,21 +67,21 @@ export const ListItem: FC<IProps> = ({
       name: t('edit'),
       id: 1,
       toggleModal() {
-        setIsEditModal((prev) => !prev);
+        setIsOpenModal('edit');
       },
     },
     {
       name: t('delete'),
       id: 2,
       toggleModal() {
-        setIsDeleteModal((prev) => !prev);
+        setIsOpenModal('delete');
       },
     },
     {
       name: t('archive'),
       id: 3,
       toggleModal() {
-        setArchiveModal((prev) => !prev);
+        setIsOpenModal('archive');
       },
     },
     {
@@ -92,7 +89,7 @@ export const ListItem: FC<IProps> = ({
       list: 'archive',
       id: 4,
       toggleModal() {
-        setRestoreArchiveModal((prev) => !prev);
+        setIsOpenModal('restore');
       },
     },
     {
@@ -100,7 +97,7 @@ export const ListItem: FC<IProps> = ({
       list: 'archive',
       id: 5,
       toggleModal() {
-        setDeleteArchiveModal((prev) => !prev);
+        setIsOpenModal('archiveDelete');
       },
     },
     {
@@ -160,33 +157,32 @@ export const ListItem: FC<IProps> = ({
   return (
     <div className={styles.square}>
       <AddEditWishModal
-        isModal={isEditModal}
-        setIsModal={setIsEditModal}
+        isModal={isOpenModal}
+        setIsModal={setIsOpenModal}
         data={data}
       />
 
       <DeleteWishModal
-        isModal={isDeleteModal}
-        setIsModal={setIsDeleteModal}
+        isModal={isOpenModal}
+        setIsModal={setIsOpenModal}
         data={data}
       />
 
       <ArchiveWishModal
-        isModal={isArchiveModal}
-        setIsModal={setArchiveModal}
+        isModal={isOpenModal}
+        setIsModal={setIsOpenModal}
         data={data}
       />
 
       <ArchiveWishModal
-        isModal={isDeleteArchiveModal}
-        setIsModal={setDeleteArchiveModal}
-        modal="delete"
+        isModal={isOpenModal}
+        setIsModal={setIsOpenModal}
         data={data}
       />
 
       <RestoreWishModal
-        isModal={isRestoreArchiveModal}
-        setIsModal={setRestoreArchiveModal}
+        isModal={isOpenModal}
+        setIsModal={setIsOpenModal}
         data={data}
       />
 

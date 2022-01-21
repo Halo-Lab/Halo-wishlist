@@ -69,7 +69,7 @@ const AddEditWishModal: React.FC<IProps> = ({
   };
 
   return (
-    <Modal isOpen={isModal} setIsOpen={setIsModal}>
+    <Modal isOpen={isModal === 'edit' ? true : false} setIsOpen={setIsModal}>
       <div className={styles.modal_container}>
         <h3 className={styles.title}>
           {data ? t('modal.editWish') : t('modal.createWish')}
@@ -156,7 +156,7 @@ const AddEditWishModal: React.FC<IProps> = ({
 };
 
 interface IProps {
-  isModal: boolean;
+  isModal: boolean | string;
   setIsModal: (value: boolean) => void;
   data?: IProduct;
   wishlistId?: string;

@@ -4,25 +4,19 @@ import { useParams } from 'react-router-dom';
 
 import { IProduct } from '../../../../models/IProduct';
 import { archiveWish, deleteArchiveWish } from '../../../../store/wishlist-reducer';
-
 import { ButtonService } from '../../../common/ButtonSendForm/ButtonSendForm';
 import { Modal } from '../../../common/Modal/Modal';
 
 import styles from '../../../common/Modal/Modal.module.scss';
 
-const ArchiveWishModal: React.FC<IProps> = ({
-  isModal,
-  setIsModal,
-  data,
-  modal,
-}) => {
+const ArchiveWishModal: React.FC<IProps> = ({ isModal, setIsModal, data }) => {
   const { t } = useTranslation();
 
   const dispatch = useDispatch();
   const { listId } = useParams<{ listId: string }>();
 
   const onArchiveWish = () => {
-    if (modal === 'delete') {
+    if (isModal === 'archiveDelete') {
       dispatch(deleteArchiveWish(data._id));
     } else {
       dispatch(archiveWish(data, listId));
@@ -31,7 +25,10 @@ const ArchiveWishModal: React.FC<IProps> = ({
   };
 
   return (
-    <Modal isOpen={isModal} setIsOpen={setIsModal}>
+    <Modal
+      isOpen={isModal === 'archive' || isModal === 'archiveDelete' ? true : false}
+      setIsOpen={setIsModal}
+    >
       <div className={styles.modal_container}>
         <h3 className={styles.title}>{t('modal.archiveWish')}</h3>
         <div className={styles.control}>
@@ -52,10 +49,9 @@ const ArchiveWishModal: React.FC<IProps> = ({
 };
 
 interface IProps {
-  isModal: boolean;
+  isModal: boolean | string;
   setIsModal: (value: boolean) => void;
   data: IProduct;
-  modal?: string;
 }
 
 export { ArchiveWishModal };
