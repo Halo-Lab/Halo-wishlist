@@ -35,7 +35,7 @@ const RestoreWishModal: React.FC<IProps> = ({ isModal, setIsModal, data }) => {
   };
 
   return (
-    <Modal isOpen={isModal === 'restore' ? true : false} setIsOpen={setIsModal}>
+    <Modal isOpen={isModal === 'restore'} setIsOpen={setIsModal}>
       <div className={styles.modal_container}>
         <h3 className={styles.title}>{t('modal.restoreWish')}:</h3>
         <div className={styled.selectorCuret}>

@@ -140,9 +140,10 @@ label {
 .control {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
-.control button {
+.control input {
   margin: 0 12px;
 }
 
@@ -159,6 +160,9 @@ label {
 
 .btn_save {
   height: 50px;
+  @media (max-width: 576px) {
+    height: 35px;
+  }
 }
 
 .shareModal {
@@ -219,6 +223,7 @@ select {
   z-index: 2;
   background: transparent;
 }
+
 .btn_link {
   width: auto;
   padding: 8px 20px;
@@ -238,6 +243,7 @@ select {
 a.btn_link:visited {
   color: #fff;
 }
+
 .btn_link:hover {
   background: #4084ff;
   transition: 0.5s;

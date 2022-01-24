@@ -26,7 +26,7 @@ const ArchiveWishModal: React.FC<IProps> = ({ isModal, setIsModal, data }) => {
 
   return (
     <Modal
-      isOpen={isModal === 'archive' || isModal === 'archiveDelete' ? true : false}
+      isOpen={isModal === 'archive' || isModal === 'archiveDelete'}
       setIsOpen={setIsModal}
     >
       <div className={styles.modal_container}>

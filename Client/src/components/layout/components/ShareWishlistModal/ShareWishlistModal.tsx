@@ -47,7 +47,7 @@ const ShareWishlistModal: React.FC<IProps> = ({
   }`;
 
   return (
-    <Modal isOpen={isModal === 'share' ? true : false} setIsOpen={setIsModal}>
+    <Modal isOpen={isModal === 'share'} setIsOpen={setIsModal}>
       <div className={styles.modal_container}>
         <img src={shareModal} alt="shareModal" className={styles.shareModal} />
         <h3 className={styles.title}>{t('modal.shareWishlist')}</h3>

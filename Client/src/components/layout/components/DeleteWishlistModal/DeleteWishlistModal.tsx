@@ -21,7 +21,7 @@ const DeleteWishlistModal: React.FC<IProps> = ({
   };
 
   return (
-    <Modal isOpen={isModal === 'delete' ? true : false} setIsOpen={setIsModal}>
+    <Modal isOpen={isModal === 'delete'} setIsOpen={setIsModal}>
       <div className={styles.modal_container}>
         <h3 className={styles.title}>{t('modal.deleteWishlist')}</h3>
         <div className={styles.control}>

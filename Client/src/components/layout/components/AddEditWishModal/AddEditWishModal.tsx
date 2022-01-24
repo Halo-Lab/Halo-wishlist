@@ -69,7 +69,7 @@ const AddEditWishModal: React.FC<IProps> = ({
   };
 
   return (
-    <Modal isOpen={isModal === 'edit' ? true : false} setIsOpen={setIsModal}>
+    <Modal isOpen={isModal === 'edit'} setIsOpen={setIsModal}>
       <div className={styles.modal_container}>
         <h3 className={styles.title}>
           {data ? t('modal.editWish') : t('modal.createWish')}
