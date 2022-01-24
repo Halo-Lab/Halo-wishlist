@@ -4,6 +4,10 @@
   -moz-animation: rotate 3s linear infinite;
   -o-animation: rotate 3s linear infinite;
   animation: rotate 3s linear infinite;
+  img {
+    // hide alt when img loading (bug in firefox)
+    font-size: 0;
+  }
 }
 
 .loaderBox {

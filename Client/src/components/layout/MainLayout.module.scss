@@ -5,6 +5,7 @@
   flex-direction: column;
   width: 100%;
   background: $color__white;
+
   &__top {
     display: flex;
     align-items: center;
@@ -80,6 +81,8 @@
   &__pic {
     margin: 0 0 1rem 0;
     object-position: center;
+    // hide alt when img loading (bug in firefox)
+    font-size: 0;
   }
 
   &__name {
@@ -106,6 +109,7 @@
     height: 1rem;
   }
 }
+
 .confirm {
   color: rgb(221, 30, 30);
   font-weight: bold;
