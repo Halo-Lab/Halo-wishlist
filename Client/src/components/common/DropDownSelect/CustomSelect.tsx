@@ -1,6 +1,7 @@
 import cn from 'classnames';
 import { FC, useState } from 'react';
 import { useDetectClickOutside } from 'react-detect-click-outside';
+import { useTranslation } from 'react-i18next';
 
 import styles from './CustomSelect.module.scss';
 
@@ -10,23 +11,32 @@ type IOptions = {
 };
 
 interface IProps {
-  selected?: number;
+  selectedName?: string;
   options: IOptions[];
-  setSelected: (item: string) => void;
+  setSelected: (item: any) => void;
   className?: any;
+  forLanguage?: boolean | string;
 }
 
 export const CustomSelect: FC<IProps> = ({
-  selected,
+  selectedName,
   setSelected,
   options,
   className,
+  forLanguage = false,
 }) => {
   const [isActive, setIsActive] = useState(false);
-  const [activeElement, setActiveElement] = useState<string>(
-    selected ? options[selected - 1].name : '',
-  );
+  const findActive =
+    options.find(
+      (item) => item.value.toLocaleLowerCase() === selectedName?.toLocaleLowerCase(),
+    )?.name || '';
+
+  const [activeElement, setActiveElement] = useState<string>(findActive);
   const ref = useDetectClickOutside({ onTriggered: () => setIsActive(false) });
+
+  const { t } = useTranslation();
+  const selectIfLanguages = (item: IOptions) =>
+    forLanguage ? t(item.name) : item.name;
 
   return (
     <div
@@ -35,21 +45,21 @@ export const CustomSelect: FC<IProps> = ({
       data-attr={isActive ? 'rotate' : ''}
     >
       <div className={styles.dropdown_btn} onClick={() => setIsActive(!isActive)}>
-        {activeElement}
+        {forLanguage ? t(activeElement) : activeElement}
       </div>
       {isActive && (
         <div className={styles.dropdown_content}>
           {options.map((option) => (
             <div
-              key={option.name}
+              key={option.value}
               onClick={() => {
                 setSelected(option.value);
-                setActiveElement(option.name);
+                setActiveElement(() => selectIfLanguages(option));
                 setIsActive(false);
               }}
               className={styles.dropdown_item}
             >
-              {option.name}
+              {selectIfLanguages(option)}
             </div>
           ))}
         </div>

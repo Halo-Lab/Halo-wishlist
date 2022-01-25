@@ -43,7 +43,7 @@ const RestoreWishModal: React.FC<IProps> = ({ isModal, setIsModal, data }) => {
           <label>Wishlists</label>
           <CustomSelect
             className={styled.wrapperSelect}
-            selected={1}
+            // selectedName={ref.current}
             options={wishlists.map((item) => {
               return { value: item._id, name: item.name };
             })}

@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import { ButtonService } from '../../components/common/ButtonSendForm/ButtonSendForm';
+import { CustomSelect } from '../../components/common/DropDownSelect/CustomSelect';
 import { FormikTextInput } from '../../components/common/FormikInput/FormikInput';
 import Image from '../../components/common/ImageComponent/Image';
 import { AppRootStateType } from '../../store/store';
@@ -257,14 +258,23 @@ export const ProfileSettings = () => {
                   <div className={styles.selectors}>
                     <div className={styles.selectorCuret}>
                       <label>{t('settings.language')}</label>
-                      <select
+                      <CustomSelect
+                        options={[
+                          { value: 'en', name: 'English' },
+                          { value: 'uk', name: 'Ukrainian' },
+                        ]}
+                        setSelected={changeLanguage}
+                        selectedName={localStorage.getItem('i18nextLng') || 'en'}
+                        forLanguage="true"
+                      />
+                      {/* <select
                         name="select"
                         defaultValue={localStorage.getItem('i18nextLng') || 'en'}
                         onChange={(e) => changeLanguage(e.target.value)}
                       >
                         <option value="en">{t('English')}</option>
                         <option value="uk">{t('Ukrainian')}</option>
-                      </select>
+                      </select> */}
                     </div>
                     <div className={styles.selectorCuret}>
                       <label>Membership</label>

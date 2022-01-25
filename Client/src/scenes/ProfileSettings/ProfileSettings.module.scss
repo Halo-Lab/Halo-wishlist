@@ -142,22 +142,22 @@
     z-index: 2;
     background: transparent;
   }
-  .selectorCuret {
-    position: relative;
+  // .selectorCuret {
+  //   position: relative;
 
-    :after {
-      content: '';
-      position: absolute;
-      background-image: url('../../assets/svg/arrow_down.svg');
-      background-repeat: no-repeat;
-      display: block;
-      width: 15px;
-      height: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      right: 15px;
-    }
-  }
+  //   :after {
+  //     content: '';
+  //     position: absolute;
+  //     background-image: url('../../assets/svg/arrow_down.svg');
+  //     background-repeat: no-repeat;
+  //     display: block;
+  //     width: 15px;
+  //     height: 10px;
+  //     top: 50%;
+  //     transform: translateY(-50%);
+  //     right: 15px;
+  //   }
+  // }
 
   @media (max-width: $tablet) {
     flex-direction: column;
