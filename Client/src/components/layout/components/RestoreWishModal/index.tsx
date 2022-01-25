@@ -1,4 +1,4 @@
-import { ChangeEvent, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -9,8 +9,8 @@ import {
   WishlistStateType,
 } from '../../../../store/wishlist-reducer';
 import { ButtonService } from '../../../common/ButtonSendForm/ButtonSendForm';
+import { CustomSelect } from '../../../common/DropDownSelect/CustomSelect';
 import { Modal } from '../../../common/Modal/Modal';
-import { CustomSelect } from './CustomSelect';
 
 import styles from '../../../common/Modal/Modal.module.scss';
 import styled from './RestoreWish.module.scss';

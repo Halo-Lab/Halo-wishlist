@@ -4,11 +4,13 @@
   position: relative;
   border: 1px solid #dedede;
   border-radius: 4px;
+  background: transparent;
+  z-index: 5;
 
   &:after {
     content: '';
     position: absolute;
-    background-image: url('../../../../assets/svg/arrow_down.svg');
+    background-image: url('../../../assets/svg/arrow_down.svg');
     background-repeat: no-repeat;
     display: block;
     width: 15px;
@@ -16,8 +18,16 @@
     top: 50%;
     right: 15px;
     transform: translateY(-50%);
+    z-index: -1;
   }
 }
+
+.dropdown[data-attr='rotate'] {
+  &:after {
+    transform: translateY(-50%) rotate(-180deg);
+  }
+}
+
 .dropdown .dropdown_btn {
   font-size: 14px;
   line-height: 20px;
@@ -39,6 +49,7 @@
   font-weight: 500;
   color: #333;
   width: 100%;
+  animation: activate 0.3s linear;
 }
 .dropdown .dropdown_content .dropdown_item {
   padding: 10px;
@@ -47,4 +58,14 @@
 }
 .dropdown .dropdown_content .dropdown_item:hover {
   background: #f4f4f4;
+}
+
+@keyframes activate {
+  0% {
+    opacity: 0;
+    filter: blur(20px);
+  }
+  100% {
+    opacity: 1;
+  }
 }

@@ -1,5 +1,6 @@
 import cn from 'classnames';
 import { FC, useState } from 'react';
+import { useDetectClickOutside } from 'react-detect-click-outside';
 
 import styles from './CustomSelect.module.scss';
 
@@ -25,9 +26,14 @@ export const CustomSelect: FC<IProps> = ({
   const [activeElement, setActiveElement] = useState<string>(
     selected ? options[selected - 1].name : '',
   );
+  const ref = useDetectClickOutside({ onTriggered: () => setIsActive(false) });
 
   return (
-    <div className={cn(styles.dropdown, className)}>
+    <div
+      className={cn(styles.dropdown, className)}
+      ref={ref}
+      data-attr={isActive ? 'rotate' : ''}
+    >
       <div className={styles.dropdown_btn} onClick={() => setIsActive(!isActive)}>
         {activeElement}
       </div>
