@@ -1,4 +1,4 @@
-import { ChangeEvent, useRef } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -10,6 +10,7 @@ import {
 } from '../../../../store/wishlist-reducer';
 import { ButtonService } from '../../../common/ButtonSendForm/ButtonSendForm';
 import { Modal } from '../../../common/Modal/Modal';
+import { CustomSelect } from './CustomSelect';
 
 import styles from '../../../common/Modal/Modal.module.scss';
 import styled from './RestoreWish.module.scss';
@@ -40,21 +41,16 @@ const RestoreWishModal: React.FC<IProps> = ({ isModal, setIsModal, data }) => {
         <h3 className={styles.title}>{t('modal.restoreWish')}:</h3>
         <div className={styled.selectorCuret}>
           <label>Wishlists</label>
-          <select
-            name="select"
-            defaultValue="value1"
-            onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-              (ref.current = e.target.value)
-            }
-          >
-            {wishlists.map((item) => {
-              return (
-                <option key={item._id} value={item._id}>
-                  {item.name}
-                </option>
-              );
+          <CustomSelect
+            className={styled.wrapperSelect}
+            selected={1}
+            options={wishlists.map((item) => {
+              return { value: item._id, name: item.name };
             })}
-          </select>
+            setSelected={(item) => {
+              ref.current = item;
+            }}
+          />
         </div>
         <div className={styles.control}>
           <ButtonService
