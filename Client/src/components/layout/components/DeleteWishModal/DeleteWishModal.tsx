@@ -20,7 +20,7 @@ const DeleteWishModal: React.FC<IProps> = ({ isModal, setIsModal, data }) => {
   };
 
   return (
-    <Modal isOpen={isModal} setIsOpen={setIsModal}>
+    <Modal isOpen={isModal === 'delete'} setIsOpen={setIsModal}>
       <div className={styles.modal_container}>
         <h3 className={styles.title}>{t('modal.deleteWish')}</h3>
         <div className={styles.control}>
@@ -41,7 +41,7 @@ const DeleteWishModal: React.FC<IProps> = ({ isModal, setIsModal, data }) => {
 };
 
 interface IProps {
-  isModal: boolean;
+  isModal: boolean | string;
   setIsModal: (value: boolean) => void;
   data: IProduct;
 }

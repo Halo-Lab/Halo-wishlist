@@ -47,7 +47,7 @@ const ShareWishlistModal: React.FC<IProps> = ({
   }`;
 
   return (
-    <Modal isOpen={isModal} setIsOpen={setIsModal}>
+    <Modal isOpen={isModal === 'share'} setIsOpen={setIsModal}>
       <div className={styles.modal_container}>
         <img src={shareModal} alt="shareModal" className={styles.shareModal} />
         <h3 className={styles.title}>{t('modal.shareWishlist')}</h3>
@@ -119,7 +119,7 @@ const ShareWishlistModal: React.FC<IProps> = ({
 };
 
 interface IProps {
-  isModal: boolean;
+  isModal: boolean | string;
   setIsModal: (value: boolean) => void;
   wishlistId?: string;
 }
