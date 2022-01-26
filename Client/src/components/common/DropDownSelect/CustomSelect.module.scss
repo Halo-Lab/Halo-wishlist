@@ -35,7 +35,7 @@
   padding: 14px 16px;
   min-height: 50px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   cursor: pointer;
   justify-content: space-between;
 }
@@ -54,6 +54,7 @@
 }
 .dropdown .dropdown_content .dropdown_item {
   padding: 10px;
+  text-align: start;
   cursor: pointer;
   transition: all 0.2s;
 }
