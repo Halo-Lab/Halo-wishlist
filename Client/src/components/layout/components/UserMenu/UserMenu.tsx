@@ -26,8 +26,7 @@ type CreateMenuType = {
 
 const UserMenu: React.FC<IProps> = ({ userPic, wishlistId }) => {
   const [isNav, setIsNav] = useState<boolean>(false);
-  const [isAddWishlistModal, setAddWishlistIsModal] = useState<boolean>(false);
-  const [isAddWishModal, setAddWishIsModal] = useState<boolean>(false);
+  const [isOpenModal, setIsOpenModal] = useState<boolean | string>('');
   const [visible, setVisible] = useState(false);
   const { userNickname } = useParams<{ userNickname: string }>();
 
@@ -45,7 +44,7 @@ const UserMenu: React.FC<IProps> = ({ userPic, wishlistId }) => {
       id: 0,
       image: add_wishlist_icon,
       toggleModal() {
-        setAddWishlistIsModal((prev) => !prev);
+        setIsOpenModal('wishlist');
       },
     },
     {
@@ -53,7 +52,7 @@ const UserMenu: React.FC<IProps> = ({ userPic, wishlistId }) => {
       id: 1,
       image: add_wish_icon,
       toggleModal() {
-        setAddWishIsModal((prev) => !prev);
+        setIsOpenModal('addWish');
       },
     },
   ];
@@ -67,13 +66,10 @@ const UserMenu: React.FC<IProps> = ({ userPic, wishlistId }) => {
 
   return (
     <div className={styles.menu_container}>
-      <AddWishlistModal
-        isModal={isAddWishlistModal}
-        setIsModal={setAddWishlistIsModal}
-      />
+      <AddWishlistModal isModal={isOpenModal} setIsModal={setIsOpenModal} />
       <AddEditWishModal
-        isModal={isAddWishModal}
-        setIsModal={setAddWishIsModal}
+        isModal={isOpenModal}
+        setIsModal={setIsOpenModal}
         wishlistId={wishlistId}
       />
 
