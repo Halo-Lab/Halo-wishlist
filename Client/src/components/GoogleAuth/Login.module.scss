@@ -1,0 +1,26 @@
+@import '/src/styles/variables/colors';
+
+.btn_login {
+  margin: 5px 0 15px;
+  input {
+    color: $color__font;
+    background-color: #EFEFEF;
+    border-radius: 4px;
+    width: 100%;
+    height: 50px;
+    text-align: left;
+    padding-left: 50px;
+  }
+}
+.btn_login input:focus,
+.btn_login input:hover {
+  background: #4084ff;
+  transition: 0.5s;
+}
+
+.icon {
+  position: absolute;
+  margin-left: 15px;
+  margin-bottom: 13px;
+  pointer-events: none;
+}

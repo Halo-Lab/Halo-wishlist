@@ -11,7 +11,9 @@
     "haveAccount": "Already have an account?",
     "register": "Register",
     "sendPassword": "Send password",
-    "enterYourMail": "Enter your email"
+    "enterYourMail": "Enter your email",
+    "or": "Or",
+    "signInGoogle": "Sign in with Google"
   },
   "errors": {
     "notValidEmail": "Must be a valid email!",

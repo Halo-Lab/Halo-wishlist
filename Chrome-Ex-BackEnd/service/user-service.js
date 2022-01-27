@@ -6,6 +6,7 @@ const tokenService = require('./token-service');
 const UserDto = require('../dtos/user-dtos');
 const ApiError = require('../exceptions/api-error');
 const WishlistModel = require('../models/wishlist-modal');
+const { OAuth2Client } = require('google-auth-library');
 
 class UserService {
   async registration(email, password) {
@@ -63,6 +64,48 @@ class UserService {
     await tokenService.saveTokens(userDto.id, tokens.refreshToken, remember);
 
     return { ...tokens, user: userDto };
+  }
+
+  async googleAuth(token) {
+    const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+    const client = new OAuth2Client(clientId);
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: clientId,
+    });
+
+    const payload = ticket.getPayload();
+    const { email, email_verified, name } = payload;
+    const user = await UserModel.findOne({ email });
+    if (email_verified) {
+      if (user) {
+        // login
+        const userDto = new UserDto(user);
+        const tokens = tokenService.generateTokens({ ...userDto });
+        await tokenService.saveTokens(userDto.id, tokens.refreshToken);
+        return { ...tokens, user: userDto };
+      } else {
+        // registration
+        const user = await UserModel.create({
+          email,
+          password: email + token,
+          name,
+          isActivated: true,
+        });
+        const wishlist = await WishlistModel.create({
+          userId: user._id,
+          name: 'wishlist',
+        });
+        user.wishlist.push(wishlist._id);
+        await user.save();
+        const userDto = new UserDto(user);
+
+        const tokens = tokenService.generateTokens({ ...userDto });
+        await tokenService.saveTokens(userDto.id, tokens.refreshToken);
+
+        return { ...tokens, user: userDto };
+      }
+    }
   }
 
   async logout(refreshToken) {

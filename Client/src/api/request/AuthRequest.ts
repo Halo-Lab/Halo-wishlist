@@ -29,4 +29,7 @@ export default class AuthRequest {
   static async getWishlist(listID: string) {
     return api.get<IWishlist>(`/wishlist/${listID}`);
   }
+  static async googleAuth(token: string): Promise<AxiosResponse<AuthResponse>> {
+    return api.post(`/auth/google`, { token });
+  }
 }

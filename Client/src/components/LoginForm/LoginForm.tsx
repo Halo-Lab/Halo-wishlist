@@ -10,6 +10,7 @@ import { ILogin } from '../../models/IUser';
 import { loginUser } from '../../store/user-reducer';
 import '../../utils/i18next';
 import { ForgotPassword } from '../ForgotPassword';
+import { GoogleLogin } from '../GoogleAuth/Login';
 import { ButtonService } from '../common/ButtonSendForm/ButtonSendForm';
 import { ChangeLanguage } from '../common/ChangeLanguage';
 import { Modal } from '../common/Modal/Modal';
@@ -59,6 +60,12 @@ const LoginForm: FC = () => {
         <div className={styles.modal}>
           <div className={styles.form}>
             <h1 className={styles.title}>{t('auth.login')}</h1>
+            <GoogleLogin />
+            <div className={styles.spacer}>
+              <hr />
+              <span>{t('auth.or')}</span>
+              <hr />
+            </div>
             <Formik
               initialValues={{
                 email: '',
