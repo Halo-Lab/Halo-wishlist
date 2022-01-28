@@ -14,6 +14,7 @@ router.post(
 );
 router.post('/login', userController.login);
 router.post('/auth/google', userController.googleAuth);
+router.post('/auth/facebook', userController.facebookAuth);
 router.post('/logout', userController.logout);
 router.get('/activate/:link', userController.activate);
 router.get('/refresh', userController.refresh);

@@ -8,11 +8,11 @@ import { ButtonService } from '../common/ButtonSendForm/ButtonSendForm';
 
 import google_icon from '../../assets/svg/google.svg';
 
-import styles from './Login.module.scss';
+import styles from './GoogleFBLogin.module.scss';
 
 const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID || '';
 
-const GoogleLogin: FC = () => {
+const GoogleAuth: FC = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -33,7 +33,7 @@ const GoogleLogin: FC = () => {
   return (
     <>
       <ButtonService
-        btnName={t('auth.signInGoogle')}
+        btnName=""
         handleClickButton={signIn}
         className={styles.btn_login}
       >
@@ -43,4 +43,4 @@ const GoogleLogin: FC = () => {
   );
 };
 
-export { GoogleLogin };
+export { GoogleAuth };

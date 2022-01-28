@@ -6,12 +6,13 @@
     color: $color__font;
     background-color: #EFEFEF;
     border-radius: 4px;
-    width: 100%;
+    width: 150px;
     height: 50px;
     text-align: left;
     padding-left: 50px;
   }
 }
+
 .btn_login input:focus,
 .btn_login input:hover {
   background: #4084ff;
@@ -20,7 +21,7 @@
 
 .icon {
   position: absolute;
-  margin-left: 15px;
+  margin-left: 63px;
   margin-bottom: 13px;
   pointer-events: none;
 }
