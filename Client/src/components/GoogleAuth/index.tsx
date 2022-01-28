@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { useGoogleLogin } from 'react-google-login';
-import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 
 import { googleAuth } from '../../store/user-reducer';
@@ -10,11 +9,11 @@ import google_icon from '../../assets/svg/google.svg';
 
 import styles from './GoogleFBLogin.module.scss';
 
+
 const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID || '';
 
 const GoogleAuth: FC = () => {
   const dispatch = useDispatch();
-  const { t } = useTranslation();
 
   const onSuccess = (res) => {
     dispatch(googleAuth(res.tokenId));
