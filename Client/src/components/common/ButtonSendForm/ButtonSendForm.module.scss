@@ -22,7 +22,8 @@
   cursor: pointer;
 }
 
-.button input:hover {
+.button input:hover,
+.button input:focus {
   background: #4084ff;
   transition: 0.5s;
 }

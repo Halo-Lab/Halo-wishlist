@@ -9,7 +9,9 @@ import * as Yup from 'yup';
 import { ILogin } from '../../models/IUser';
 import { loginUser } from '../../store/user-reducer';
 import '../../utils/i18next';
+import { FacebookAuth } from '../FacebookAuth';
 import { ForgotPassword } from '../ForgotPassword';
+import { GoogleAuth } from '../GoogleAuth';
 import { ButtonService } from '../common/ButtonSendForm/ButtonSendForm';
 import { ChangeLanguage } from '../common/ChangeLanguage';
 import { Modal } from '../common/Modal/Modal';
@@ -59,6 +61,15 @@ const LoginForm: FC = () => {
         <div className={styles.modal}>
           <div className={styles.form}>
             <h1 className={styles.title}>{t('auth.login')}</h1>
+            <div className={styles.auth}>
+              <GoogleAuth />
+              <FacebookAuth />
+            </div>
+            <div className={styles.spacer}>
+              <hr />
+              <span>{t('auth.or')}</span>
+              <hr />
+            </div>
             <Formik
               initialValues={{
                 email: '',

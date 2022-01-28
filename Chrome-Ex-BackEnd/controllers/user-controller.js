@@ -38,6 +38,28 @@ class UserController {
     }
   }
 
+  async googleAuth(req, res, next) {
+    try {
+      const { token } = req.body;
+      const userData = await userService.googleAuth(token);
+      setCookie(res, userData);
+      return res.json(userData);
+    } catch (e) {
+      next(e);
+    }
+  }
+
+  async facebookAuth(req, res, next) {
+    try {
+      const { userID, token } = req.body;
+      const userData = await userService.facebookAuth(userID, token);
+      setCookie(res, userData);
+      return res.json(userData);
+    } catch (e) {
+      next(e);
+    }
+  }
+
   async logout(req, res, next) {
     try {
       const { refreshToken } = req.cookies;

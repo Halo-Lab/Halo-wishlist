@@ -11,7 +11,9 @@
     "haveAccount": "Вже є аккаунт?",
     "register": "Реєстрація",
     "sendPassword": "Надіслати пароль",
-    "enterYourMail": "Введіть свою пошту"
+    "enterYourMail": "Введіть свою пошту",
+    "or": "Або",
+    "signInGoogle": "Увійдіть за допомогою Google"
   },
   "errors": {
     "notValidEmail": "Не правильна електронна адреса!",

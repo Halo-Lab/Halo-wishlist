@@ -120,5 +120,26 @@ export const updateUser = (userData: IInitialValues) => (dispatch: Dispatch) => 
     });
 };
 
+export const googleAuth = (token: string) => (dispatch: Dispatch) => {
+  AuthRequest.googleAuth(token)
+    .then((res) => {
+      localStorage.setItem('token', res.data.accessToken);
+      dispatch(setIsLoggedInAC(true));
+      dispatch(setUserAC(res.data.user));
+    })
+    .catch((e) => notify.error(e.response?.data?.message));
+};
+
+export const facebookAuth =
+  (userID: string, token: string) => (dispatch: Dispatch) => {
+    AuthRequest.facebookAuth(userID, token)
+      .then((res) => {
+        localStorage.setItem('token', res.data.accessToken);
+        dispatch(setIsLoggedInAC(true));
+        dispatch(setUserAC(res.data.user));
+      })
+      .catch((e) => notify.error(e.response?.data?.message));
+  };
+
 export const userReducer = slice.reducer;
 export const { setUserAC, setIsLoggedInAC, setLoadingAc } = slice.actions;
