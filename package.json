@@ -1,6 +1,9 @@
 {
   "scripts": {
-    "start": "concurrently \"(npm start --prefix client)\" \"(npm run dev --prefix chrome-Ex-BackEnd)\""
+    "start": "concurrently \"(npm start --prefix client)\" \"(npm run dev --prefix chrome-Ex-BackEnd)\"",
+    "client": "cd client && npm i",
+    "server": "cd chrome-Ex-BackEnd && npm i",
+    "dev": "concurrently \"npm run client\" \"npm run server\""
   },
   "dependencies": {
     "concurrently": "^6.3.0"

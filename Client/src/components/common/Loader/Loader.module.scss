@@ -4,6 +4,26 @@
   -moz-animation: rotate 3s linear infinite;
   -o-animation: rotate 3s linear infinite;
   animation: rotate 3s linear infinite;
+  img {
+    // hide alt when img loading (bug in firefox)
+    font-size: 0;
+  }
+}
+
+.loaderBox {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff00;
+  border-radius: 10px;
+  z-index: 10;
+}
+
+.aboveLoader {
+  position: absolute;
+  left: 25%;
+  right: 25%;
+  top: 25%;
 }
 
 @-webkit-keyframes rotate {

@@ -6,6 +6,42 @@ const tokenService = require('./token-service');
 const UserDto = require('../dtos/user-dtos');
 const ApiError = require('../exceptions/api-error');
 const WishlistModel = require('../models/wishlist-modal');
+const { OAuth2Client } = require('google-auth-library');
+const fetch = require('node-fetch');
+
+const u = async (data) => {
+  const { name, email, image, token } = data;
+  const user = await UserModel.findOne({ email });
+
+  if (user) {
+    // login
+    const userDto = new UserDto(user);
+    const tokens = tokenService.generateTokens({ ...userDto });
+    await tokenService.saveTokens(userDto.id, tokens.refreshToken);
+    return { ...tokens, user: userDto };
+  } else {
+    // registration
+    const user = await UserModel.create({
+      email,
+      password: email + token,
+      name,
+      isActivated: true,
+      userPic: image,
+    });
+    const wishlist = await WishlistModel.create({
+      userId: user._id,
+      name: 'wishlist',
+    });
+    user.wishlist.push(wishlist._id);
+    await user.save();
+    const userDto = new UserDto(user);
+
+    const tokens = tokenService.generateTokens({ ...userDto });
+    await tokenService.saveTokens(userDto.id, tokens.refreshToken);
+
+    return { ...tokens, user: userDto };
+  }
+};
 
 class UserService {
   async registration(email, password) {
@@ -63,6 +99,33 @@ class UserService {
     await tokenService.saveTokens(userDto.id, tokens.refreshToken, remember);
 
     return { ...tokens, user: userDto };
+  }
+
+  async googleAuth(token) {
+    const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+    const client = new OAuth2Client(clientId);
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: clientId,
+    });
+
+    const payload = ticket.getPayload();
+    if (payload.email_verified) {
+      return await u({ ...payload, image: payload.picture, token });
+    }
+  }
+
+  async facebookAuth(userID, token) {
+    const payload = `https://graph.facebook.com/v2.11/${userID}/?fields=id,name,email,picture.width(1000).height(1000)&access_token=${token}`;
+
+    const data = await fetch(payload, {
+      method: 'GET',
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        return { ...res, image: res.picture.data.url, token };
+      });
+    return await u(data);
   }
 
   async logout(refreshToken) {

@@ -10,11 +10,12 @@ import { IWishlist } from '../../../../models/IWishlist';
 import { AppRootStateType } from '../../../../store/store';
 import { addWish, updateWish } from '../../../../store/wishlist-reducer';
 import { ButtonService } from '../../../common/ButtonSendForm/ButtonSendForm';
+import { CustomSelect } from '../../../common/DropDownSelect/CustomSelect';
 import { FormikTextInput } from '../../../common/FormikInput/FormikInput';
 import { Modal } from '../../../common/Modal/Modal';
-import { Select } from '../../../common/Select/Select';
 
 import styles from '../../../common/Modal/Modal.module.scss';
+import styled from './AddEditWishModal.module.scss';
 
 const AddEditWishModal: React.FC<IProps> = ({
   isModal,
@@ -64,12 +65,11 @@ const AddEditWishModal: React.FC<IProps> = ({
     setIsModal(false);
   };
 
-  const choseWishlist = (event) => {
-    setId(event.target.value);
-  };
-
   return (
-    <Modal isOpen={isModal} setIsOpen={setIsModal}>
+    <Modal
+      isOpen={isModal === 'edit' || isModal === 'addWish'}
+      setIsOpen={setIsModal}
+    >
       <div className={styles.modal_container}>
         <h3 className={styles.title}>
           {data ? t('modal.editWish') : t('modal.createWish')}
@@ -128,12 +128,18 @@ const AddEditWishModal: React.FC<IProps> = ({
                 />
               </label>
               {!wishlistId && !data && (
-                <Select
-                  selectName="categories"
-                  className="select"
-                  items={wishlists}
-                  onChange={choseWishlist}
-                />
+                <div>
+                  <CustomSelect
+                    className={styled.select}
+                    options={wishlists.map((item) => {
+                      return {
+                        value: item._id,
+                        name: item.name,
+                      };
+                    })}
+                    setSelected={setId}
+                  />
+                </div>
               )}
               <div className={styles.control}>
                 <ButtonService
@@ -156,7 +162,7 @@ const AddEditWishModal: React.FC<IProps> = ({
 };
 
 interface IProps {
-  isModal: boolean;
+  isModal: boolean | string;
   setIsModal: (value: boolean) => void;
   data?: IProduct;
   wishlistId?: string;

@@ -1,4 +1,4 @@
-import { ChangeEvent, useRef } from 'react';
+import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -9,13 +9,14 @@ import {
   WishlistStateType,
 } from '../../../../store/wishlist-reducer';
 import { ButtonService } from '../../../common/ButtonSendForm/ButtonSendForm';
+import { CustomSelect } from '../../../common/DropDownSelect/CustomSelect';
 import { Modal } from '../../../common/Modal/Modal';
 
 import styles from '../../../common/Modal/Modal.module.scss';
 import styled from './RestoreWish.module.scss';
 
 interface IProps {
-  isModal: boolean;
+  isModal: boolean | string;
   setIsModal: (value: boolean) => void;
   data: IProduct;
 }
@@ -35,26 +36,21 @@ const RestoreWishModal: React.FC<IProps> = ({ isModal, setIsModal, data }) => {
   };
 
   return (
-    <Modal isOpen={isModal} setIsOpen={setIsModal}>
+    <Modal isOpen={isModal === 'restore'} setIsOpen={setIsModal}>
       <div className={styles.modal_container}>
         <h3 className={styles.title}>{t('modal.restoreWish')}:</h3>
         <div className={styled.selectorCuret}>
           <label>Wishlists</label>
-          <select
-            name="select"
-            defaultValue="value1"
-            onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-              (ref.current = e.target.value)
-            }
-          >
-            {wishlists.map((item) => {
-              return (
-                <option key={item._id} value={item._id}>
-                  {item.name}
-                </option>
-              );
+          <CustomSelect
+            className={styled.wrapperSelect}
+            // selectedName={ref.current}
+            options={wishlists.map((item) => {
+              return { value: item._id, name: item.name };
             })}
-          </select>
+            setSelected={(item) => {
+              ref.current = item;
+            }}
+          />
         </div>
         <div className={styles.control}>
           <ButtonService

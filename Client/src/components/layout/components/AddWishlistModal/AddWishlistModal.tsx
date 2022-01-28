@@ -26,7 +26,7 @@ const AddWishlistModal: React.FC<IProps> = ({ isModal, setIsModal }) => {
   };
 
   return (
-    <Modal isOpen={isModal} setIsOpen={setIsModal}>
+    <Modal isOpen={isModal === 'wishlist'} setIsOpen={setIsModal}>
       <div className={styles.modal_container}>
         <h3 className={styles.title}>{t('modal.createWishlist')}</h3>
         <Formik
@@ -66,7 +66,7 @@ const AddWishlistModal: React.FC<IProps> = ({ isModal, setIsModal }) => {
 };
 
 interface IProps {
-  isModal: boolean;
+  isModal: boolean | string;
   setIsModal: (value: boolean) => void;
 }
 

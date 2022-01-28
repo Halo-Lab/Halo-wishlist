@@ -23,8 +23,7 @@ type ISettings = {
 
 const WishlistCard: React.FC<IProps> = ({ data }) => {
   const [visible, setVisible] = useState(false);
-  const [isShareModal, setIsShareModal] = useState<boolean>(false);
-  const [isDeleteModal, setIsDeleteModal] = useState<boolean>(false);
+  const [isOpenModal, setIsOpenModal] = useState<boolean | string>('');
 
   const { name, items } = data;
   const history = useHistory();
@@ -35,14 +34,14 @@ const WishlistCard: React.FC<IProps> = ({ data }) => {
       name: t('share'),
       id: 0,
       toggleModal() {
-        setIsShareModal((prev) => !prev);
+        setIsOpenModal('share');
       },
     },
     {
       name: t('delete'),
       id: 3,
       toggleModal() {
-        setIsDeleteModal((prev) => !prev);
+        setIsOpenModal('delete');
       },
     },
   ];
@@ -56,13 +55,13 @@ const WishlistCard: React.FC<IProps> = ({ data }) => {
   return (
     <>
       <ShareWishlistModal
-        isModal={isShareModal}
-        setIsModal={setIsShareModal}
+        isModal={isOpenModal}
+        setIsModal={setIsOpenModal}
         wishlistId={data._id}
       />
       <DeleteWishlistModal
-        isModal={isDeleteModal}
-        setIsModal={setIsDeleteModal}
+        isModal={isOpenModal}
+        setIsModal={setIsOpenModal}
         wishlistId={data._id}
       />
       <div className={styles.square}>
