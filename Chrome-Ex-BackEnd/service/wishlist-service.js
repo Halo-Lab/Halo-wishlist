@@ -3,6 +3,8 @@ const WishlistModel = require('../models/wishlist-modal');
 const ArchiveModel = require('../models/archive-modal');
 const ApiError = require('../exceptions/api-error');
 const WishlistDto = require('../dtos/wishlist-dto');
+const cheerio = require('cheerio');
+const fetch = require('node-fetch');
 
 const deleteWishHelper = async (id, from = 'wishlist') => {
   const model = from === 'archive' ? ArchiveModel : WishlistModel;
@@ -52,6 +54,23 @@ class WishlistService {
   }
 
   async addUrl(_id, url, nameURL, image, price) {
+    fetch(url)
+      .then((result) => result.text())
+      .then((html) => {
+        const $ = cheerio.load(html);
+        const title =
+          $('meta[property="og:title"]').attr('content') ||
+          $('title').text() ||
+          $('meta[name="title"]').attr('content');
+        console.log('-> title', title);
+        // do something with the variables
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    return null;
+
     const wishlist = await WishlistModel.findOne({ _id });
     if (!wishlist) {
       throw ApiError.BadRequest(`Wishlist not found ${_id}`);

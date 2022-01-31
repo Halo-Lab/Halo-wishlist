@@ -154,7 +154,7 @@ class WishlistController {
       const userData = await TokenModal.findOne({ refreshToken });
 
       const archiveItems = await wishlistService.getFromArchive(
-        userData.user.toString(),
+        userData?.user.toString(),
       );
       return res.json(archiveItems);
     } catch (e) {
