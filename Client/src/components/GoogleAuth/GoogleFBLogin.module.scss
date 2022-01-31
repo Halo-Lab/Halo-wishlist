@@ -8,8 +8,6 @@
     border-radius: 4px;
     width: 150px;
     height: 50px;
-    text-align: left;
-    padding-left: 50px;
   }
 }
 
@@ -22,6 +20,6 @@
 .icon {
   position: absolute;
   margin-left: 63px;
-  margin-bottom: 13px;
+  padding-bottom: 13px;
   pointer-events: none;
 }

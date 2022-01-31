@@ -139,6 +139,7 @@ class WishlistController {
       next(e);
     }
   }
+
   async deleteItemFromArchive(req, res, next) {
     try {
       const { wishId } = req.body;
@@ -148,19 +149,21 @@ class WishlistController {
       next(e);
     }
   }
+
   async getItemsFromArchive(req, res, next) {
     try {
       const { refreshToken } = req.cookies;
       const userData = await TokenModal.findOne({ refreshToken });
 
       const archiveItems = await wishlistService.getFromArchive(
-        userData.user.toString(),
+        userData?.user.toString(),
       );
       return res.json(archiveItems);
     } catch (e) {
       next(e);
     }
   }
+
   async restoreItemsFromArchive(req, res, next) {
     try {
       const { refreshToken } = req.cookies;
