@@ -46,6 +46,14 @@ Content-Type: application/json
   "price": "999"
 }
 
+### PARSE URL
+POST http://localhost:5000/api/parse
+Content-Type: application/json
+
+{
+  "url": "https://rozetka.com.ua/ua/pumpidup_4820223990089/p77728122/"
+}
+
 ### GET WISHLIST
 GET http://localhost:5000/api/wishlist/61aa15d5e1c23040c4db5196
 Content-Type: application/json
