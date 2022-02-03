@@ -9,7 +9,7 @@ const WishlistModel = require('../models/wishlist-modal');
 const { OAuth2Client } = require('google-auth-library');
 const fetch = require('node-fetch');
 
-const u = async (data) => {
+const createAccountGoogleFB = async (data) => {
   const { name, email, image, token } = data;
   const user = await UserModel.findOne({ email });
 
@@ -111,7 +111,11 @@ class UserService {
 
     const payload = ticket.getPayload();
     if (payload.email_verified) {
-      return await u({ ...payload, image: payload.picture, token });
+      return await createAccountGoogleFB({
+        ...payload,
+        image: payload.picture,
+        token,
+      });
     }
   }
 
@@ -125,7 +129,7 @@ class UserService {
       .then((res) => {
         return { ...res, image: res.picture.data.url, token };
       });
-    return await u(data);
+    return await createAccountGoogleFB(data);
   }
 
   async logout(refreshToken) {

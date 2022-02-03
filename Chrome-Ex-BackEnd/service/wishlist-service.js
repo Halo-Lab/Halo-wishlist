@@ -3,6 +3,7 @@ const WishlistModel = require('../models/wishlist-modal');
 const ArchiveModel = require('../models/archive-modal');
 const ApiError = require('../exceptions/api-error');
 const WishlistDto = require('../dtos/wishlist-dto');
+const urlMetadata = require('url-metadata');
 
 const deleteWishHelper = async (id, from = 'wishlist') => {
   const model = from === 'archive' ? ArchiveModel : WishlistModel;
@@ -70,6 +71,29 @@ class WishlistService {
     });
     await wishlist.save();
     return wishlist.items;
+  }
+
+  async parseUrl(url) {
+    return urlMetadata(url).then(
+      function (metadata) {
+        // success handler
+        const { title, description, image, price, jsonld, name } = metadata;
+        return {
+          url,
+          nameURL: name || jsonld?.name || description || title,
+          image:
+            (jsonld?.image && jsonld?.image[0]) ||
+            image ||
+            metadata['og:image'] ||
+            metadata['og:image:secure_url'],
+          price: jsonld?.offers?.price || price,
+        };
+      },
+      function (error) {
+        console.error(error);
+        return error;
+      },
+    );
   }
 
   async getWishlist(wishlistId) {

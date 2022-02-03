@@ -57,6 +57,8 @@ router.post(
   body('url').isURL(),
   wishlistController.addUrl,
 );
+
+router.post('/parse', body('url').isURL(), wishlistController.parseUrl);
 router.get('/wishlist/:wishlistId', wishlistController.getWishlist);
 router.delete('/wish/:wishId', authMiddleware, wishlistController.deleteWish);
 router.put(

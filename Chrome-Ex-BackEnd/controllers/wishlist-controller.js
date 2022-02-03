@@ -49,6 +49,21 @@ class WishlistController {
     }
   }
 
+  async parseUrl(req, res, next) {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return next(ApiError.BadRequest('Validation Error', errors.array()));
+      }
+      const { url } = req.body;
+      const siteData = await wishlistService.parseUrl(url);
+      return res.json(siteData);
+    } catch (e) {
+      res.json(e);
+      next(e);
+    }
+  }
+
   async getWishlist(req, res, next) {
     try {
       const errors = validationResult(req);
