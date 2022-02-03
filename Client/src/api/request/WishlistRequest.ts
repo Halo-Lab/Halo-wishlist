@@ -1,8 +1,8 @@
 import api from '..';
 import { AxiosResponse } from 'axios';
 
+import { IProduct } from '../../models/IProduct';
 import { IWishlist } from '../../models/IWishlist';
-import { IProduct } from './../../models/IProduct';
 
 export default class WishlistRequest {
   static async getWishlists(userId: string): Promise<AxiosResponse<IWishlist[]>> {
@@ -68,5 +68,10 @@ export default class WishlistRequest {
     price,
   ): Promise<AxiosResponse<IProduct[]>> {
     return api.post(`addUrl`, { _id, url, nameURL, image, price });
+  }
+  static async parseUrl(
+    url: string,
+  ): Promise<AxiosResponse<{ nameURL: string; image: string; price: string }>> {
+    return api.post(`parse`, { url });
   }
 }

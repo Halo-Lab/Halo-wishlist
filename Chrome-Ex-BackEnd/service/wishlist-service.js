@@ -77,10 +77,10 @@ class WishlistService {
     return urlMetadata(url).then(
       function (metadata) {
         // success handler
-        const { title, description, image, price, jsonld } = metadata;
+        const { title, description, image, price, jsonld, name } = metadata;
         return {
           url,
-          nameURL: title || jsonld?.name || description || title,
+          nameURL: name || jsonld?.name || description || title,
           image:
             (jsonld?.image && jsonld?.image[0]) ||
             image ||
@@ -90,7 +90,6 @@ class WishlistService {
         };
       },
       function (error) {
-        // failure handler
         console.error(error);
         return error;
       },

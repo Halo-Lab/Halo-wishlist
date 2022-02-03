@@ -101,11 +101,15 @@
   }
 }
 
-label {
-  display: block;
-  text-align: left;
-  font-size: 14px;
-  line-height: 20px;
+.modal {
+  label {
+    display: block;
+    text-align: left;
+    font-size: 14px;
+    line-height: 20px;
+    width: 100%;
+    margin: 0;
+  }
 }
 
 .input {
@@ -248,4 +252,11 @@ a.btn_link:visited {
   background: #4084ff;
   transition: 0.5s;
 
+}
+
+.error {
+  position: absolute;
+  color: #d41f1f;
+  font-size: 14px;
+  transform: translateY(-110%);
 }
