@@ -129,6 +129,12 @@ class UserService {
       .then((res) => {
         return { ...res, image: res.picture.data.url, token };
       });
+
+    if (!data.email) {
+      throw ApiError.BadRequest(
+        `Your FB account isn't connected to email. Please use your email to create an account.`,
+      );
+    }
     return await createAccountGoogleFB(data);
   }
 
